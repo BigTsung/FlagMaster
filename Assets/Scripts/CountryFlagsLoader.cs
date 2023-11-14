@@ -26,41 +26,49 @@ public class CountryData
     public string code; // Country code
 }
 
-public class CountryFlagsLoader : MonoBehaviour
-{
-    //public string jsonFileName = "Json/countries_list";
 
-    void Start()
+public class CountryFlagsLoader : Singleton<CountryFlagsLoader>
+{
+    private Countries countries;
+
+
+    //public string jsonFileName = "Json/countries_list";
+    void Awake()
     {
         string filePath = "Json/" + "countries_list".Replace(".json", "");
-        Debug.Log(filePath);
+        //Debug.Log(filePath);
         TextAsset jsonFile = Resources.Load<TextAsset>(filePath);
 
         if (jsonFile != null)
         {
             string jsonContents = jsonFile.text;
 
-            Debug.Log("jsonContents: " + jsonContents);
+            //Debug.Log("jsonContents: " + jsonContents);
 
 
-            Countries data = JsonUtility.FromJson<Countries>("{\"countries\":" + jsonContents + "}"); ;
+            countries = JsonUtility.FromJson<Countries>("{\"countries\":" + jsonContents + "}"); ;
 
-            Debug.Log("data: " + data);
+            //Debug.Log("data: " + countries);
 
-            foreach (CountryData country in data.countries)
-            {
-                Debug.Log("Chinese Name: " + country.cn);
-                //Debug.Log("English Name: " + country.en);
-                //Debug.Log("Full Name: " + country.full);
-                //Debug.Log("2-Letter Abbreviation: " + country.abb2);
-                //Debug.Log("3-Letter Abbreviation: " + country.abb3);
-                //Debug.Log("Country Code: " + country.code);
-            }
+            //foreach (CountryData country in countries.countries)
+            //{
+            //    Debug.Log("Chinese Name: " + country.cn);
+            //    //Debug.Log("English Name: " + country.en);
+            //    //Debug.Log("Full Name: " + country.full);
+            //    //Debug.Log("2-Letter Abbreviation: " + country.abb2);
+            //    //Debug.Log("3-Letter Abbreviation: " + country.abb3);
+            //    //Debug.Log("Country Code: " + country.code);
+            //}
 
         }
         else
         {
             Debug.LogError("Cannot file json file：" + filePath);
         }
+    }
+
+    public Countries GetCountries()
+    {
+        return countries;
     }
 }
