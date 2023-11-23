@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour
     private List<CountryData> dataList = new List<CountryData>();
 
     [SerializeField] private Image imageFlag;
-    [SerializeField] private TextMeshProUGUI text1;
-    [SerializeField] private TextMeshProUGUI text2;
-    [SerializeField] private TextMeshProUGUI text3;
-    [SerializeField] private TextMeshProUGUI text4;
+    [SerializeField] private TextMeshProUGUI[] texts;
+    //[SerializeField] private TextMeshProUGUI text1;
+    //[SerializeField] private TextMeshProUGUI text2;
+    //[SerializeField] private TextMeshProUGUI text3;
+    //[SerializeField] private TextMeshProUGUI text4;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,11 @@ public class GameManager : MonoBehaviour
         //{
         //    Debug.Log(data.cn);
         //}
-        
+        InvokeRepeating("Starting", 0, 2);
+    }
+
+    private void Starting() {
+        GetRandomFourCountries();
     }
 
     public void GetRandomFourCountries()
@@ -51,22 +56,27 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < selectedCountries.Count; i++)
         {
             CountryData country = selectedCountries[i];
-            if (i == 0)
-            {
-                text1.text = country.cn;
-            }
-            else if (i == 1)
-            {
-                text2.text = country.cn;
-            }
-            else if(i == 2)
-            {
-                text3.text = country.cn;
-            }
-            else if(i == 3)
-            {
-                text4.text = country.cn;
-            }
+
+            texts[i].text = country.cn;
+            texts[i].color = i == target ? Color.green: Color.white;
+            
+
+            //if (i == 0)
+            //{
+            //    text1.text = country.cn;
+            //}
+            //else if (i == 1)
+            //{
+            //    text2.text = country.cn;
+            //}
+            //else if(i == 2)
+            //{
+            //    text3.text = country.cn;
+            //}
+            //else if(i == 3)
+            //{
+            //    text4.text = country.cn;
+            //}
         }
     }
 
