@@ -1032,9 +1032,9 @@
         "code": "446"
     },
     {
-        "cn": "馬其頓（前南斯拉夫共和國）",
-        "en": "Macedonia (the former Yugoslav Republic of)",
-        "full": "the former Yugoslav Republic of Macedonia",
+        "cn": "北馬其頓",
+        "en": "North Macedonia",
+        "full": "the Republic of North Macedonia",
         "abb2": "MK",
         "abb3": "MKD",
         "code": "807"
@@ -1238,14 +1238,6 @@
         "abb2": "NL",
         "abb3": "NLD",
         "code": "528"
-    },
-    {
-        "cn": "荷屬安的列斯",
-        "en": "Netherlands Antilles",
-        "full": "Netherlands Antilles",
-        "abb2": "AN",
-        "abb3": "ANT",
-        "code": "530"
     },
     {
         "cn": "新喀裡多尼亞",
@@ -1664,7 +1656,7 @@
         "code": "744"
     },
     {
-        "cn": "史瓦帝尼王國",
+        "cn": "史瓦帝尼",
         "en": "Swaziland",
         "full": "the Kingdom of Swaziland",
         "abb2": "SZ",
