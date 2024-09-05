@@ -10,4 +10,4 @@ This is a simple flag guessing game. Each round, four countries are randomly sel
 3.	Answer Validation: After a selection is made, the correct answer is shown in green if the player is correct. If incorrect, the correct answer is shown in green and the wrong answer in red.
 4.	Automatic Next Question: Whether the answer is correct or incorrect, the system automatically moves to the next question after a 2-second delay.
 
-<img src="./videos/V1.gif" width="200" alt="Alt Text"  style="margin-left: 6%;">
+<img src="./videos/V1.gif" width="200" alt="Alt Text"  style="margin-left: 10%;">
