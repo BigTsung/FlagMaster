@@ -24,6 +24,9 @@
 /[Aa]ssets/Plugins/Editor/JetBrains*
 /[Aa]ssets/Fonts
 
+# Packages
+/[Aa]ssets/Packages
+
 # Visual Studio cache directory
 .vs/
 

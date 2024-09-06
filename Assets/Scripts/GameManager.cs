@@ -9,122 +9,189 @@ public class GameManager : MonoBehaviour
 {
     private List<CountryData> dataList = new List<CountryData>();
     private int correctAnswerIndex;
-    private bool isWaitingForAnswer = true; // Controls whether waiting for player's answer
-    private Coroutine countdownCoroutine; // To save the countdown coroutine
-    private int timeLimit = 10; // Countdown time in seconds
+    private bool isWaitingForAnswer = true;
+    private Coroutine countdownCoroutine;
+    private int timeLimit = 10;
+    private int selectedEffectIndex = 0;
 
     [SerializeField] private Image imageFlag;
-    [SerializeField] private Button[] answerButtons; // Array of buttons for answer options
-    [SerializeField] private TextMeshProUGUI countdownText; // Text to display countdown
+    [SerializeField] private Button[] answerButtons;
+    [SerializeField] private TextMeshProUGUI countdownText;
 
-    // We fix the effect for flag and buttons
-    private int flagEffectIndex = 1; // Alpha Fade effect for the flag
-    private int buttonEffectIndex = 7; // Staggered effect for the buttons
+    private int flagEffectIndex = 1;
+    private int buttonEffectIndex = 7;
 
     void Start()
     {
         Countries countries = CountryFlagsLoader.Instance.GetCountries();
         dataList = new List<CountryData>(countries.countries);
-        GetRandomFourCountries(); // Load the first question on start
+        GetRandomFourCountries();
+
+        SwitchCountdownEffect(2); // Start with effect index 2 (e.g., rotate effect)
     }
 
     public void GetRandomFourCountries()
     {
-        isWaitingForAnswer = true; // Set to waiting for player's answer
+        isWaitingForAnswer = true;
         System.Random rng = new System.Random();
         dataList = dataList.OrderBy(x => rng.Next()).ToList();
 
         List<CountryData> selectedCountries = dataList.Take(4).ToList();
-        correctAnswerIndex = rng.Next(4); // Randomly select the correct answer
+        correctAnswerIndex = rng.Next(4);
 
         string imgPath = "CountriesFlags/" + selectedCountries[correctAnswerIndex].abb2;
         Sprite flagIcon = Resources.Load<Sprite>(imgPath);
 
-        // Apply the fixed flag effect (effectIndex = 1 for flag)
         ApplyFlagEffect(flagIcon);
 
-        // Set country names for each button and apply the fixed button effect (effectIndex = 7 for buttons)
         for (int i = 0; i < selectedCountries.Count; i++)
         {
             TextMeshProUGUI buttonText = answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = selectedCountries[i].cn;
-            buttonText.color = Color.white; // Set text color to white
-            answerButtons[i].interactable = true; // Enable the buttons
+            buttonText.color = Color.white;
+            answerButtons[i].interactable = true;
 
-            // Apply the fixed button staggered effect
             ApplyButtonEffect(answerButtons[i], i);
         }
 
-        // Start countdown timer
-        if (countdownCoroutine != null) StopCoroutine(countdownCoroutine); // Stop the previous countdown
+        if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
         countdownCoroutine = StartCoroutine(StartCountdown());
     }
 
     private void ApplyFlagEffect(Sprite flagIcon)
     {
         imageFlag.sprite = flagIcon;
-        imageFlag.color = new Color(1f, 1f, 1f, 0f); // Set initial transparency to 0 (fully transparent)
-
-        // Always use Alpha Fade effect (effectIndex = 1) for the flag
-        LeanTween.alpha(imageFlag.rectTransform, 1f, 1f); // Fade-in effect over 0.5 seconds
+        imageFlag.color = new Color(1f, 1f, 1f, 0f);
+        LeanTween.alpha(imageFlag.rectTransform, 1f, 1f);
     }
 
     private void ApplyButtonEffect(Button button, int index)
     {
-        button.transform.localScale = Vector3.zero; // Reset scale for animation
-
-        // Use Staggered effect (effectIndex = 7) for buttons
-        LeanTween.scale(button.gameObject, Vector3.one, 1f).setEaseOutBack().setDelay(0.1f * index); // Apply staggered effect with delay
+        button.transform.localScale = Vector3.zero;
+        LeanTween.scale(button.gameObject, Vector3.one, 1f).setEaseOutBack().setDelay(0.1f * index);
     }
 
     public void OnCountrySelected(int index)
     {
-        if (!isWaitingForAnswer) return; // Prevent multiple clicks
+        if (!isWaitingForAnswer) return;
 
-        isWaitingForAnswer = false; // Player has selected an answer
-        answerButtons[index].interactable = false; // Disable the selected button
+        isWaitingForAnswer = false;
+        answerButtons[index].interactable = false;
 
         TextMeshProUGUI selectedButtonText = answerButtons[index].GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
 
-        StopCoroutine(countdownCoroutine); // Stop the countdown when player selects an answer
+        StopCoroutine(countdownCoroutine);
 
         if (index == correctAnswerIndex)
         {
-            correctButtonText.color = Color.green; // Display the correct answer in green
+            correctButtonText.color = Color.green;
         }
         else
         {
-            correctButtonText.color = Color.green; // Display the correct answer in green
-            selectedButtonText.color = Color.red; // Display the wrong answer in red
+            correctButtonText.color = Color.green;
+            selectedButtonText.color = Color.red;
         }
 
-        StartCoroutine(NextQuestion()); // Move to the next question after 2 seconds
+        StartCoroutine(NextQuestion());
     }
 
     private IEnumerator NextQuestion()
     {
-        yield return new WaitForSeconds(2); // Wait for 2 seconds
-        GetRandomFourCountries(); // Load the next question
+        yield return new WaitForSeconds(2);
+        GetRandomFourCountries();
     }
 
     private IEnumerator StartCountdown()
     {
         int timeRemaining = timeLimit;
-        while (timeRemaining > 0)
+        while (timeRemaining >= 0)
         {
-            countdownText.text = "Countdown: " + timeRemaining.ToString(); // Display remaining time
+            countdownText.text = timeRemaining.ToString();
+
+            ScaleCountdownEffect();
+
+            if (timeRemaining <= 3)
+            {
+                FlashCountdownEffect();
+            }
+
             yield return new WaitForSeconds(1);
             timeRemaining--;
         }
 
-        // Time's up, show the correct answer and move to the next question
         if (isWaitingForAnswer)
         {
             TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
-            correctButtonText.color = Color.green; // Show correct answer in green
+            correctButtonText.color = Color.green;
             isWaitingForAnswer = false;
-            StartCoroutine(NextQuestion()); // Move to the next question after 2 seconds
+            StartCoroutine(NextQuestion());
         }
+    }
+
+    private void ApplyCountdownEffect()
+    {
+        Debug.Log("Applying effect: " + selectedEffectIndex);
+    
+        switch (selectedEffectIndex)
+        {
+            case 0:
+                Debug.Log("Applying scale effect");
+                ScaleCountdownEffect();
+                break;
+            case 1:
+                Debug.Log("Applying color fade effect");
+                ColorFadeCountdownEffect();
+                break;
+            case 2:
+                Debug.Log("Applying rotate effect");
+                RotateCountdownEffect();
+                break;
+            case 3:
+                Debug.Log("Applying flash effect");
+                FlashCountdownEffect();
+                break;
+            default:
+                Debug.Log("Applying default scale effect");
+                ScaleCountdownEffect();
+                break;
+        }
+    }
+
+    public void SwitchCountdownEffect(int effectIndex)
+    {
+        selectedEffectIndex = effectIndex;
+        Debug.Log("Switched to effect index: " + selectedEffectIndex);
+    }
+
+    private void ScaleCountdownEffect()
+    {
+        countdownText.transform.localScale = Vector3.one;
+        LeanTween.scale(countdownText.gameObject, new Vector3(1.5f, 1.5f, 1f), 0.5f).setEaseOutBounce();
+    }
+
+    private void ColorFadeCountdownEffect()
+    {
+        Color startColor = Color.green;
+        Color endColor = Color.red;
+        float percentage = (float)timeLimit / 10f;
+        countdownText.color = Color.Lerp(startColor, endColor, percentage);
+        Debug.Log("Color fade applied with percentage: " + percentage + ", color: " + countdownText.color);
+    }
+
+    private void RotateCountdownEffect()
+    {
+        countdownText.transform.rotation = Quaternion.identity;
+        LeanTween.rotateZ(countdownText.gameObject, 360f, 1f).setEaseInOutCubic();
+    }
+
+    private void FlashCountdownEffect()
+    {
+        Color currentColor = countdownText.color;
+        countdownText.faceColor = new Color(currentColor.r, currentColor.g, currentColor.b, 1f);
+        LeanTween.value(countdownText.gameObject, 1f, 0f, 0.5f).setLoopPingPong(1).setOnUpdate((float val) => {
+            currentColor.a = val;
+            countdownText.faceColor = currentColor;
+        });
     }
 }

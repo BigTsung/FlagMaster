@@ -11,3 +11,16 @@ This is a simple flag guessing game. Each round, four countries are randomly sel
 4.	Automatic Next Question: Whether the answer is correct or incorrect, the system automatically moves to the next question after a 2-second delay.
 
 <img src="./videos/V1.gif" width="200" alt="Alt Text"  style="margin-left: 10%;">
+
+### V2
+
+In this version, several visual effects have been added to enhance the gameplay experience.
+
+Visual Enhancements:
+
+1. Countdown Flicker: The countdown timer now flickers during the last three seconds, adding a sense of urgency.
+2. Rounded Corners for Flag: The flag image now has rounded corners for a more polished appearance.
+3. Elliptical Country Buttons: The country buttons are displayed in an elliptical shape to improve visual appeal.
+4. Display Effects: Visual effects are added when the country names and flag are displayed, making the game more dynamic.
+
+<img src="./videos/V2.gif" width="200" alt="Alt Text"  style="margin-left: 10%;">
