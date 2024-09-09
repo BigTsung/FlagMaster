@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     private int flagEffectIndex = 1;
     private int buttonEffectIndex = 7;
 
+    public string sfx_correct = "";
+     public string sfx_fail = "";
+
     void Start()
     {
         Countries countries = CountryFlagsLoader.Instance.GetCountries();
@@ -73,6 +76,8 @@ public class GameManager : MonoBehaviour
 
     public void OnCountrySelected(int index)
     {
+        
+        
         if (!isWaitingForAnswer) return;
 
         isWaitingForAnswer = false;
@@ -85,10 +90,12 @@ public class GameManager : MonoBehaviour
 
         if (index == correctAnswerIndex)
         {
+            AudioManager.Instance.PlaySFX(sfx_correct);
             correctButtonText.color = Color.green;
         }
         else
         {
+            AudioManager.Instance.PlaySFX(sfx_fail);
             correctButtonText.color = Color.green;
             selectedButtonText.color = Color.red;
         }
