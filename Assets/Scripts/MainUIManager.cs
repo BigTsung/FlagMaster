@@ -5,9 +5,11 @@ using UnityEngine;
 public class MainUIManager : MonoBehaviour
 {
     public string sfx_click_go = "";
+    public SceneTransitionManager sceneTransitionManager;
     public void OnClickedGo()
     {
         AudioManager.Instance.PlaySFX(sfx_click_go);
-        SceneSwitcher.Instance.SwitchToGamePage();
+        sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
+        // SceneSwitcher.Instance.SwitchToGamePage();
     }
 }

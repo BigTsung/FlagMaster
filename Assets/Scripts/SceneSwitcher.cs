@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : Singleton<SceneSwitcher>
 {
+    public SceneTransitionManager sceneTransitionManager;
+
     public void SwitchToGamePage()
     {
-        SceneManager.LoadScene("Page_Game");
+        sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
+        // SceneManager.LoadScene("Page_Game");
     }
 }

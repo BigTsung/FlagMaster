@@ -5,6 +5,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+[System.Serializable]
+public class WrongAnswer
+{
+    public string countryName;    // 錯誤題目的國家名稱
+    public string correctAnswer;  // 正確答案
+    public string playerAnswer;   // 玩家選擇的答案
+
+    public WrongAnswer(string countryName, string correctAnswer, string playerAnswer)
+    {
+        this.countryName = countryName;
+        this.correctAnswer = correctAnswer;
+        this.playerAnswer = playerAnswer;
+    }
+}
+
 public class GameManager : MonoBehaviour
 {
     private List<CountryData> dataList = new List<CountryData>();
@@ -17,12 +32,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image imageFlag;
     [SerializeField] private Button[] answerButtons;
     [SerializeField] private TextMeshProUGUI countdownText;
+    [SerializeField] private TextMeshProUGUI statsText;
+
+    private int totalQuestions = 0;
+    private int incorrectAnswers = 0;
+
+    // 創建一個 List 來保存錯誤題目的信息
+    private List<WrongAnswer> wrongAnswers = new List<WrongAnswer>();
 
     private int flagEffectIndex = 1;
     private int buttonEffectIndex = 7;
 
     public string sfx_correct = "";
-     public string sfx_fail = "";
+    public string sfx_fail = "";
 
     void Start()
     {
@@ -76,8 +98,6 @@ public class GameManager : MonoBehaviour
 
     public void OnCountrySelected(int index)
     {
-        
-        
         if (!isWaitingForAnswer) return;
 
         isWaitingForAnswer = false;
@@ -88,6 +108,9 @@ public class GameManager : MonoBehaviour
 
         StopCoroutine(countdownCoroutine);
 
+        // 更新總答題數
+        totalQuestions++;
+
         if (index == correctAnswerIndex)
         {
             AudioManager.Instance.PlaySFX(sfx_correct);
@@ -95,12 +118,30 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // 答錯時更新錯誤數
+            incorrectAnswers++;
             AudioManager.Instance.PlaySFX(sfx_fail);
             correctButtonText.color = Color.green;
             selectedButtonText.color = Color.red;
+
+            // 記錄錯誤的題目和相關信息
+            string correctAnswer = dataList[correctAnswerIndex].cn;
+            string playerAnswer = dataList[index].cn;
+            wrongAnswers.Add(new WrongAnswer(dataList[correctAnswerIndex].cn, correctAnswer, playerAnswer));
         }
 
+        // 更新統計數據的顯示
+        UpdateStatsText();
+
+        Debug.Log(wrongAnswers);
+
         StartCoroutine(NextQuestion());
+    }
+
+    private void UpdateStatsText()
+    {
+        // 更新右上角顯示的 "錯誤數/總答題數"
+        statsText.text = incorrectAnswers + " / " + totalQuestions;
     }
 
     private IEnumerator NextQuestion()
@@ -143,23 +184,18 @@ public class GameManager : MonoBehaviour
         switch (selectedEffectIndex)
         {
             case 0:
-                Debug.Log("Applying scale effect");
                 ScaleCountdownEffect();
                 break;
             case 1:
-                Debug.Log("Applying color fade effect");
                 ColorFadeCountdownEffect();
                 break;
             case 2:
-                Debug.Log("Applying rotate effect");
                 RotateCountdownEffect();
                 break;
             case 3:
-                Debug.Log("Applying flash effect");
                 FlashCountdownEffect();
                 break;
             default:
-                Debug.Log("Applying default scale effect");
                 ScaleCountdownEffect();
                 break;
         }
@@ -168,7 +204,6 @@ public class GameManager : MonoBehaviour
     public void SwitchCountdownEffect(int effectIndex)
     {
         selectedEffectIndex = effectIndex;
-        Debug.Log("Switched to effect index: " + selectedEffectIndex);
     }
 
     private void ScaleCountdownEffect()
@@ -183,7 +218,6 @@ public class GameManager : MonoBehaviour
         Color endColor = Color.red;
         float percentage = (float)timeLimit / 10f;
         countdownText.color = Color.Lerp(startColor, endColor, percentage);
-        Debug.Log("Color fade applied with percentage: " + percentage + ", color: " + countdownText.color);
     }
 
     private void RotateCountdownEffect()
@@ -200,5 +234,11 @@ public class GameManager : MonoBehaviour
             currentColor.a = val;
             countdownText.faceColor = currentColor;
         });
+    }
+
+    // 用來返回錯誤的題目列表，便於複習功能使用
+    public List<WrongAnswer> GetWrongAnswers()
+    {
+        return wrongAnswers;
     }
 }
