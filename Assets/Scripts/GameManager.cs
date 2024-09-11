@@ -179,8 +179,6 @@ public class GameManager : MonoBehaviour
 
     private void ApplyCountdownEffect()
     {
-        Debug.Log("Applying effect: " + selectedEffectIndex);
-    
         switch (selectedEffectIndex)
         {
             case 0:
@@ -240,5 +238,20 @@ public class GameManager : MonoBehaviour
     public List<WrongAnswer> GetWrongAnswers()
     {
         return wrongAnswers;
+    }
+
+    // Restart function
+    public void RestartGame()
+    {
+        // 清空統計數據和錯誤題目列表
+        totalQuestions = 0;
+        incorrectAnswers = 0;
+        wrongAnswers.Clear();
+
+        // 更新統計數據顯示
+        UpdateStatsText();
+
+        // 開始新的一輪答題
+        GetRandomFourCountries();
     }
 }
