@@ -8895,6 +8895,7 @@ MonoBehaviour:
   pauseMenuUI: {fileID: 1037059596}
   timeUpTextGameObject: {fileID: 840795466}
   backButtonGameObject: {fileID: 1135534506}
+  togglePauseMenuUISFX: ui_menu_button_scroll_19
   animationDuration: 0.3
 --- !u!1 &2055132849
 GameObject:

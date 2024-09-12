@@ -7,6 +7,8 @@ public class PauseManager : MonoBehaviour
     public GameObject pauseMenuUI;  // 暫停UI的 Panel
     public GameObject timeUpTextGameObject;         // "Time's up" 的文本
     public GameObject backButtonGameObject;       // "Back" 按鈕
+
+    public string togglePauseMenuUISFX = "";
     private bool isPaused = false;  // 紀錄目前是否處於暫停狀態
     public float animationDuration = 0.5f;  // 動畫持續時間
 
@@ -21,6 +23,8 @@ public class PauseManager : MonoBehaviour
     // 當按下暫停按鈕時觸發
     public void TogglePauseGame()
     {
+        AudioManager.Instance.PlaySFX(togglePauseMenuUISFX);
+        
         if (isPaused)
         {
             ResumeGame();
