@@ -1,11 +1,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;  // 用於處理 Text 和 Button
 
 public class PauseManager : MonoBehaviour
 {
     public GameObject pauseMenuUI;  // 暫停UI的 Panel
+    public GameObject timeUpTextGameObject;         // "Time's up" 的文本
+    public GameObject backButtonGameObject;       // "Back" 按鈕
     private bool isPaused = false;  // 紀錄目前是否處於暫停狀態
     public float animationDuration = 0.5f;  // 動畫持續時間
+
+    void Start()
+    {
+        pauseMenuUI.SetActive(false);
+        
+        // 確保 "Time's up" 文本初始為隱藏
+        timeUpTextGameObject.SetActive(false);
+    }
 
     // 當按下暫停按鈕時觸發
     public void TogglePauseGame()
@@ -16,14 +27,25 @@ public class PauseManager : MonoBehaviour
         }
         else
         {
-            PauseGame();
+            PauseGame(false);  // 普通暫停，不顯示 "Time's up"
         }
     }
 
-    // 暫停遊戲
-    public void PauseGame()
+    // 暫停遊戲 (當 timeIsUp 為 true 時，顯示 "Time's up" 並隱藏 Back 按鈕)
+    public void PauseGame(bool timeIsUp)
     {
         pauseMenuUI.SetActive(true);
+
+        if (timeIsUp)
+        {
+            timeUpTextGameObject.SetActive(true);   // 顯示 "Time's up" 文本
+            backButtonGameObject.SetActive(false);  // 隱藏 "Back" 按鈕
+        }
+        else
+        {
+            timeUpTextGameObject.SetActive(false);  // 隱藏 "Time's up" 文本
+            backButtonGameObject.SetActive(true);   // 顯示 "Back" 按鈕
+        }
 
         // 將 UI 設置為屏幕外位置
         pauseMenuUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -Screen.height);

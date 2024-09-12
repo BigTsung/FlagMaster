@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class WrongAnswer
@@ -22,13 +23,24 @@ public class WrongAnswer
 
 public class GameManager : MonoBehaviour
 {
+    public enum GameMode
+    {
+        Endless,
+        TimedChallenge
+    }
+
+    public static GameMode currentGameMode = GameMode.Endless;  // 保存當前的遊戲模式
+
     private List<CountryData> dataList = new List<CountryData>();
     private int correctAnswerIndex;
     private bool isWaitingForAnswer = true;
     private Coroutine countdownCoroutine;
-    private int timeLimit = 10;
+    private int totalTimeLimit = 60;  // 總時間限制 (僅限 TimedChallenge mode)
     private int selectedEffectIndex = 0;
 
+    [SerializeField] private Color originalColor;
+    [SerializeField] private Color correctColor;
+    [SerializeField] private Color wrongColor;
     [SerializeField] private Image imageFlag;
     [SerializeField] private Button[] answerButtons;
     [SerializeField] private TextMeshProUGUI countdownText;
@@ -48,11 +60,31 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // 設置不同模式的遊戲規則
+        SetGameModeRules();
+
         Countries countries = CountryFlagsLoader.Instance.GetCountries();
         dataList = new List<CountryData>(countries.countries);
         GetRandomFourCountries();
 
-        SwitchCountdownEffect(2); // Start with effect index 2 (e.g., rotate effect)
+        if (currentGameMode == GameMode.TimedChallenge)
+        {
+            countdownCoroutine = StartCoroutine(StartTotalCountdown()); // 開始總計時
+        }
+    }
+
+    // 設置不同模式的遊戲規則
+    private void SetGameModeRules()
+    {
+        Debug.Log(currentGameMode);
+        if (currentGameMode == GameMode.TimedChallenge)
+        {
+            countdownText.gameObject.SetActive(true);  // 顯示倒計時
+        }
+        else
+        {
+            countdownText.gameObject.SetActive(false); // 隱藏倒計時
+        }
     }
 
     public void GetRandomFourCountries()
@@ -73,14 +105,11 @@ public class GameManager : MonoBehaviour
         {
             TextMeshProUGUI buttonText = answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = selectedCountries[i].cn;
-            buttonText.color = Color.white;
+            buttonText.color = originalColor;
             answerButtons[i].interactable = true;
 
             ApplyButtonEffect(answerButtons[i], i);
         }
-
-        if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
-        countdownCoroutine = StartCoroutine(StartCountdown());
     }
 
     private void ApplyFlagEffect(Sprite flagIcon)
@@ -106,23 +135,21 @@ public class GameManager : MonoBehaviour
         TextMeshProUGUI selectedButtonText = answerButtons[index].GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
 
-        StopCoroutine(countdownCoroutine);
-
         // 更新總答題數
         totalQuestions++;
 
         if (index == correctAnswerIndex)
         {
             AudioManager.Instance.PlaySFX(sfx_correct);
-            correctButtonText.color = Color.green;
+            correctButtonText.color = correctColor;
         }
         else
         {
             // 答錯時更新錯誤數
             incorrectAnswers++;
             AudioManager.Instance.PlaySFX(sfx_fail);
-            correctButtonText.color = Color.green;
-            selectedButtonText.color = Color.red;
+            correctButtonText.color = correctColor;
+            selectedButtonText.color = wrongColor;
 
             // 記錄錯誤的題目和相關信息
             string correctAnswer = dataList[correctAnswerIndex].cn;
@@ -132,8 +159,6 @@ public class GameManager : MonoBehaviour
 
         // 更新統計數據的顯示
         UpdateStatsText();
-
-        Debug.Log(wrongAnswers);
 
         StartCoroutine(NextQuestion());
     }
@@ -150,31 +175,29 @@ public class GameManager : MonoBehaviour
         GetRandomFourCountries();
     }
 
-    private IEnumerator StartCountdown()
+    // 整體計時器：TimedChallenge 模式下的總時間計時
+    private IEnumerator StartTotalCountdown()
     {
-        int timeRemaining = timeLimit;
-        while (timeRemaining >= 0)
+        int timeRemaining = totalTimeLimit;
+        while (timeRemaining > 0)
         {
             countdownText.text = timeRemaining.ToString();
-
-            ScaleCountdownEffect();
-
-            if (timeRemaining <= 3)
-            {
-                FlashCountdownEffect();
-            }
-
             yield return new WaitForSeconds(1);
             timeRemaining--;
         }
 
-        if (isWaitingForAnswer)
-        {
-            TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
-            correctButtonText.color = Color.green;
-            isWaitingForAnswer = false;
-            StartCoroutine(NextQuestion());
-        }
+        EndGame();  // 計時結束後結束遊戲
+    }
+
+    private void EndGame()
+    {
+        isWaitingForAnswer = false;
+        Debug.Log("Time's up! Game over.");
+
+        // 暫停遊戲並顯示 "Time's up" 文本
+        FindObjectOfType<PauseManager>().PauseGame(true);
+        // 可以在這裡顯示結算畫面或跳回主畫面
+        // 比如：SceneManager.LoadScene("MainScene");
     }
 
     private void ApplyCountdownEffect()
@@ -214,7 +237,7 @@ public class GameManager : MonoBehaviour
     {
         Color startColor = Color.green;
         Color endColor = Color.red;
-        float percentage = (float)timeLimit / 10f;
+        float percentage = (float)totalTimeLimit / 10f;
         countdownText.color = Color.Lerp(startColor, endColor, percentage);
     }
 
@@ -253,5 +276,15 @@ public class GameManager : MonoBehaviour
 
         // 開始新的一輪答題
         GetRandomFourCountries();
+
+        // 如果是 TimedChallenge 模式，重新開始計時
+        if (currentGameMode == GameMode.TimedChallenge)
+        {
+            if (countdownCoroutine != null)
+            {
+                StopCoroutine(countdownCoroutine);
+            }
+            countdownCoroutine = StartCoroutine(StartTotalCountdown());
+        }
     }
 }
