@@ -45,9 +45,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button[] answerButtons;
     [SerializeField] private TextMeshProUGUI countdownText;
     [SerializeField] private TextMeshProUGUI statsText;
+    [SerializeField] private float secondToNextQuestion = 1f;
+
 
     private int totalQuestions = 0;
     private int incorrectAnswers = 0;
+    private int correctAnswers = 0;
 
     // 創建一個 List 來保存錯誤題目的信息
     private List<WrongAnswer> wrongAnswers = new List<WrongAnswer>();
@@ -60,6 +63,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        statsText.text = "答對題數:" + 0 + "\n" + "總答題數:" + 0;
+
         // 設置不同模式的遊戲規則
         SetGameModeRules();
 
@@ -116,7 +121,7 @@ public class GameManager : MonoBehaviour
     {
         imageFlag.sprite = flagIcon;
         imageFlag.color = new Color(1f, 1f, 1f, 0f);
-        LeanTween.alpha(imageFlag.rectTransform, 1f, 1f);
+        LeanTween.alpha(imageFlag.rectTransform, 1f, 0.75f);
     }
 
     private void ApplyButtonEffect(Button button, int index)
@@ -142,6 +147,7 @@ public class GameManager : MonoBehaviour
         {
             AudioManager.Instance.PlaySFX(sfx_correct);
             correctButtonText.color = correctColor;
+            correctAnswers++;
         }
         else
         {
@@ -166,12 +172,12 @@ public class GameManager : MonoBehaviour
     private void UpdateStatsText()
     {
         // 更新右上角顯示的 "錯誤數/總答題數"
-        statsText.text = incorrectAnswers + " / " + totalQuestions;
+        statsText.text = "答對題數:" + correctAnswers + "\n" + "總答題數:" + totalQuestions;
     }
 
     private IEnumerator NextQuestion()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(secondToNextQuestion);
         GetRandomFourCountries();
     }
 
@@ -269,6 +275,7 @@ public class GameManager : MonoBehaviour
         // 清空統計數據和錯誤題目列表
         totalQuestions = 0;
         incorrectAnswers = 0;
+        correctAnswers = 0;
         wrongAnswers.Clear();
 
         // 更新統計數據顯示
