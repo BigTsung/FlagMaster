@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class SceneTransitionManager : MonoBehaviour
 {
     public CanvasGroup upperCanvasGroup;  // 上半部的 UI
     public CanvasGroup lowerCanvasGroup;  // 下半部的 UI
+    public CanvasGroup fadeCanvasGroup;   // 全屏黑色遮罩的 CanvasGroup，用於黑到透明效果
 
-    public float fadeDuration = 1f;  // 淡入淡出的時間
+    public float fadeDuration = 1f;       // 淡入淡出的時間
     public Vector2 upperStartPos = new Vector2(0, 1000);  // 上半部開始位置 (場景外)
     public Vector2 lowerStartPos = new Vector2(0, -1000); // 下半部開始位置 (場景外)
 
@@ -44,14 +46,19 @@ public class SceneTransitionManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
 
-    // 場景進入時的 Fade In 效果
+    // 場景進入時的 Fade In 效果，帶有黑色遮罩逐漸透明
     public void FadeIn()
     {
         // 初始化透明度和位置
         upperCanvasGroup.alpha = 0;
         lowerCanvasGroup.alpha = 0;
+        fadeCanvasGroup.alpha = 1;  // 黑色遮罩初始為不透明
+
         upperRect.anchoredPosition = upperStartPos;
         lowerRect.anchoredPosition = lowerStartPos;
+
+        // 使黑色遮罩淡出
+        LeanTween.alphaCanvas(fadeCanvasGroup, 0, fadeDuration).setEase(LeanTweenType.easeInOutCubic);
 
         // 使上半部 UI 從上方進入並顯示
         LeanTween.move(upperRect, Vector2.zero, fadeDuration).setEase(LeanTweenType.easeInOutCubic);

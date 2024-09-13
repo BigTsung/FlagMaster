@@ -88,6 +88,8 @@ public class PauseManager : MonoBehaviour
     public void ReturnToMainScene()
     {
         Time.timeScale = 1f;  // 恢復時間
+        // 清空已出現的國家
+        FindObjectOfType<GameManager>().ClearAppearedCountries();
         SceneManager.LoadScene("Page_Main");  // 加載主場景 (MainMenu)
     }
 

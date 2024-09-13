@@ -36,6 +36,9 @@ public class FlagBackgroundManager : MonoBehaviour
                 int randomIndex = Random.Range(0, countryList.Count);
                 CountryData selectedCountry = countryList[randomIndex];
 
+                // change name
+                flag.name = selectedCountry.cn;
+
                 // 加載國旗圖案
                 string flagPath = "CountriesFlags/" + selectedCountry.abb2;
                 Sprite flagSprite = Resources.Load<Sprite>(flagPath);

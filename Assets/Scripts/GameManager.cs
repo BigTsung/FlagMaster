@@ -62,6 +62,9 @@ public class GameManager : MonoBehaviour
     private int flagEffectIndex = 1;
     private int buttonEffectIndex = 7;
 
+    // 追踪已出現的國家
+    private HashSet<string> appearedCountries = new HashSet<string>();
+
     public string sfx_correct = "";
     public string sfx_fail = "";
 
@@ -74,20 +77,30 @@ public class GameManager : MonoBehaviour
 
         Countries countries = CountryFlagsLoader.Instance.GetCountries();
         dataList = new List<CountryData>(countries.countries);
+
+        // 減少 dataList 中的可用國家數量來加速測試
+        //dataList = dataList.Take(10).ToList();  // 減少可用的國家數量
+
         GetRandomFourCountries();
 
-        if (currentGameMode == GameMode.TimedChallenge)
+        if (currentGameMode == GameMode.Endless)
+        {
+            secondToNextQuestion = 2;
+        }
+        else if (currentGameMode == GameMode.TimedChallenge)
         {
             countdownCoroutine = StartCoroutine(StartTotalCountdown()); // 開始總計時
+            secondToNextQuestion = 0.5f;
         }
         else if (currentGameMode == GameMode.SpeedRound)
         {
             countdownCoroutine = StartCoroutine(StartCountdown()); // 每題計時
+            secondToNextQuestion = 2;
         }
-
-        if (currentGameMode == GameMode.TwoLives)
+        else if (currentGameMode == GameMode.TwoLives)
         {
             UpdateLivesText();  // 顯示初始命數
+            secondToNextQuestion = 2;
         }
     }
 
@@ -98,11 +111,13 @@ public class GameManager : MonoBehaviour
         if (currentGameMode == GameMode.TimedChallenge)
         {
             countdownText.gameObject.SetActive(true);  // 顯示倒計時
+            livesText.gameObject.SetActive(false);  // 隱藏命數顯示
         }
         else if (currentGameMode == GameMode.SpeedRound)
         {
             timeLimit = 5; // 每一題限時 5 秒
             countdownText.gameObject.SetActive(true);  // 顯示倒計時
+            livesText.gameObject.SetActive(false);  // 隱藏命數顯示
         }
         else if (currentGameMode == GameMode.TwoLives)
         {
@@ -123,8 +138,21 @@ public class GameManager : MonoBehaviour
         System.Random rng = new System.Random();
         dataList = dataList.OrderBy(x => rng.Next()).ToList();
 
-        List<CountryData> selectedCountries = dataList.Take(4).ToList();
+        // 過濾掉已經出現過的正確答案
+        List<CountryData> availableCountries = dataList.Where(c => !appearedCountries.Contains(c.cn)).ToList();
+
+        // 如果可用國家數少於 4，說明已經出現過所有國家，則重新開始
+        if (availableCountries.Count < 4)
+        {
+            EndGame();
+            return;
+        }
+
+        List<CountryData> selectedCountries = availableCountries.Take(4).ToList();
         correctAnswerIndex = rng.Next(4);
+
+        // 將新的正確答案加入已出現的國家列表
+        appearedCountries.Add(selectedCountries[correctAnswerIndex].cn);
 
         string imgPath = "CountriesFlags/" + selectedCountries[correctAnswerIndex].abb2;
         Sprite flagIcon = Resources.Load<Sprite>(imgPath);
@@ -146,6 +174,12 @@ public class GameManager : MonoBehaviour
             if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
             countdownCoroutine = StartCoroutine(StartCountdown()); // 重新開始每題的倒計時
         }
+
+        // 在 GetRandomFourCountries 方法內部
+        Debug.Log("Correct Answer: " + selectedCountries[correctAnswerIndex].cn);
+
+        // 打印已出現過的國家
+        Debug.Log("Appeared Countries: " + string.Join(", ", appearedCountries));
     }
 
     private void ApplyFlagEffect(Sprite flagIcon)
@@ -163,15 +197,15 @@ public class GameManager : MonoBehaviour
 
     public void OnCountrySelected(int index)
     {
-        if (!isWaitingForAnswer) return;
+        if (!isWaitingForAnswer) return;  // 避免多次選擇
 
-        isWaitingForAnswer = false;
+        isWaitingForAnswer = false;  // 防止重複執行
         answerButtons[index].interactable = false;
 
         TextMeshProUGUI selectedButtonText = answerButtons[index].GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
 
-        // 更新總答題數
+        // 更新總答題數，確保只在第一次回答時更新
         totalQuestions++;
 
         if (index == correctAnswerIndex)
@@ -192,18 +226,6 @@ public class GameManager : MonoBehaviour
             string correctAnswer = dataList[correctAnswerIndex].cn;
             string playerAnswer = dataList[index].cn;
             wrongAnswers.Add(new WrongAnswer(dataList[correctAnswerIndex].cn, correctAnswer, playerAnswer));
-
-            // 減少一條命
-            if (currentGameMode == GameMode.TwoLives)
-            {
-                remainingLives--;
-                UpdateLivesText();
-                if (remainingLives <= 0)
-                {
-                    EndGame();
-                    return;
-                }
-            }
         }
 
         // 更新統計數據的顯示
@@ -254,11 +276,26 @@ public class GameManager : MonoBehaviour
             timeRemaining--;
         }
 
+        // 確保顯示倒數為 0
+        countdownText.text = "0";
+
+        // 當時間到且還沒有選擇答案，標記該題為答錯
         if (isWaitingForAnswer)
         {
+            isWaitingForAnswer = false;  // 防止多次更新
+
+            // 記為答錯，並顯示正確答案
             incorrectAnswers++;
-            UpdateStatsText();  // 更新錯誤題目數量
-            StartCoroutine(NextQuestion());  // 自動跳到下一題
+            totalQuestions++;  // 確保總答題數只更新一次
+
+            TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
+            correctButtonText.color = correctColor;
+
+            // 更新統計數據
+            UpdateStatsText();
+
+            // 自動跳到下一題
+            StartCoroutine(NextQuestion());
         }
     }
 
@@ -343,6 +380,10 @@ public class GameManager : MonoBehaviour
         correctAnswers = 0;
         wrongAnswers.Clear();
 
+        // 重新加載所有國家
+        Countries countries = CountryFlagsLoader.Instance.GetCountries();
+        dataList = new List<CountryData>(countries.countries);
+
         // 重設命數
         if (currentGameMode == GameMode.TwoLives)
         {
@@ -369,5 +410,10 @@ public class GameManager : MonoBehaviour
         {
             countdownCoroutine = StartCoroutine(StartCountdown());  // 為 Speed Round 模式重新開始每題計時
         }
+    }
+
+    public void ClearAppearedCountries()
+    {
+        appearedCountries.Clear();
     }
 }
