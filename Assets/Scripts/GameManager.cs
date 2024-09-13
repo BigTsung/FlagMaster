@@ -26,7 +26,9 @@ public class GameManager : MonoBehaviour
     public enum GameMode
     {
         Endless,
-        TimedChallenge
+        TimedChallenge,
+        SpeedRound,
+        TwoLives  // 新增的 Two Lives 模式
     }
 
     public static GameMode currentGameMode = GameMode.Endless;  // 保存當前的遊戲模式
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
     private bool isWaitingForAnswer = true;
     private Coroutine countdownCoroutine;
     private int totalTimeLimit = 60;  // 總時間限制 (僅限 TimedChallenge mode)
+    private int timeLimit = 10;  // 單一題目的時間限制 (Speed Round mode)
     private int selectedEffectIndex = 0;
 
     [SerializeField] private Color originalColor;
@@ -45,12 +48,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button[] answerButtons;
     [SerializeField] private TextMeshProUGUI countdownText;
     [SerializeField] private TextMeshProUGUI statsText;
+    [SerializeField] private TextMeshProUGUI livesText;  // 顯示剩餘命數的 UI
     [SerializeField] private float secondToNextQuestion = 1f;
-
 
     private int totalQuestions = 0;
     private int incorrectAnswers = 0;
     private int correctAnswers = 0;
+    private int remainingLives = 2;  // Two Lives 模式下的初始命數
 
     // 創建一個 List 來保存錯誤題目的信息
     private List<WrongAnswer> wrongAnswers = new List<WrongAnswer>();
@@ -76,6 +80,15 @@ public class GameManager : MonoBehaviour
         {
             countdownCoroutine = StartCoroutine(StartTotalCountdown()); // 開始總計時
         }
+        else if (currentGameMode == GameMode.SpeedRound)
+        {
+            countdownCoroutine = StartCoroutine(StartCountdown()); // 每題計時
+        }
+
+        if (currentGameMode == GameMode.TwoLives)
+        {
+            UpdateLivesText();  // 顯示初始命數
+        }
     }
 
     // 設置不同模式的遊戲規則
@@ -86,9 +99,21 @@ public class GameManager : MonoBehaviour
         {
             countdownText.gameObject.SetActive(true);  // 顯示倒計時
         }
+        else if (currentGameMode == GameMode.SpeedRound)
+        {
+            timeLimit = 5; // 每一題限時 5 秒
+            countdownText.gameObject.SetActive(true);  // 顯示倒計時
+        }
+        else if (currentGameMode == GameMode.TwoLives)
+        {
+            remainingLives = 2;  // 設置初始命數為 2
+            countdownText.gameObject.SetActive(false); // 隱藏倒計時
+            livesText.gameObject.SetActive(true);  // 顯示剩餘命數
+        }
         else
         {
-            countdownText.gameObject.SetActive(false); // 隱藏倒計時
+            countdownText.gameObject.SetActive(false); // 隱藏倒計時 (Endless 模式)
+            livesText.gameObject.SetActive(false);  // 隱藏命數顯示
         }
     }
 
@@ -114,6 +139,12 @@ public class GameManager : MonoBehaviour
             answerButtons[i].interactable = true;
 
             ApplyButtonEffect(answerButtons[i], i);
+        }
+
+        if (currentGameMode == GameMode.SpeedRound)
+        {
+            if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
+            countdownCoroutine = StartCoroutine(StartCountdown()); // 重新開始每題的倒計時
         }
     }
 
@@ -161,6 +192,18 @@ public class GameManager : MonoBehaviour
             string correctAnswer = dataList[correctAnswerIndex].cn;
             string playerAnswer = dataList[index].cn;
             wrongAnswers.Add(new WrongAnswer(dataList[correctAnswerIndex].cn, correctAnswer, playerAnswer));
+
+            // 減少一條命
+            if (currentGameMode == GameMode.TwoLives)
+            {
+                remainingLives--;
+                UpdateLivesText();
+                if (remainingLives <= 0)
+                {
+                    EndGame();
+                    return;
+                }
+            }
         }
 
         // 更新統計數據的顯示
@@ -173,6 +216,11 @@ public class GameManager : MonoBehaviour
     {
         // 更新右上角顯示的 "錯誤數/總答題數"
         statsText.text = "答對題數:" + correctAnswers + "\n" + "總答題數:" + totalQuestions;
+    }
+
+    private void UpdateLivesText()
+    {
+        livesText.text = "剩餘生命: " + remainingLives;
     }
 
     private IEnumerator NextQuestion()
@@ -195,15 +243,32 @@ public class GameManager : MonoBehaviour
         EndGame();  // 計時結束後結束遊戲
     }
 
+    // 每題倒計時 (Speed Round 模式)
+    private IEnumerator StartCountdown()
+    {
+        int timeRemaining = timeLimit;
+        while (timeRemaining > 0)
+        {
+            countdownText.text = timeRemaining.ToString();
+            yield return new WaitForSeconds(1);
+            timeRemaining--;
+        }
+
+        if (isWaitingForAnswer)
+        {
+            incorrectAnswers++;
+            UpdateStatsText();  // 更新錯誤題目數量
+            StartCoroutine(NextQuestion());  // 自動跳到下一題
+        }
+    }
+
     private void EndGame()
     {
         isWaitingForAnswer = false;
-        Debug.Log("Time's up! Game over.");
+        Debug.Log("Game over.");
 
         // 暫停遊戲並顯示 "Time's up" 文本
         FindObjectOfType<PauseManager>().PauseGame(true);
-        // 可以在這裡顯示結算畫面或跳回主畫面
-        // 比如：SceneManager.LoadScene("MainScene");
     }
 
     private void ApplyCountdownEffect()
@@ -278,6 +343,13 @@ public class GameManager : MonoBehaviour
         correctAnswers = 0;
         wrongAnswers.Clear();
 
+        // 重設命數
+        if (currentGameMode == GameMode.TwoLives)
+        {
+            remainingLives = 2;
+            UpdateLivesText();
+        }
+
         // 更新統計數據顯示
         UpdateStatsText();
 
@@ -292,6 +364,10 @@ public class GameManager : MonoBehaviour
                 StopCoroutine(countdownCoroutine);
             }
             countdownCoroutine = StartCoroutine(StartTotalCountdown());
+        }
+        else if (currentGameMode == GameMode.SpeedRound)
+        {
+            countdownCoroutine = StartCoroutine(StartCountdown());  // 為 Speed Round 模式重新開始每題計時
         }
     }
 }
