@@ -17,7 +17,7 @@
 # Recordings can get excessive in size
 /[Rr]ecordings/
 
-/[Aa]ssets/videos
+/videos
 
 /[iI]OS
 
