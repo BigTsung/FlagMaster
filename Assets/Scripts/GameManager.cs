@@ -94,8 +94,7 @@ public class GameManager : MonoBehaviour
     private int remainingLives = 2;
 
     private List<WrongAnswer> wrongAnswers = new List<WrongAnswer>();
-    private HashSet<string> appearedCountries = new HashSet<string>();
-
+    private HashSet<string> correctAnswerCountries = new HashSet<string>();  // 已成為正確答案的國家
 
     private Dictionary<string, CountryStats> countryStatsDict = new Dictionary<string, CountryStats>();
     private string jsonFilePath;
@@ -112,7 +111,13 @@ public class GameManager : MonoBehaviour
         Countries countries = CountryFlagsLoader.Instance.GetCountries();
         dataList = new List<CountryData>(countries.countries);
 
+
+        // for testing
+        //dataList = dataList.Take(6).ToList();  // 減少可用的國家數量
+
         jsonFilePath = Path.Combine(Application.persistentDataPath, "CountryStats.json");
+
+        Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
 
         LoadStats();
 
@@ -169,20 +174,34 @@ public class GameManager : MonoBehaviour
     {
         isWaitingForAnswer = true;
         System.Random rng = new System.Random();
-        dataList = dataList.OrderBy(x => rng.Next()).ToList();
 
-        List<CountryData> availableCountries = dataList.Where(c => !appearedCountries.Contains(c.cn)).ToList();
+        // 過濾掉已經作為正確答案出現過的國家
+        List<CountryData> availableCountries = dataList.Where(c => !correctAnswerCountries.Contains(c.cn)).ToList();
 
-        if (availableCountries.Count < 4)
+        // 如果可用的正確答案國家為 0，表示所有國家都已被作為正確答案，觸發 EndGame
+        if (availableCountries.Count == 0)
         {
             EndGame();
             return;
         }
 
-        List<CountryData> selectedCountries = availableCountries.Take(4).ToList();
-        correctAnswerIndex = rng.Next(4);
+        // 隨機選取一個正確答案從 availableCountries 中
+        CountryData correctCountry = availableCountries[rng.Next(availableCountries.Count)];
 
-        appearedCountries.Add(selectedCountries[correctAnswerIndex].cn);
+        // 將正確答案加入到已出現過的列表
+        correctAnswerCountries.Add(correctCountry.cn);
+
+        // 剩下的 3 個錯誤答案從 dataList 中排除正確答案，並隨機選擇
+        List<CountryData> otherCountries = dataList.Where(c => c.cn != correctCountry.cn).OrderBy(x => rng.Next()).Take(3).ToList();
+
+        // 把正確答案加到選項裡
+        List<CountryData> selectedCountries = new List<CountryData>(otherCountries);
+        selectedCountries.Add(correctCountry);
+
+        // 隨機排列選項
+        selectedCountries = selectedCountries.OrderBy(x => rng.Next()).ToList();
+
+        correctAnswerIndex = selectedCountries.IndexOf(correctCountry);
 
         string imgPath = "CountriesFlags/" + selectedCountries[correctAnswerIndex].abb2;
         Sprite flagIcon = Resources.Load<Sprite>(imgPath);
@@ -205,8 +224,8 @@ public class GameManager : MonoBehaviour
             countdownCoroutine = StartCoroutine(StartCountdown());
         }
 
-        Debug.Log("Correct Answer: " + selectedCountries[correctAnswerIndex].cn);
-        Debug.Log("Appeared Countries: " + string.Join(", ", appearedCountries));
+        Debug.Log("Correct Answer: " + correctCountry.cn);
+        Debug.Log("Appeared Countries: " + string.Join(", ", correctAnswerCountries));
     }
 
     private void ApplyFlagEffect(Sprite flagIcon)
@@ -383,7 +402,7 @@ public class GameManager : MonoBehaviour
         Countries countries = CountryFlagsLoader.Instance.GetCountries();
         dataList = new List<CountryData>(countries.countries);
 
-        appearedCountries.Clear();
+        correctAnswerCountries.Clear();
 
         UpdateStatsText();
         GetRandomFourCountries();
@@ -404,6 +423,6 @@ public class GameManager : MonoBehaviour
 
     public void ClearAppearedCountries()
     {
-        appearedCountries.Clear();
+        correctAnswerCountries.Clear();
     }
 }
