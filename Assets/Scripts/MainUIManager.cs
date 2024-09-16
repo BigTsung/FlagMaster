@@ -37,4 +37,12 @@ public class MainUIManager : MonoBehaviour
         GameManager.currentGameMode = GameManager.GameMode.TimedChallenge;
         sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
     }
+
+    public void OnClickedReview()
+    {
+        AudioManager.Instance.PlaySFX(sfx_click_go);
+        // 設置為TimedChallenge模式
+        GameManager.currentGameMode = GameManager.GameMode.Review;
+        sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
+    }
 }

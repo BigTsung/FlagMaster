@@ -28,17 +28,16 @@ public class CountryStats
     public string countryName;
     public int correctAnswers;
     public int totalAttempts;
-    public float accuracy;  // 新增答對率屬性
+    public float accuracy;
 
     public CountryStats(string name)
     {
         countryName = name;
         correctAnswers = 0;
         totalAttempts = 0;
-        accuracy = 0f;  // 初始答對率為 0
+        accuracy = 0f;
     }
 
-    // 計算並更新答對率
     public void UpdateAccuracy()
     {
         if (totalAttempts > 0)
@@ -65,7 +64,8 @@ public class GameManager : MonoBehaviour
         Endless,
         TimedChallenge,
         SpeedRound,
-        TwoLives
+        TwoLives,
+        Review // 新增 Review 模式
     }
 
     public static GameMode currentGameMode = GameMode.Endless;
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
     private int remainingLives = 2;
 
     private List<WrongAnswer> wrongAnswers = new List<WrongAnswer>();
-    private HashSet<string> correctAnswerCountries = new HashSet<string>();  // 已成為正確答案的國家
+    private HashSet<string> correctAnswerCountries = new HashSet<string>();
 
     private Dictionary<string, CountryStats> countryStatsDict = new Dictionary<string, CountryStats>();
     private string jsonFilePath;
@@ -111,17 +111,21 @@ public class GameManager : MonoBehaviour
         Countries countries = CountryFlagsLoader.Instance.GetCountries();
         dataList = new List<CountryData>(countries.countries);
 
-
-        // for testing
-        //dataList = dataList.Take(6).ToList();  // 減少可用的國家數量
-
         jsonFilePath = Path.Combine(Application.persistentDataPath, "CountryStats.json");
 
         Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
 
         LoadStats();
 
-        GetRandomFourCountries();
+        if (currentGameMode == GameMode.Review)
+        {
+            // Review 模式，從錯誤次數多的國家中選題
+            PrepareReviewMode();
+        }
+        else
+        {
+            GetRandomFourCountries();
+        }
 
         if (currentGameMode == GameMode.Endless)
         {
@@ -178,7 +182,6 @@ public class GameManager : MonoBehaviour
         // 過濾掉已經作為正確答案出現過的國家
         List<CountryData> availableCountries = dataList.Where(c => !correctAnswerCountries.Contains(c.cn)).ToList();
 
-        // 如果可用的正確答案國家為 0，表示所有國家都已被作為正確答案，觸發 EndGame
         if (availableCountries.Count == 0)
         {
             EndGame();
@@ -303,7 +306,6 @@ public class GameManager : MonoBehaviour
 
         countryStatsDict[countryName].totalAttempts++;
 
-        // 每次更新後計算答對率
         countryStatsDict[countryName].UpdateAccuracy();
 
         SaveStats();
@@ -340,6 +342,33 @@ public class GameManager : MonoBehaviour
     public List<CountryStats> GetLowestAccuracyCountries(int count)
     {
         return countryStatsDict.Values.OrderBy(stat => stat.accuracy).Take(count).ToList();
+    }
+
+    private void PrepareReviewMode()
+    {
+        // 從錯誤次數多的國家中選取，最多選取 50 個國家
+        List<CountryStats> topWrongCountries = GetLowestAccuracyCountries(50);
+
+        Debug.Log("topWrongCountries.Count: " + topWrongCountries.Count);
+
+        // 確保選擇題目來源是 dataList 中存在的國家，並匹配正確的國家名
+        dataList = topWrongCountries
+            .Select(stat => dataList.FirstOrDefault(country =>
+                country.cn.Trim().ToLower() == stat.countryName.Trim().ToLower()))
+            .Where(country => country != null)
+            .ToList();
+
+        Debug.Log("dataList.Count: " + dataList.Count);
+
+        if (dataList.Count == 0)
+        {
+            Debug.LogWarning("No valid countries found for Review Mode.");
+            EndGame();
+        }
+        else
+        {
+            GetRandomFourCountries(); // 從選定的國家中開始出題
+        }
     }
 
     private IEnumerator StartTotalCountdown()
