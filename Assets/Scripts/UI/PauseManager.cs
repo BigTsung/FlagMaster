@@ -12,10 +12,13 @@ public class PauseManager : MonoBehaviour
     private bool isPaused = false;  // 紀錄目前是否處於暫停狀態
     public float animationDuration = 0.5f;  // 動畫持續時間
 
-    void Start()
+    private void Awake()
     {
         pauseMenuUI.SetActive(false);
-        
+    }
+
+    void Start()
+    {
         // 確保 "Time's up" 文本初始為隱藏
         timeUpTextGameObject.SetActive(false);
     }
@@ -53,6 +56,8 @@ public class PauseManager : MonoBehaviour
 
         // 將 UI 設置為屏幕外位置
         pauseMenuUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -Screen.height);
+
+        Debug.Log("animationDuration:" + animationDuration);
 
         // 移動到屏幕中央
         LeanTween.moveY(pauseMenuUI.GetComponent<RectTransform>(), 0, animationDuration).setEase(LeanTweenType.easeOutQuad);

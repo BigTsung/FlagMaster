@@ -117,17 +117,25 @@ public class GameManager : MonoBehaviour
 
         LoadStats();
 
+        Debug.Log("currentGameMode: " + currentGameMode);
+
+        //if (currentGameMode == GameMode.Review)
+        //{
+        //    // Review 模式，從錯誤次數多的國家中選題
+        //    PrepareReviewMode();
+        //    secondToNextQuestion = 2;
+        //}
+        //else
+        //{
+        //    GetRandomFourCountries();
+        //}
+
         if (currentGameMode == GameMode.Review)
         {
-            // Review 模式，從錯誤次數多的國家中選題
+            secondToNextQuestion = 2;
             PrepareReviewMode();
         }
-        else
-        {
-            GetRandomFourCountries();
-        }
-
-        if (currentGameMode == GameMode.Endless)
+        else if (currentGameMode == GameMode.Endless)
         {
             secondToNextQuestion = 2;
         }
@@ -413,7 +421,11 @@ public class GameManager : MonoBehaviour
     private void EndGame()
     {
         isWaitingForAnswer = false;
-        FindObjectOfType<PauseManager>().PauseGame(true);
+        PauseManager pauseManager = FindObjectOfType<PauseManager>();
+        Debug.Log("pauseManager: " + pauseManager);
+        pauseManager.PauseGame(true);
+
+        Debug.Log("EndGame");
     }
 
     private void UpdateLivesText()
