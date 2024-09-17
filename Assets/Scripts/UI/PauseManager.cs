@@ -57,7 +57,7 @@ public class PauseManager : MonoBehaviour
         // 將 UI 設置為屏幕外位置
         pauseMenuUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -Screen.height);
 
-        Debug.Log("animationDuration:" + animationDuration);
+        //Debug.Log("animationDuration:" + animationDuration);
 
         // 移動到屏幕中央
         LeanTween.moveY(pauseMenuUI.GetComponent<RectTransform>(), 0, animationDuration).setEase(LeanTweenType.easeOutQuad);

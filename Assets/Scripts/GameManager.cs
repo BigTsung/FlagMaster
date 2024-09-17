@@ -119,16 +119,8 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("currentGameMode: " + currentGameMode);
 
-        //if (currentGameMode == GameMode.Review)
-        //{
-        //    // Review 模式，從錯誤次數多的國家中選題
-        //    PrepareReviewMode();
-        //    secondToNextQuestion = 2;
-        //}
-        //else
-        //{
-        //    GetRandomFourCountries();
-        //}
+   
+        GetRandomFourCountries();
 
         if (currentGameMode == GameMode.Review)
         {
