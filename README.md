@@ -40,7 +40,23 @@ Visual Enhancements:
     * The pause menu slides in when activated and smoothly transitions back when actions are selected.
 5. Visual Effects:
     * Added multiple visual effects to the game, such as button pulsating, background animations, etc., making the game screen more dynamic and visually engaging.
-    
+ 
 <a href="https://www.youtube.com/shorts/73B2G5fFfPA?si=C5Z60-yHzfAEzL8u">
     <img src="Images/Project_FlagMaster_V3.png" width="200" alt="Watch the video" style="margin-left: 10%;">
+</a>
+
+### V4
+1.	Support for More Game Modes:
+    * Endless Mode: Infinite question mode.
+    * Timed Challenge Mode: A challenge mode with a time limit, testing how many questions can be answered in a limited time.
+    * Speed Round Mode: Fast reaction mode where each question has a short time limit.
+    * Two Lives Mode: Players have two chances to answer incorrectly before the game ends.
+    * Review Mode: Review the 50 countries with the lowest accuracy to focus on frequently missed questions.
+2.	Redesigned UI/UX:
+    * Modern and simplified design for a better user experience and improved visuals.
+3.	Bug Fix:
+    * Addressed a known issue to improve game stability and performance.
+
+<a href="https://www.youtube.com/shorts/I4kdbgfv244?feature=share">
+    <img src="Images/Project_FlagMaster_V4.png" width="200" alt="Watch the video" style="margin-left: 10%;">
 </a>
