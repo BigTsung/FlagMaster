@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
     private int timeLimit = 10;
     private int selectedEffectIndex = 0;
 
+    private List<CountryData> selectedCountries;
+
     [SerializeField] private Color originalColor;
     [SerializeField] private Color correctColor;
     [SerializeField] private Color wrongColor;
@@ -198,7 +200,7 @@ public class GameManager : MonoBehaviour
         List<CountryData> otherCountries = dataList.Where(c => c.cn != correctCountry.cn).OrderBy(x => rng.Next()).Take(3).ToList();
 
         // 把正確答案加到選項裡
-        List<CountryData> selectedCountries = new List<CountryData>(otherCountries);
+        selectedCountries = new List<CountryData>(otherCountries);
         selectedCountries.Add(correctCountry);
 
         // 隨機排列選項
@@ -261,7 +263,7 @@ public class GameManager : MonoBehaviour
             AudioManager.Instance.PlaySFX(sfx_correct);
             correctButtonText.color = correctColor;
             correctAnswers++;
-            UpdateCountryStats(dataList[correctAnswerIndex].cn, true);
+            UpdateCountryStats(selectedCountries[correctAnswerIndex].cn, true);
         }
         else
         {
@@ -274,7 +276,7 @@ public class GameManager : MonoBehaviour
             string playerAnswer = dataList[index].cn;
             wrongAnswers.Add(new WrongAnswer(dataList[correctAnswerIndex].cn, correctAnswer, playerAnswer));
 
-            UpdateCountryStats(dataList[correctAnswerIndex].cn, false);
+            UpdateCountryStats(selectedCountries[correctAnswerIndex].cn, false);
         }
 
         UpdateStatsText();
