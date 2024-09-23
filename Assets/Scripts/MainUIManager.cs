@@ -6,6 +6,20 @@ public class MainUIManager : MonoBehaviour
 {
     public string sfx_click_go = "";
     public SceneTransitionManager sceneTransitionManager;
+
+    [SerializeField] private GameObject settingPanel;
+
+    public void ToggleSettingPanel()
+    {
+        Debug.Log("ToggleSettingPanel");
+        AudioManager.Instance.PlaySFX(sfx_click_go);
+        if (settingPanel != null)
+        {
+            Debug.Log(settingPanel.activeSelf);
+            settingPanel.SetActive(!settingPanel.activeSelf);
+        }
+    }
+
     public void OnClickedEndless()
     {
         AudioManager.Instance.PlaySFX(sfx_click_go);
