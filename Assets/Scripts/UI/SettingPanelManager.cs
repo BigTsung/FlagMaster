@@ -4,6 +4,8 @@ using TMPro;  // Must reference TextMeshPro namespace
 
 public class SettingPanelManager : MonoBehaviour
 {
+    [SerializeField] private string pressedSFX = "ui_menu_button_click_19";
+
     public Button musicHighButton;
     public Button musicMediumButton;
     public Button musicLowButton;
@@ -47,24 +49,28 @@ public class SettingPanelManager : MonoBehaviour
     // Music volume button controls
     public void OnMusicHighButtonPressed()
     {
+        AudioManager.Instance.PlaySFX(pressedSFX);
         SettingsManager.Instance.SetMusicVolumeHigh();
         UpdateMusicButtonColors(0.85f);
     }
 
     public void OnMusicMediumButtonPressed()
     {
+        AudioManager.Instance.PlaySFX(pressedSFX);
         SettingsManager.Instance.SetMusicVolumeMedium();
         UpdateMusicButtonColors(0.5f);
     }
 
     public void OnMusicLowButtonPressed()
     {
+        AudioManager.Instance.PlaySFX(pressedSFX);
         SettingsManager.Instance.SetMusicVolumeLow();
         UpdateMusicButtonColors(0.25f);
     }
 
     public void OnMusicOffButtonPressed()
     {
+        AudioManager.Instance.PlaySFX(pressedSFX);
         SettingsManager.Instance.SetMusicVolumeOff();
         UpdateMusicButtonColors(0f);
     }
@@ -72,24 +78,28 @@ public class SettingPanelManager : MonoBehaviour
     // SFX volume button controls
     public void OnSFXHighButtonPressed()
     {
+        AudioManager.Instance.PlaySFX(pressedSFX);
         SettingsManager.Instance.SetSFXVolumeHigh();
         UpdateSFXButtonColors(0.85f);
     }
 
     public void OnSFXMediumButtonPressed()
     {
+        AudioManager.Instance.PlaySFX(pressedSFX);
         SettingsManager.Instance.SetSFXVolumeMedium();
         UpdateSFXButtonColors(0.5f);
     }
 
     public void OnSFXLowButtonPressed()
     {
+        AudioManager.Instance.PlaySFX(pressedSFX);
         SettingsManager.Instance.SetSFXVolumeLow();
         UpdateSFXButtonColors(0.25f);
     }
 
     public void OnSFXOffButtonPressed()
     {
+        AudioManager.Instance.PlaySFX(pressedSFX);
         SettingsManager.Instance.SetSFXVolumeOff();
         UpdateSFXButtonColors(0f);
     }
@@ -97,6 +107,7 @@ public class SettingPanelManager : MonoBehaviour
     // Language button controls
     public void OnLanguageChineseButtonPressed()
     {
+        AudioManager.Instance.PlaySFX(pressedSFX);
         PlayerPrefs.SetString("Language", "Chinese");
         PlayerPrefs.Save();
         UpdateLanguageButtonColors("Chinese");
@@ -104,6 +115,7 @@ public class SettingPanelManager : MonoBehaviour
 
     public void OnLanguageEnglishButtonPressed()
     {
+        AudioManager.Instance.PlaySFX(pressedSFX);
         PlayerPrefs.SetString("Language", "English");
         PlayerPrefs.Save();
         UpdateLanguageButtonColors("English");
