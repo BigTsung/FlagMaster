@@ -29,6 +29,16 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
+    public void SetBGMVolume(float volume)
+    {
+        bgmSource.volume = volume;
+    }
+
+    public void SetSfxVolume(float volume)
+    {
+        sfxSource.volume = volume;
+    }
+
     // Stop the currently playing BGM
     public void StopBGM()
     {
