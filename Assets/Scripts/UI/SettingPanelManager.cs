@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;  // Must reference TextMeshPro namespace
+using TMPro;  // 必須引用 TextMeshPro 命名空間
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Components;  // 必須引用 LocalizeStringEvent
 
-public class SettingPanelManager : MonoBehaviour
+public class SettingPanelManager : Singleton<SettingPanelManager>
 {
     [SerializeField] private string pressedSFX = "ui_menu_button_click_19";
 
@@ -19,19 +22,29 @@ public class SettingPanelManager : MonoBehaviour
     public Button languageChineseButton;
     public Button languageEnglishButton;
 
+    [SerializeField] private LocalizeStringEvent[] localizedTextElements; // 新增這個變量來控制所有本地化的 UI 文字
+
     [SerializeField] private Color activeTextColor = Color.white;  // Text color for active button
     [SerializeField] private Color inactiveTextColor = Color.gray; // Text color for inactive buttons
+
+    //private void Awake()
+    //{
+        
+    //}
 
     private void Start()
     {
         // default: hide SettingPanel
-        this.gameObject.SetActive(false);
 
-        // Initialize button color states
+        //Initialize button color states
         InitializeUI();
+
+        //Initialize the language settings
+        InitializeLanguageSetting();
+
     }
 
-    private void InitializeUI()
+    public void InitializeUI()
     {
         // Load the saved settings and set button colors accordingly
         float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.5f); // Default volume is 0.5
@@ -42,11 +55,22 @@ public class SettingPanelManager : MonoBehaviour
         UpdateSFXButtonColors(sfxVolume);
 
         // Update language button colors
-        string currentLanguage = PlayerPrefs.GetString("Language", "Chinese");
+        string currentLanguage = PlayerPrefs.GetString("Language", "zh-TW");
         UpdateLanguageButtonColors(currentLanguage);
+
+        InitializeLanguageSetting();
     }
 
-    // Music volume button controls
+    private void InitializeLanguageSetting()
+    {
+        // Check previously saved language and set current language
+        string currentLanguage = PlayerPrefs.GetString("Language", "zh-TW");
+        Locale selectedLocale = LocalizationSettings.AvailableLocales.GetLocale(currentLanguage);
+        LocalizationSettings.SelectedLocale = selectedLocale;
+        UpdateAllLocalizedTexts();
+    }
+
+    // 音樂音量按鈕控制
     public void OnMusicHighButtonPressed()
     {
         AudioManager.Instance.PlaySFX(pressedSFX);
@@ -75,7 +99,7 @@ public class SettingPanelManager : MonoBehaviour
         UpdateMusicButtonColors(0f);
     }
 
-    // SFX volume button controls
+    // 音效音量按鈕控制
     public void OnSFXHighButtonPressed()
     {
         AudioManager.Instance.PlaySFX(pressedSFX);
@@ -104,24 +128,22 @@ public class SettingPanelManager : MonoBehaviour
         UpdateSFXButtonColors(0f);
     }
 
-    // Language button controls
+    // 語言按鈕控制
     public void OnLanguageChineseButtonPressed()
     {
         AudioManager.Instance.PlaySFX(pressedSFX);
-        PlayerPrefs.SetString("Language", "Chinese");
-        PlayerPrefs.Save();
-        UpdateLanguageButtonColors("Chinese");
+        SetLanguage("zh-TW");
+        UpdateLanguageButtonColors("zh-TW");
     }
 
     public void OnLanguageEnglishButtonPressed()
     {
         AudioManager.Instance.PlaySFX(pressedSFX);
-        PlayerPrefs.SetString("Language", "English");
-        PlayerPrefs.Save();
-        UpdateLanguageButtonColors("English");
+        SetLanguage("en");
+        UpdateLanguageButtonColors("en");
     }
 
-    // Update the music button colors based on the volume
+    // 更新音樂按鈕的顏色
     private void UpdateMusicButtonColors(float volume)
     {
         SetTextColor(musicHighButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.85f);
@@ -130,7 +152,7 @@ public class SettingPanelManager : MonoBehaviour
         SetTextColor(musicOffButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0f);
     }
 
-    // Update the SFX button colors based on the volume
+    // 更新音效按鈕的顏色
     private void UpdateSFXButtonColors(float volume)
     {
         SetTextColor(sfxHighButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.85f);
@@ -139,16 +161,50 @@ public class SettingPanelManager : MonoBehaviour
         SetTextColor(sfxOffButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0f);
     }
 
-    // Update the language button colors based on the current selection
+    // 更新語言按鈕的顏色
     private void UpdateLanguageButtonColors(string language)
     {
-        SetTextColor(languageChineseButton.GetComponentInChildren<TextMeshProUGUI>(), language == "Chinese");
-        SetTextColor(languageEnglishButton.GetComponentInChildren<TextMeshProUGUI>(), language == "English");
+        SetTextColor(languageChineseButton.GetComponentInChildren<TextMeshProUGUI>(), language == "zh-TW");
+        SetTextColor(languageEnglishButton.GetComponentInChildren<TextMeshProUGUI>(), language == "en");
     }
 
-    // Set the text color of a button
+    // 設置按鈕文字顏色
     private void SetTextColor(TextMeshProUGUI text, bool isActive)
     {
         text.color = isActive ? activeTextColor : inactiveTextColor;
+    }
+
+    // 設置語言並保存到 PlayerPrefs
+    public void SetLanguage(string languageCode)
+    {
+        // 從 AvailableLocales 中取得對應的 Locale
+        Locale selectedLocale = LocalizationSettings.AvailableLocales.Locales
+            .Find(locale => locale.Identifier.Code == languageCode);
+
+        if (selectedLocale != null)
+        {
+            // 設定當前的語言
+            LocalizationSettings.SelectedLocale = selectedLocale;
+
+            // 保存語言設置到 PlayerPrefs
+            PlayerPrefs.SetString("Language", languageCode);
+            PlayerPrefs.Save();
+
+            // 刷新顯示文字
+            UpdateAllLocalizedTexts();
+        }
+        else
+        {
+            Debug.LogError("Could not find locale for code: " + languageCode);
+        }
+    }
+
+    // 更新所有 LocalizeStringEvent 來刷新文本
+    private void UpdateAllLocalizedTexts()
+    {
+        foreach (var localizeStringEvent in localizedTextElements)
+        {
+            localizeStringEvent.RefreshString();  // 重新更新字串
+        }
     }
 }

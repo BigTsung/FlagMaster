@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Main Menu Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Main Menu
+  m_TableCollectionNameGuidString: 579fd06e0ae7c45bba8bcd86d92cc608
+  m_Entries:
+  - m_Id: 81406189568
+    m_Key: Setting_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15890077704192
+    m_Key: Game_Name_Title_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16700811501568
+    m_Key: Language_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16909280993280
+    m_Key: Music_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17063950147584
+    m_Key: Sound_Effect_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17243852234752
+    m_Key: High_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17358302208000
+    m_Key: Medium_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17436656001024
+    m_Key: Low_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17509972434944
+    m_Key: Off_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17581414014976
+    m_Key: Update_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37800664621056
+    m_Key: Endless_Mode_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38118215376896
+    m_Key: TimedChallenge_Mode_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38224410959872
+    m_Key: SpeedRound_Mode_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38366178435072
+    m_Key: TwoLives_Mode_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38481261748224
+    m_Key: Review_Mode_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39204858880000
+    m_Key: Continue_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39286731694080
+    m_Key: Restart_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39363370016768
+    m_Key: Home_Page_Key
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 7066559601611112448
+  references:
+    version: 2
+    RefIds:
+    - rid: 7066559601611112448
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1727232650761

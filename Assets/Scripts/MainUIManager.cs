@@ -17,6 +17,7 @@ public class MainUIManager : MonoBehaviour
         {
             Debug.Log(settingPanel.activeSelf);
             settingPanel.SetActive(!settingPanel.activeSelf);
+            Debug.Log("After: " + settingPanel.activeSelf);
         }
     }
 

@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Main Menu_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 579fd06e0ae7c45bba8bcd86d92cc608, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 81406189568
+    m_Localized: Setting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38118215376896
+    m_Localized: Timed Challenge Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15890077704192
+    m_Localized: Flag Master
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16700811501568
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16909280993280
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17063950147584
+    m_Localized: Sound Effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17243852234752
+    m_Localized: H
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17358302208000
+    m_Localized: M
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17436656001024
+    m_Localized: L
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17509972434944
+    m_Localized: Off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17581414014976
+    m_Localized: Update
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37800664621056
+    m_Localized: Endless Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38224410959872
+    m_Localized: SpeedRound Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38366178435072
+    m_Localized: TwoLives Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38481261748224
+    m_Localized: Review Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39204858880000
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39286731694080
+    m_Localized: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39363370016768
+    m_Localized: Home
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
