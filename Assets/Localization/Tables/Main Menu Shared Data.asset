@@ -87,6 +87,18 @@ MonoBehaviour:
     m_Key: Home_Page_Key
     m_Metadata:
       m_Items: []
+  - m_Id: 361104780812288
+    m_Key: GameOver_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 361814809370624
+    m_Key: Correct_Number_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 362161544093696
+    m_Key: Total_Number_Key
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

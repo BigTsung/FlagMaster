@@ -60,3 +60,17 @@ Visual Enhancements:
 <a href="https://www.youtube.com/shorts/I4kdbgfv244?feature=share">
     <img src="Images/Project_FlagMaster_V4.png" width="200" alt="Watch the video" style="margin-left: 10%;">
 </a>
+
+### V5
+1.	Added Language Switching Feature: Users can now switch the app’s display language between Chinese (Traditional) and English through the settings panel. The language preference is automatically saved and will be applied the next time the app is opened.
+2.	Music and Sound Effect Settings: Added functionality to adjust the music volume and sound effect volume. Users can select from four volume levels: High, Medium, Low, and Off. These settings are saved and will be restored when the app is reopened.
+3.	UI Animation Enhancements: Panels such as the settings panel now have fade in/out and slide in/out animations, improving the user experience with smoother transitions.
+4.	Button Feedback Sound Effects: A sound effect is now triggered when a button is pressed, providing richer feedback during user interaction.
+5.	Localization Optimization: The app dynamically switches the localized text using LocalizationSettings. All UI texts update in real-time when switching between languages.
+<div style="display: flex; justify-content: center;">
+    <a href="https://www.youtube.com/shorts/HezlzRoQ3hM?feature=share">
+        <img src="Images/Project_FlagMaster_V5_0.png" width="200" alt="Watch the video" style="margin-right: 10px;">
+    </a>
+    <img src="Images/Project_FlagMaster_V5_1.png" width="200" alt="setting panel (English)" style="margin-right: 10px;">
+    <img src="Images/Project_FlagMaster_V5_2.png" width="200" alt="setting panel (Chinese)">
+</div>

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MainUIManager : MonoBehaviour
 {
-    public string sfx_click_go = "";
+    [SerializeField] private string sfx_click_go = "";
+    [SerializeField] private string sfx_Toggle_setting_panel = "ui_menu_button_scroll_19";
     public SceneTransitionManager sceneTransitionManager;
 
     [SerializeField] private GameObject settingPanel;
@@ -12,12 +13,15 @@ public class MainUIManager : MonoBehaviour
     public void ToggleSettingPanel()
     {
         Debug.Log("ToggleSettingPanel");
-        AudioManager.Instance.PlaySFX(sfx_click_go);
+        AudioManager.Instance.PlaySFX(sfx_Toggle_setting_panel);
+        
+
         if (settingPanel != null)
         {
-            Debug.Log(settingPanel.activeSelf);
-            settingPanel.SetActive(!settingPanel.activeSelf);
-            Debug.Log("After: " + settingPanel.activeSelf);
+            //Debug.Log(settingPanel.activeSelf);
+            settingPanel.GetComponent<SlidePanel>().TogglePanel();
+            //settingPanel.SetActive(!settingPanel.activeSelf);
+            //Debug.Log("After: " + settingPanel.activeSelf);
         }
     }
 

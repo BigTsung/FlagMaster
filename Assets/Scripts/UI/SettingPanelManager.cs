@@ -8,6 +8,8 @@ using UnityEngine.Localization.Components;  // 必須引用 LocalizeStringEvent
 public class SettingPanelManager : Singleton<SettingPanelManager>
 {
     [SerializeField] private string pressedSFX = "ui_menu_button_click_19";
+    [SerializeField] private float feedbackDuration = 0.15f;  // 按鈕縮放動畫持續時間
+    [SerializeField] private Vector3 pressedScale = new Vector3(0.9f, 0.9f, 0.9f);  // 按鈕按下時的縮放
 
     public Button musicHighButton;
     public Button musicMediumButton;
@@ -27,11 +29,6 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     [SerializeField] private Color activeTextColor = Color.white;  // Text color for active button
     [SerializeField] private Color inactiveTextColor = Color.gray; // Text color for inactive buttons
 
-    //private void Awake()
-    //{
-        
-    //}
-
     private void Start()
     {
         // default: hide SettingPanel
@@ -41,7 +38,6 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
 
         //Initialize the language settings
         InitializeLanguageSetting();
-
     }
 
     public void InitializeUI()
@@ -73,28 +69,28 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     // 音樂音量按鈕控制
     public void OnMusicHighButtonPressed()
     {
-        AudioManager.Instance.PlaySFX(pressedSFX);
+        PlayButtonFeedback(musicHighButton);
         SettingsManager.Instance.SetMusicVolumeHigh();
         UpdateMusicButtonColors(0.85f);
     }
 
     public void OnMusicMediumButtonPressed()
     {
-        AudioManager.Instance.PlaySFX(pressedSFX);
+        PlayButtonFeedback(musicMediumButton);
         SettingsManager.Instance.SetMusicVolumeMedium();
         UpdateMusicButtonColors(0.5f);
     }
 
     public void OnMusicLowButtonPressed()
     {
-        AudioManager.Instance.PlaySFX(pressedSFX);
+        PlayButtonFeedback(musicLowButton);
         SettingsManager.Instance.SetMusicVolumeLow();
         UpdateMusicButtonColors(0.25f);
     }
 
     public void OnMusicOffButtonPressed()
     {
-        AudioManager.Instance.PlaySFX(pressedSFX);
+        PlayButtonFeedback(musicOffButton);
         SettingsManager.Instance.SetMusicVolumeOff();
         UpdateMusicButtonColors(0f);
     }
@@ -102,28 +98,28 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     // 音效音量按鈕控制
     public void OnSFXHighButtonPressed()
     {
-        AudioManager.Instance.PlaySFX(pressedSFX);
+        PlayButtonFeedback(sfxHighButton);
         SettingsManager.Instance.SetSFXVolumeHigh();
         UpdateSFXButtonColors(0.85f);
     }
 
     public void OnSFXMediumButtonPressed()
     {
-        AudioManager.Instance.PlaySFX(pressedSFX);
+        PlayButtonFeedback(sfxMediumButton);
         SettingsManager.Instance.SetSFXVolumeMedium();
         UpdateSFXButtonColors(0.5f);
     }
 
     public void OnSFXLowButtonPressed()
     {
-        AudioManager.Instance.PlaySFX(pressedSFX);
+        PlayButtonFeedback(sfxLowButton);
         SettingsManager.Instance.SetSFXVolumeLow();
         UpdateSFXButtonColors(0.25f);
     }
 
     public void OnSFXOffButtonPressed()
     {
-        AudioManager.Instance.PlaySFX(pressedSFX);
+        PlayButtonFeedback(sfxOffButton);
         SettingsManager.Instance.SetSFXVolumeOff();
         UpdateSFXButtonColors(0f);
     }
@@ -131,14 +127,14 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     // 語言按鈕控制
     public void OnLanguageChineseButtonPressed()
     {
-        AudioManager.Instance.PlaySFX(pressedSFX);
+        PlayButtonFeedback(languageChineseButton);
         SetLanguage("zh-TW");
         UpdateLanguageButtonColors("zh-TW");
     }
 
     public void OnLanguageEnglishButtonPressed()
     {
-        AudioManager.Instance.PlaySFX(pressedSFX);
+        PlayButtonFeedback(languageEnglishButton);
         SetLanguage("en");
         UpdateLanguageButtonColors("en");
     }
@@ -206,5 +202,19 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
         {
             localizeStringEvent.RefreshString();  // 重新更新字串
         }
+    }
+
+    // 播放按鈕的聲音與視覺反饋
+    private void PlayButtonFeedback(Button button)
+    {
+        // 播放按鈕點擊音效
+        AudioManager.Instance.PlaySFX(pressedSFX);
+
+        // 縮小按鈕
+        LeanTween.scale(button.gameObject, pressedScale, feedbackDuration).setEaseOutQuad().setOnComplete(() =>
+        {
+            // 恢復按鈕原來大小
+            LeanTween.scale(button.gameObject, Vector3.one, feedbackDuration).setEaseOutQuad();
+        });
     }
 }

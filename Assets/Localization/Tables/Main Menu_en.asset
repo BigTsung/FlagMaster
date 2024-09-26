@@ -23,7 +23,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 38118215376896
-    m_Localized: Timed Challenge Mode
+    m_Localized: Game-Timed Challenge
     m_Metadata:
       m_Items: []
   - m_Id: 15890077704192
@@ -35,11 +35,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 16909280993280
-    m_Localized: Music
+    m_Localized: BGM
     m_Metadata:
       m_Items: []
   - m_Id: 17063950147584
-    m_Localized: Sound Effect
+    m_Localized: SFX
     m_Metadata:
       m_Items: []
   - m_Id: 17243852234752
@@ -55,7 +55,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 17509972434944
-    m_Localized: Off
+    m_Localized: X
     m_Metadata:
       m_Items: []
   - m_Id: 17581414014976
@@ -63,19 +63,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 37800664621056
-    m_Localized: Endless Mode
+    m_Localized: Game-Endless
     m_Metadata:
       m_Items: []
   - m_Id: 38224410959872
-    m_Localized: SpeedRound Mode
+    m_Localized: Game-SpeedRound
     m_Metadata:
       m_Items: []
   - m_Id: 38366178435072
-    m_Localized: TwoLives Mode
+    m_Localized: Game-TwoLives
     m_Metadata:
       m_Items: []
   - m_Id: 38481261748224
-    m_Localized: Review Mode
+    m_Localized: Game-Review
     m_Metadata:
       m_Items: []
   - m_Id: 39204858880000
@@ -88,6 +88,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 39363370016768
     m_Localized: Home
+    m_Metadata:
+      m_Items: []
+  - m_Id: 361104780812288
+    m_Localized: Game Over
+    m_Metadata:
+      m_Items: []
+  - m_Id: 361814809370624
+    m_Localized: 'Correct:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 362161544093696
+    m_Localized: 'Total:'
     m_Metadata:
       m_Items: []
   references:

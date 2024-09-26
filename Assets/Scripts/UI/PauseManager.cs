@@ -12,10 +12,10 @@ public class PauseManager : MonoBehaviour
     private bool isPaused = false;  // 紀錄目前是否處於暫停狀態
     public float animationDuration = 0.5f;  // 動畫持續時間
 
-    private void Awake()
-    {
-        pauseMenuUI.SetActive(false);
-    }
+    //private void Awake()
+    //{
+    //    pauseMenuUI.SetActive(false);
+    //}
 
     void Start()
     {
@@ -55,31 +55,31 @@ public class PauseManager : MonoBehaviour
         }
 
         // 將 UI 設置為屏幕外位置
-        pauseMenuUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -Screen.height);
-
+        //pauseMenuUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -Screen.height);
+        pauseMenuUI.GetComponent<SlidePanel>().TogglePanel();
         //Debug.Log("animationDuration:" + animationDuration);
 
         // 移動到屏幕中央
-        LeanTween.moveY(pauseMenuUI.GetComponent<RectTransform>(), 0, animationDuration).setEase(LeanTweenType.easeOutQuad);
+        //LeanTween.moveY(pauseMenuUI.GetComponent<RectTransform>(), 0, animationDuration).setEase(LeanTweenType.easeOutQuad);
 
-        LeanTween.delayedCall(animationDuration, () =>
-        {
-            Time.timeScale = 0f;
-            isPaused = true;
-        });
+        //LeanTween.delayedCall(animationDuration, () =>
+        //{
+        //    Time.timeScale = 0f;
+        //    isPaused = true;
+        //});
     }
 
     // 恢復遊戲
     public void ResumeGame()
     {
         Time.timeScale = 1f;
-
+        pauseMenuUI.GetComponent<SlidePanel>().TogglePanel();
         // 從屏幕滑出
-        LeanTween.moveY(pauseMenuUI.GetComponent<RectTransform>(), -Screen.height, animationDuration).setEase(LeanTweenType.easeInQuad).setOnComplete(() =>
-        {
-            pauseMenuUI.SetActive(false);
-            isPaused = false;
-        });
+        //LeanTween.moveY(pauseMenuUI.GetComponent<RectTransform>(), -Screen.height, animationDuration).setEase(LeanTweenType.easeInQuad).setOnComplete(() =>
+        //{
+        //    pauseMenuUI.SetActive(false);
+        //    isPaused = false;
+        //});
     }
 
     // 重新啟動當前遊戲場景

@@ -86,7 +86,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image imageFlag;
     [SerializeField] private Button[] answerButtons;
     [SerializeField] private TextMeshProUGUI countdownText;
-    [SerializeField] private TextMeshProUGUI statsText;
+    [SerializeField] private TextMeshProUGUI statsCorrectText;
+    [SerializeField] private TextMeshProUGUI statsTotalText;
     [SerializeField] private TextMeshProUGUI livesText;
     [SerializeField] private float secondToNextQuestion = 1f;
 
@@ -106,7 +107,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        statsText.text = "答對題數:" + 0 + "\n" + "總答題數:" + 0;
+        statsCorrectText.text = "0";
+        statsTotalText.text =  "0";
 
         SetGameModeRules();
 
@@ -115,11 +117,11 @@ public class GameManager : MonoBehaviour
 
         jsonFilePath = Path.Combine(Application.persistentDataPath, "CountryStats.json");
 
-        Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
+        //Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
 
         LoadStats();
 
-        Debug.Log("currentGameMode: " + currentGameMode);
+        //Debug.Log("currentGameMode: " + currentGameMode);
 
    
         GetRandomFourCountries();
@@ -285,7 +287,8 @@ public class GameManager : MonoBehaviour
 
     private void UpdateStatsText()
     {
-        statsText.text = "答對題數:" + correctAnswers + "\n" + "總答題數:" + totalQuestions;
+        statsCorrectText.text = correctAnswers.ToString();
+        statsTotalText.text = totalQuestions.ToString();
     }
 
     private IEnumerator NextQuestion()

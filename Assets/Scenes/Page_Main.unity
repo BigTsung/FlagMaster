@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfx_click_go: ui_menu_button_click_03
+  sfx_Toggle_setting_panel: ui_menu_button_scroll_19
   sceneTransitionManager: {fileID: 289263813}
   settingPanel: {fileID: 524642905}
 --- !u!1 &70213313
@@ -1690,7 +1691,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 450, y: 0}
-  m_SizeDelta: {x: 150, y: 113}
+  m_SizeDelta: {x: 120, y: 113}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &410341423
 MonoBehaviour:
@@ -3015,7 +3016,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u4E2D"
+  m_text: M
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cbb7c624d2de243549a6b40db9d18d43, type: 2}
   m_sharedMaterial: {fileID: 6045105444587063589, guid: cbb7c624d2de243549a6b40db9d18d43, type: 2}
@@ -3144,6 +3145,7 @@ GameObject:
   - component: {fileID: 524642908}
   - component: {fileID: 524642907}
   - component: {fileID: 524642909}
+  - component: {fileID: 524642910}
   m_Layer: 5
   m_Name: Panel_Setting
   m_TagString: Untagged
@@ -3224,6 +3226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pressedSFX: ui_menu_button_click_19
+  feedbackDuration: 0.15
+  pressedScale: {x: 0.9, y: 0.9, z: 0.9}
   musicHighButton: {fileID: 1714853212}
   musicMediumButton: {fileID: 802048170}
   musicLowButton: {fileID: 367720275}
@@ -3237,6 +3241,22 @@ MonoBehaviour:
   localizedTextElements: []
   activeTextColor: {r: 1, g: 1, b: 1, a: 1}
   inactiveTextColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+--- !u!114 &524642910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524642905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b35fe16bca4514e38a3daeb19fe45d50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDuration: 0.5
+  easeTypeIn: 2
+  easeTypeOut: 3
+  isVisible: 0
 --- !u!1 &606383856
 GameObject:
   m_ObjectHideFlags: 0
@@ -3295,7 +3315,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5927"
+  m_text: H
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cbb7c624d2de243549a6b40db9d18d43, type: 2}
   m_sharedMaterial: {fileID: 6045105444587063589, guid: cbb7c624d2de243549a6b40db9d18d43, type: 2}
@@ -6073,7 +6093,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Off
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cbb7c624d2de243549a6b40db9d18d43, type: 2}
   m_sharedMaterial: {fileID: 6045105444587063589, guid: cbb7c624d2de243549a6b40db9d18d43, type: 2}
@@ -6100,7 +6120,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 96.85
   m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7538,7 +7558,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -9084,7 +9104,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 450, y: 0}
-  m_SizeDelta: {x: 150, y: 113}
+  m_SizeDelta: {x: 120, y: 113}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2009851492
 MonoBehaviour:
