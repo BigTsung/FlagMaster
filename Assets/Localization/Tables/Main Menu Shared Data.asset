@@ -99,6 +99,10 @@ MonoBehaviour:
     m_Key: Total_Number_Key
     m_Metadata:
       m_Items: []
+  - m_Id: 772918811287552
+    m_Key: Lives_Key
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -279,6 +279,17 @@ public class GameManager : MonoBehaviour
             wrongAnswers.Add(new WrongAnswer(dataList[correctAnswerIndex].cn, correctAnswer, playerAnswer));
 
             UpdateCountryStats(selectedCountries[correctAnswerIndex].cn, false);
+
+            if (currentGameMode == GameMode.TwoLives)
+            {
+                remainingLives--;
+                UpdateLivesText();
+                if (remainingLives <= 0)
+                {
+                    EndGame();
+                }
+            }
+
         }
 
         UpdateStatsText();
@@ -427,7 +438,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateLivesText()
     {
-        livesText.text = "剩餘生命: " + remainingLives;
+        livesText.text = remainingLives.ToString();
     }
 
     public void RestartGame()

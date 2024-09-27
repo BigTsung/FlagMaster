@@ -23,7 +23,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 38118215376896
-    m_Localized: Game-Timed Challenge
+    m_Localized: Timed Challenge
     m_Metadata:
       m_Items: []
   - m_Id: 15890077704192
@@ -63,19 +63,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 37800664621056
-    m_Localized: Game-Endless
+    m_Localized: Endless Challenge
     m_Metadata:
       m_Items: []
   - m_Id: 38224410959872
-    m_Localized: Game-SpeedRound
+    m_Localized: Speed Challenge
     m_Metadata:
       m_Items: []
   - m_Id: 38366178435072
-    m_Localized: Game-TwoLives
+    m_Localized: Two Lives Challenge
     m_Metadata:
       m_Items: []
   - m_Id: 38481261748224
-    m_Localized: Game-Review
+    m_Localized: Review Mistakes
     m_Metadata:
       m_Items: []
   - m_Id: 39204858880000
@@ -100,6 +100,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 362161544093696
     m_Localized: 'Total:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 772918811287552
+    m_Localized: 'Lives:'
     m_Metadata:
       m_Items: []
   references:
