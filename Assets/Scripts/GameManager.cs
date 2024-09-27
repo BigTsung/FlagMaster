@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     private int incorrectAnswers = 0;
     private int correctAnswers = 0;
     private int remainingLives = 2;
-    private int totalQuestionLimit = 5;
+    private int totalQuestionLimit = 20;
 
     private List<WrongAnswer> wrongAnswers = new List<WrongAnswer>();
     private HashSet<string> correctAnswerCountries = new HashSet<string>();
@@ -274,7 +274,9 @@ public class GameManager : MonoBehaviour
             UpdateRemainingQuestionsText();
             if (totalQuestionLimit - totalQuestions <= 0)
             {
+                StopCoroutine(countdownCoroutine);
                 EndGame();
+                return;
             }
         }
 
@@ -446,7 +448,9 @@ public class GameManager : MonoBehaviour
 
             if (totalQuestionLimit - totalQuestions <= 0)
             {
+                StopCoroutine(countdownCoroutine);
                 EndGame();
+                yield return -1;
             }
 
             TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
