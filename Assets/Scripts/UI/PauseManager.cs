@@ -12,10 +12,11 @@ public class PauseManager : MonoBehaviour
     private bool isPaused = false;  // 紀錄目前是否處於暫停狀態
     public float animationDuration = 0.5f;  // 動畫持續時間
 
-    //private void Awake()
-    //{
-    //    pauseMenuUI.SetActive(false);
-    //}
+    private void Awake()
+    {
+        //pauseMenuUI.SetActive(false);
+        Debug.Log("WHAT");
+    }
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class PauseManager : MonoBehaviour
     // 當按下暫停按鈕時觸發
     public void TogglePauseGame()
     {
+        Debug.Log("TogglePauseGame");
         AudioManager.Instance.PlaySFX(togglePauseMenuUISFX);
         
         if (isPaused)
@@ -41,7 +43,7 @@ public class PauseManager : MonoBehaviour
     // 暫停遊戲 (當 timeIsUp 為 true 時，顯示 "Time's up" 並隱藏 Back 按鈕)
     public void PauseGame(bool timeIsUp)
     {
-        pauseMenuUI.SetActive(true);
+        //pauseMenuUI.SetActive(true);
 
         if (timeIsUp)
         {

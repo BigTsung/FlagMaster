@@ -89,12 +89,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI statsCorrectText;
     [SerializeField] private TextMeshProUGUI statsTotalText;
     [SerializeField] private TextMeshProUGUI livesText;
+    [SerializeField] private TextMeshProUGUI remainingQuestionsText;
     [SerializeField] private float secondToNextQuestion = 1f;
 
     private int totalQuestions = 0;
     private int incorrectAnswers = 0;
     private int correctAnswers = 0;
     private int remainingLives = 2;
+    private int totalQuestionLimit = 5;
 
     private List<WrongAnswer> wrongAnswers = new List<WrongAnswer>();
     private HashSet<string> correctAnswerCountries = new HashSet<string>();
@@ -120,35 +122,40 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
 
         LoadStats();
-
+        UpdateRemainingQuestionsText();
         //Debug.Log("currentGameMode: " + currentGameMode);
 
-   
+
         GetRandomFourCountries();
 
         if (currentGameMode == GameMode.Review)
         {
             secondToNextQuestion = 2;
             PrepareReviewMode();
+            GameMainUIManager.Instance.SwitchToReviewMode();
         }
         else if (currentGameMode == GameMode.Endless)
         {
             secondToNextQuestion = 2;
+            GameMainUIManager.Instance.SwitchToEndlessMode();
         }
         else if (currentGameMode == GameMode.TimedChallenge)
         {
             countdownCoroutine = StartCoroutine(StartTotalCountdown());
             secondToNextQuestion = 0.5f;
+            GameMainUIManager.Instance.SwitchToTimedChallengeMode();
         }
         else if (currentGameMode == GameMode.SpeedRound)
         {
             countdownCoroutine = StartCoroutine(StartCountdown());
             secondToNextQuestion = 2;
+            GameMainUIManager.Instance.SwitchToSpeedRoundMode();
         }
         else if (currentGameMode == GameMode.TwoLives)
         {
             UpdateLivesText();
             secondToNextQuestion = 2;
+            GameMainUIManager.Instance.SwitchToTwoLivesMode();
         }
     }
 
@@ -260,6 +267,17 @@ public class GameManager : MonoBehaviour
 
         totalQuestions++;
 
+        
+        //totalQuestionLimit--;
+        if (currentGameMode == GameMode.SpeedRound)
+        {
+            UpdateRemainingQuestionsText();
+            if (totalQuestionLimit - totalQuestions <= 0)
+            {
+                EndGame();
+            }
+        }
+
         if (index == correctAnswerIndex)
         {
             AudioManager.Instance.PlaySFX(sfx_correct);
@@ -294,6 +312,12 @@ public class GameManager : MonoBehaviour
 
         UpdateStatsText();
         StartCoroutine(NextQuestion());
+    }
+
+    private void UpdateRemainingQuestionsText()
+    {
+        int remainingQuestions = totalQuestionLimit - totalQuestions;
+        remainingQuestionsText.text = remainingQuestions.ToString();
     }
 
     private void UpdateStatsText()
@@ -417,6 +441,13 @@ public class GameManager : MonoBehaviour
             isWaitingForAnswer = false;
             incorrectAnswers++;
             totalQuestions++;
+
+            UpdateRemainingQuestionsText();
+
+            if (totalQuestionLimit - totalQuestions <= 0)
+            {
+                EndGame();
+            }
 
             TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
             correctButtonText.color = correctColor;

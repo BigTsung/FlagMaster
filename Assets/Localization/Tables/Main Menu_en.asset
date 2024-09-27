@@ -106,6 +106,10 @@ MonoBehaviour:
     m_Localized: 'Lives:'
     m_Metadata:
       m_Items: []
+  - m_Id: 783092565401600
+    m_Localized: 'Remaining:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
