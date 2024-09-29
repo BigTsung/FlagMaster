@@ -1,12 +1,17 @@
+using System.IO;
 using UnityEngine;
 
 public class SettingsManager : Singleton<SettingsManager>
 {
     private const string MUSIC_VOLUME_KEY = "MusicVolume";
     private const string SFX_VOLUME_KEY = "SFXVolume";
+    private string jsonFilePath;
 
     private void Start()
     {
+        // 設置文件路徑
+        jsonFilePath = Path.Combine(Application.persistentDataPath, "CountryStats.json");
+
         // 初始化音量設定
         InitializeVolumeSettings();
     }
@@ -49,5 +54,19 @@ public class SettingsManager : Singleton<SettingsManager>
         AudioManager.Instance.SetSfxVolume(volume);  // 設定音量
         PlayerPrefs.SetFloat(SFX_VOLUME_KEY, volume);  // 保存到 PlayerPrefs
         PlayerPrefs.Save();  // 儲存
+    }
+
+    // 清空 review mode 的 JSON 檔案
+    public void ClearReviewModeData()
+    {
+        if (File.Exists(jsonFilePath))
+        {
+            File.Delete(jsonFilePath);
+            Debug.Log("Review mode JSON file has been deleted.");
+        }
+        else
+        {
+            Debug.LogWarning("Review mode JSON file does not exist.");
+        }
     }
 }

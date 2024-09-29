@@ -110,6 +110,10 @@ MonoBehaviour:
     m_Localized: 'Remaining:'
     m_Metadata:
       m_Items: []
+  - m_Id: 1468943033163776
+    m_Localized: Reset
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -24,6 +24,8 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     public Button languageChineseButton;
     public Button languageEnglishButton;
 
+    public Button cleanReviewModeButton;
+
     [SerializeField] private LocalizeStringEvent[] localizedTextElements; // 新增這個變量來控制所有本地化的 UI 文字
 
     [SerializeField] private Color activeTextColor = Color.white;  // Text color for active button
@@ -139,8 +141,14 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
         UpdateLanguageButtonColors("en");
     }
 
+    public void OnCleanButtonPressed()
+    {
+        PlayButtonFeedback(cleanReviewModeButton);
+        SettingsManager.Instance.ClearReviewModeData();
+    }
+
     // 更新音樂按鈕的顏色
-    private void UpdateMusicButtonColors(float volume)
+        private void UpdateMusicButtonColors(float volume)
     {
         SetTextColor(musicHighButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.85f);
         SetTextColor(musicMediumButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.5f);

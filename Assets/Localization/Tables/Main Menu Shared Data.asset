@@ -107,6 +107,10 @@ MonoBehaviour:
     m_Key: RemainingQuestions_Key
     m_Metadata:
       m_Items: []
+  - m_Id: 1468943033163776
+    m_Key: Reset_Key
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
