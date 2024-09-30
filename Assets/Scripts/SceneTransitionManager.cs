@@ -18,7 +18,7 @@ public class SceneTransitionManager : MonoBehaviour
     private RectTransform lowerRect;  // 下半部的 RectTransform
     private RectTransform modeButtonsRect;  // 模式按鈕的 RectTransform
 
-    public Button challengeButton;    // 挑戰按鈕
+    //public Button challengeButton;    // 挑戰按鈕
     public Button settingButton;      // 設置按鈕
     public Button[] modeButtons;      // 各模式按鈕
     public Button backButton;         // 返回按鈕
@@ -34,7 +34,7 @@ public class SceneTransitionManager : MonoBehaviour
         HideModeButtons();
 
         // 設置挑戰按鈕和返回按鈕的點擊事件
-        challengeButton.onClick.AddListener(OnChallengeButtonClicked);
+        //challengeButton.onClick.AddListener(OnChallengeButtonClicked);
         backButton.onClick.AddListener(OnBackButtonClicked);
 
         // 執行淡入效果
@@ -42,7 +42,7 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     // 點擊挑戰按鈕時，觸發 UI 淡出和模式按鈕顯示
-    private void OnChallengeButtonClicked()
+    public void OnChallengeButtonClicked()
     {
         StartCoroutine(FadeOutAndShowModes());
     }
@@ -86,7 +86,7 @@ public class SceneTransitionManager : MonoBehaviour
     {
         // 隱藏模式按鈕
         LeanTween.alphaCanvas(modeButtonsCanvasGroup, 0, fadeDuration).setEase(LeanTweenType.easeInOutCubic);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
 
         modeButtonsCanvasGroup.interactable = false;
         modeButtonsCanvasGroup.blocksRaycasts = false;

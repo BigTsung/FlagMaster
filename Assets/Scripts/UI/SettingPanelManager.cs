@@ -25,6 +25,7 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     public Button languageEnglishButton;
 
     public Button cleanReviewModeButton;
+    public Button updateButton;
 
     [SerializeField] private LocalizeStringEvent[] localizedTextElements; // 新增這個變量來控制所有本地化的 UI 文字
 
@@ -145,6 +146,12 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     {
         PlayButtonFeedback(cleanReviewModeButton);
         SettingsManager.Instance.ClearReviewModeData();
+    }
+
+    public void OnUpdateButtonPressed()
+    {
+        PlayButtonFeedback(updateButton);
+        MainUIManager.Instance.ToggleSettingPanel();
     }
 
     // 更新音樂按鈕的顏色
