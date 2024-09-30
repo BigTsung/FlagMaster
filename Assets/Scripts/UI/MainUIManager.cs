@@ -25,6 +25,11 @@ public class MainUIManager : MonoBehaviour
         }
     }
 
+    public void OnBackButtonClicked()
+    {
+        sceneTransitionManager.OnBackButtonClicked();
+    }
+
     public void OnClickedEndless()
     {
         AudioManager.Instance.PlaySFX(sfx_click_go);

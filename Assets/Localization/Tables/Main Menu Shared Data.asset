@@ -111,6 +111,14 @@ MonoBehaviour:
     m_Key: Reset_Key
     m_Metadata:
       m_Items: []
+  - m_Id: 1858532130414592
+    m_Key: Challenge_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1858633494159360
+    m_Key: Back_Key
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

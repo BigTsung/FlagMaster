@@ -114,6 +114,14 @@ MonoBehaviour:
     m_Localized: Reset
     m_Metadata:
       m_Items: []
+  - m_Id: 1858532130414592
+    m_Localized: Challenge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1858633494159360
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
