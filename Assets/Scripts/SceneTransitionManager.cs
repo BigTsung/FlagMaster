@@ -48,11 +48,42 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     // 點擊返回按鈕時，返回到挑戰和設定按鈕顯示狀態
+    // 點擊返回按鈕時，返回到挑戰和設定按鈕顯示狀態
     public void OnBackButtonClicked()
     {
-        StartCoroutine(FadeOutModesAndShowChallenge());
+        StartCoroutine(FastFadeOutModesAndShowChallenge());
     }
 
+    private IEnumerator FastFadeOutModesAndShowChallenge()
+    {
+        float fastFadeDuration = fadeDuration / 2;  // 加快過渡時間
+
+        // 隱藏模式按鈕
+        LeanTween.alphaCanvas(modeButtonsCanvasGroup, 0, fastFadeDuration).setEase(LeanTweenType.easeInOutCubic);
+        yield return new WaitForSeconds(fastFadeDuration);
+
+        modeButtonsCanvasGroup.interactable = false;
+        modeButtonsCanvasGroup.blocksRaycasts = false;
+
+        // 恢復 upper 和 lower canvas 的初始位置和透明度為 0
+        upperRect.anchoredPosition = upperStartPos; // 確保位置正確
+        lowerRect.anchoredPosition = lowerStartPos; // 確保位置正確
+        upperCanvasGroup.alpha = 0;
+        lowerCanvasGroup.alpha = 0;
+
+        // 開始淡入挑戰和設置按鈕
+        LeanTween.move(upperRect, Vector2.zero, fastFadeDuration).setEase(LeanTweenType.easeInOutCubic);
+        LeanTween.alphaCanvas(upperCanvasGroup, 1, fastFadeDuration).setEase(LeanTweenType.easeInOutCubic);
+
+        LeanTween.move(lowerRect, Vector2.zero, fastFadeDuration).setEase(LeanTweenType.easeInOutCubic);
+        LeanTween.alphaCanvas(lowerCanvasGroup, 1, fastFadeDuration).setEase(LeanTweenType.easeInOutCubic).setOnComplete(() =>
+        {
+            upperCanvasGroup.interactable = true;
+            upperCanvasGroup.blocksRaycasts = true;
+            lowerCanvasGroup.interactable = true;
+            lowerCanvasGroup.blocksRaycasts = true;
+        });
+    }
     // 隱藏所有模式按鈕
     private void HideModeButtons()
     {

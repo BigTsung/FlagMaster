@@ -17,23 +17,23 @@ public class SettingsManager : Singleton<SettingsManager>
     }
 
     // 音樂音量按鈕邏輯
-    public void SetMusicVolumeHigh() => SetMusicVolume(0.85f);
-    public void SetMusicVolumeMedium() => SetMusicVolume(0.5f);
+    public void SetMusicVolumeHigh() => SetMusicVolume(0.75f);
+    public void SetMusicVolumeMedium() => SetMusicVolume(0.4f);
     public void SetMusicVolumeLow() => SetMusicVolume(0.25f);
     public void SetMusicVolumeOff() => SetMusicVolume(0f);
 
     // 音效音量按鈕邏輯
-    public void SetSFXVolumeHigh() => SetSFXVolume(0.85f);
-    public void SetSFXVolumeMedium() => SetSFXVolume(0.5f);
-    public void SetSFXVolumeLow() => SetSFXVolume(0.25f);
+    public void SetSFXVolumeHigh() => SetSFXVolume(1f);
+    public void SetSFXVolumeMedium() => SetSFXVolume(0.75f);
+    public void SetSFXVolumeLow() => SetSFXVolume(0.5f);
     public void SetSFXVolumeOff() => SetSFXVolume(0f);
 
     // 初始化音量設定，從保存的設置讀取
     private void InitializeVolumeSettings()
     {
-        // 預設值為 0.5f
-        float musicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, 0.5f);
-        float sfxVolume = PlayerPrefs.GetFloat(SFX_VOLUME_KEY, 0.5f);
+        
+        float musicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, 0.4f);
+        float sfxVolume = PlayerPrefs.GetFloat(SFX_VOLUME_KEY, 0.75f);
 
         // 將音量套用到 AudioManager (你需要自行定義這個管理音效的部分)
         AudioManager.Instance.SetBGMVolume(musicVolume);
