@@ -4,8 +4,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.Localization.Settings;
 
 [System.Serializable]
 public class WrongAnswer
@@ -225,7 +225,16 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < selectedCountries.Count; i++)
         {
             TextMeshProUGUI buttonText = answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = selectedCountries[i].cn;
+            // 根據選定的語言來決定顯示的文字
+            if (LocalizationSettings.SelectedLocale.Identifier.Code == "en")
+            {
+                buttonText.text = selectedCountries[i].en;  // 如果語言是英文，顯示英文名稱
+            }
+            else
+            {
+                buttonText.text = selectedCountries[i].cn;  // 如果不是英文，顯示中文名稱
+            }
+
             buttonText.color = originalColor;
             answerButtons[i].interactable = true;
 
