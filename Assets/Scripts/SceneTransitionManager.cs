@@ -6,7 +6,7 @@ public class SceneTransitionManager : MonoBehaviour
 {
     public CanvasGroup upperCanvasGroup;  // 上半部的 UI
     public CanvasGroup lowerCanvasGroup;  // 下半部的 UI，初始只包含挑戰和設定按鈕
-    public CanvasGroup fadeCanvasGroup;   // 全屏黑色遮罩的 CanvasGroup，用於黑到透明效果
+    //public CanvasGroup fadeCanvasGroup;   // 全屏黑色遮罩的 CanvasGroup，用於黑到透明效果
 
     public CanvasGroup modeButtonsCanvasGroup;  // 用於控制模式按鈕的 CanvasGroup
 
@@ -177,12 +177,12 @@ public class SceneTransitionManager : MonoBehaviour
         upperRect.anchoredPosition = upperStartPos;
         lowerRect.anchoredPosition = lowerStartPos;
 
-        if (maskFirst)
-        {
-            fadeCanvasGroup.alpha = 1;  // 黑色遮罩初始為不透明
-            // 使黑色遮罩淡出
-            LeanTween.alphaCanvas(fadeCanvasGroup, 0, fadeDuration).setEase(LeanTweenType.easeInOutCubic);
-        }
+        //if (maskFirst)
+        //{
+        //    fadeCanvasGroup.alpha = 1;  // 黑色遮罩初始為不透明
+        //    // 使黑色遮罩淡出
+        //    LeanTween.alphaCanvas(fadeCanvasGroup, 0, fadeDuration).setEase(LeanTweenType.easeInOutCubic);
+        //}
 
         // 使上半部 UI 從上方進入並顯示
         LeanTween.move(upperRect, Vector2.zero, fadeDuration).setEase(LeanTweenType.easeInOutCubic);

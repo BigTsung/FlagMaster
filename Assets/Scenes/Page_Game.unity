@@ -1334,7 +1334,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upperCanvasGroup: {fileID: 283369586}
   lowerCanvasGroup: {fileID: 1176564511}
-  fadeCanvasGroup: {fileID: 1087714530}
   modeButtonsCanvasGroup: {fileID: 0}
   fadeDuration: 1.5
   upperStartPos: {x: 0, y: 1000}
@@ -2745,6 +2744,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1087714529}
   - component: {fileID: 1087714530}
+  - component: {fileID: 1087714531}
   m_Layer: 5
   m_Name: FadeInMask
   m_TagString: Untagged
@@ -2784,6 +2784,20 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1087714531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087714528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cacd1c68290e442cb539d2c52e6fc8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeCanvasGroup: {fileID: 1087714530}
+  fadeDuration: 1
 --- !u!1 &1098832916
 GameObject:
   m_ObjectHideFlags: 0
