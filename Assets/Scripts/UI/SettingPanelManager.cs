@@ -72,86 +72,126 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     // 音樂音量按鈕控制
     public void OnMusicHighButtonPressed()
     {
-        PlayButtonFeedback(musicHighButton);
-        SettingsManager.Instance.SetMusicVolumeHigh();
-        UpdateMusicButtonColors(0.85f);
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(musicHighButton, false, () => {
+            Debug.Log("button name:" + musicHighButton.name);
+
+            SettingsManager.Instance.SetMusicVolumeHigh();
+            UpdateMusicButtonColors(0.85f);
+        });
+
+      
     }
 
     public void OnMusicMediumButtonPressed()
     {
-        PlayButtonFeedback(musicMediumButton);
-        SettingsManager.Instance.SetMusicVolumeMedium();
-        UpdateMusicButtonColors(0.5f);
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(musicMediumButton, false, () => {
+            Debug.Log("button name:" + musicMediumButton.name);
+
+            SettingsManager.Instance.SetMusicVolumeMedium();
+            UpdateMusicButtonColors(0.5f);
+        });
     }
 
     public void OnMusicLowButtonPressed()
     {
-        PlayButtonFeedback(musicLowButton);
-        SettingsManager.Instance.SetMusicVolumeLow();
-        UpdateMusicButtonColors(0.25f);
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(musicLowButton, false, () => {
+            Debug.Log("button name:" + musicLowButton.name);
+            SettingsManager.Instance.SetMusicVolumeLow();
+            UpdateMusicButtonColors(0.25f);
+        });
     }
 
     public void OnMusicOffButtonPressed()
     {
-        PlayButtonFeedback(musicOffButton);
-        SettingsManager.Instance.SetMusicVolumeOff();
-        UpdateMusicButtonColors(0f);
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(musicOffButton, false, () => {
+            Debug.Log("button name:" + musicOffButton.name);
+            SettingsManager.Instance.SetMusicVolumeOff();
+            UpdateMusicButtonColors(0f);
+        });
     }
 
     // 音效音量按鈕控制
     public void OnSFXHighButtonPressed()
     {
-        PlayButtonFeedback(sfxHighButton);
-        SettingsManager.Instance.SetSFXVolumeHigh();
-        UpdateSFXButtonColors(0.85f);
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(sfxHighButton, false, () => {
+            Debug.Log("button name:" + sfxHighButton.name);
+            SettingsManager.Instance.SetSFXVolumeHigh();
+            UpdateSFXButtonColors(0.85f);
+        });
     }
 
     public void OnSFXMediumButtonPressed()
     {
-        PlayButtonFeedback(sfxMediumButton);
-        SettingsManager.Instance.SetSFXVolumeMedium();
-        UpdateSFXButtonColors(0.5f);
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(sfxMediumButton, false, () => {
+            Debug.Log("button name:" + sfxMediumButton.name);
+            SettingsManager.Instance.SetSFXVolumeMedium();
+            UpdateSFXButtonColors(0.5f);
+        });
     }
 
     public void OnSFXLowButtonPressed()
     {
-        PlayButtonFeedback(sfxLowButton);
-        SettingsManager.Instance.SetSFXVolumeLow();
-        UpdateSFXButtonColors(0.25f);
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(sfxLowButton, false, () => {
+            Debug.Log("button name:" + sfxLowButton.name);
+            SettingsManager.Instance.SetSFXVolumeLow();
+            UpdateSFXButtonColors(0.25f);
+        });
     }
 
     public void OnSFXOffButtonPressed()
     {
-        PlayButtonFeedback(sfxOffButton);
-        SettingsManager.Instance.SetSFXVolumeOff();
-        UpdateSFXButtonColors(0f);
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(sfxOffButton, false, () => {
+            Debug.Log("button name:" + sfxOffButton.name);
+            SettingsManager.Instance.SetSFXVolumeOff();
+            UpdateSFXButtonColors(0f);
+        });
     }
 
     // 語言按鈕控制
     public void OnLanguageChineseButtonPressed()
     {
-        PlayButtonFeedback(languageChineseButton);
-        SetLanguage("zh-TW");
-        UpdateLanguageButtonColors("zh-TW");
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(languageChineseButton, false, () => {
+            Debug.Log("button name:" + languageChineseButton.name);
+            SetLanguage("zh-TW");
+            UpdateLanguageButtonColors("zh-TW");
+        });
     }
 
     public void OnLanguageEnglishButtonPressed()
     {
-        PlayButtonFeedback(languageEnglishButton);
-        SetLanguage("en");
-        UpdateLanguageButtonColors("en");
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(languageEnglishButton, false, () => {
+            Debug.Log("button name:" + languageEnglishButton.name);
+            SetLanguage("en");
+            UpdateLanguageButtonColors("en");
+        });
     }
 
     public void OnCleanButtonPressed()
     {
-        PlayButtonFeedback(cleanReviewModeButton);
-        SettingsManager.Instance.ClearReviewModeData();
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(cleanReviewModeButton, false, () => {
+            Debug.Log("button name:" + cleanReviewModeButton.name);
+            SettingsManager.Instance.ClearReviewModeData();
+        });
     }
 
     public void OnUpdateButtonPressed()
     {
-        PlayButtonFeedback(updateButton);
-        MainUIManager.Instance.ToggleSettingPanel();
+        UIEffect defaultEffect = new UIEffect(sfx: pressedSFX);
+        defaultEffect.PlayButtonFeedback(updateButton, false, () => {
+            Debug.Log("button name:" + updateButton.name);
+            MainUIManager.Instance.ToggleSettingPanel();
+        });
     }
 
     // 更新音樂按鈕的顏色
@@ -217,19 +257,5 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
         {
             localizeStringEvent.RefreshString();  // 重新更新字串
         }
-    }
-
-    // 播放按鈕的聲音與視覺反饋
-    private void PlayButtonFeedback(Button button)
-    {
-        // 播放按鈕點擊音效
-        AudioManager.Instance.PlaySFX(pressedSFX);
-
-        // 縮小按鈕
-        LeanTween.scale(button.gameObject, pressedScale, feedbackDuration).setEaseOutQuad().setOnComplete(() =>
-        {
-            // 恢復按鈕原來大小
-            LeanTween.scale(button.gameObject, Vector3.one, feedbackDuration).setEaseOutQuad();
-        });
     }
 }

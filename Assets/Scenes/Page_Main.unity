@@ -3399,7 +3399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0f124536ee2483fad2a0daa253bb9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pressedSFX: ui_menu_button_click_19
+  pressedSFX: ui_menu_button_scroll_19
   feedbackDuration: 0.15
   pressedScale: {x: 0.9, y: 0.9, z: 0.9}
   musicHighButton: {fileID: 1714853212}

@@ -23,10 +23,12 @@ public class MainUIManager : Singleton<MainUIManager>
 
     public void OnSettingButtonPressed()
     {
-        PlayButtonFeedback(settingButton);
-        ToggleSettingPanel();
+        UIEffect defaultEffect = new UIEffect(sfx: sfx_click_button);
+        defaultEffect.PlayButtonFeedback(settingButton, false, () => {
+            Debug.Log("button name:" + settingButton.name);
+            ToggleSettingPanel();
+        });
     }
-
 
     public void ToggleSettingPanel()
     {
@@ -46,73 +48,69 @@ public class MainUIManager : Singleton<MainUIManager>
 
     public void OnBackButtonClicked()
     {
-        //AudioManager.Instance.PlaySFX(sfx_click_button);
-        PlayButtonFeedback(backButton);
-        sceneTransitionManager.OnBackButtonClicked();
+        UIEffect defaultEffect = new UIEffect(sfx: sfx_click_button);
+        defaultEffect.PlayButtonFeedback(backButton, false, () => {
+            Debug.Log("button name:" + backButton.name);
+            sceneTransitionManager.OnBackButtonClicked();
+        });
     }
 
     public void OnChallengeButtonClicked()
     {
-        //AudioManager.Instance.PlaySFX(sfx_click_button);
-        PlayButtonFeedback(challenageButton);
-        sceneTransitionManager.OnChallengeButtonClicked();
+        UIEffect defaultEffect = new UIEffect(sfx: sfx_click_button);
+        defaultEffect.PlayButtonFeedback(challenageButton, false, () => {
+            Debug.Log("button name:" + challenageButton.name);
+            sceneTransitionManager.OnChallengeButtonClicked();
+        });
     }
 
     public void OnClickedEndless()
     {
-        //AudioManager.Instance.PlaySFX(sfx_click_button);
-        PlayButtonFeedback(endlessButton);
-        // 設置為Endless模式
-        GameManager.currentGameMode = GameManager.GameMode.Endless;
-        sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
+        UIEffect defaultEffect = new UIEffect(sfx: sfx_click_button);
+        defaultEffect.PlayButtonFeedback(endlessButton, false, () => {
+            Debug.Log("button name:" + endlessButton.name);
+            GameManager.currentGameMode = GameManager.GameMode.Endless;
+            sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
+        });
     }
 
     public void OnClickedSpeedRound()
     {
-        //AudioManager.Instance.PlaySFX(sfx_click_button);
-        PlayButtonFeedback(speedRoundButton);
-        // 設置為SpeedRound模式
-        GameManager.currentGameMode = GameManager.GameMode.SpeedRound;
-        sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
+        UIEffect defaultEffect = new UIEffect(sfx: sfx_click_button);
+        defaultEffect.PlayButtonFeedback(speedRoundButton, false, () => {
+            Debug.Log("button name:" + speedRoundButton.name);
+            GameManager.currentGameMode = GameManager.GameMode.SpeedRound;
+            sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
+        });
     }
 
     public void OnClickedTwoLives()
     {
-        //AudioManager.Instance.PlaySFX(sfx_click_button);
-        PlayButtonFeedback(twolivesButton);
-        // TwoLives
-        GameManager.currentGameMode = GameManager.GameMode.TwoLives;
-        sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
+        UIEffect defaultEffect = new UIEffect(sfx: sfx_click_button);
+        defaultEffect.PlayButtonFeedback(twolivesButton, false, () => {
+            Debug.Log("button name:" + twolivesButton.name);
+            GameManager.currentGameMode = GameManager.GameMode.TwoLives;
+            sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
+        });
     }
 
     public void OnClickedTimedChallenge()
     {
-        //AudioManager.Instance.PlaySFX(sfx_click_button);
-        PlayButtonFeedback(timeChallengeButton);
-        // 設置為TimedChallenge模式
-        GameManager.currentGameMode = GameManager.GameMode.TimedChallenge;
-        sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
+        UIEffect defaultEffect = new UIEffect(sfx: sfx_click_button);
+        defaultEffect.PlayButtonFeedback(timeChallengeButton, false, () => {
+            Debug.Log("button name:" + timeChallengeButton.name);
+            GameManager.currentGameMode = GameManager.GameMode.TimedChallenge;
+            sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
+        });
     }
 
     public void OnClickedReview()
     {
-        //AudioManager.Instance.PlaySFX(sfx_click_button);
-        PlayButtonFeedback(reviewButton);
-        // 設置為TimedChallenge模式
-        GameManager.currentGameMode = GameManager.GameMode.Review;
-        sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
-    }
-
-    private void PlayButtonFeedback(Button button)
-    {
-        // 播放按鈕點擊音效
-        AudioManager.Instance.PlaySFX(sfx_click_button);
-
-        // 縮小按鈕
-        LeanTween.scale(button.gameObject, pressedScale, feedbackDuration).setEaseOutQuad().setOnComplete(() =>
-        {
-            // 恢復按鈕原來大小
-            LeanTween.scale(button.gameObject, Vector3.one, feedbackDuration).setEaseOutQuad();
+        UIEffect defaultEffect = new UIEffect(sfx: sfx_click_button);
+        defaultEffect.PlayButtonFeedback(reviewButton, false, () => {
+            Debug.Log("button name:" + reviewButton.name);
+            GameManager.currentGameMode = GameManager.GameMode.Review;
+            sceneTransitionManager.FadeOutAndSwitchScene("Page_Game");
         });
     }
 }

@@ -5452,9 +5452,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d77c9cb5dc4b40c5a199e94c0f51eba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSFX: ui_menu_button_click_19
+  feedbackDuration: 0.15
+  pressedScale: {x: 0.9, y: 0.9, z: 0.9}
   pauseMenuUI: {fileID: 1037059596}
   timeUpTextGameObject: {fileID: 840795466}
   backButtonGameObject: {fileID: 1135534506}
+  continueButton: {fileID: 1135534508}
+  restartButton: {fileID: 2134475300}
+  backButton: {fileID: 187976973}
   togglePauseMenuUISFX: ui_menu_button_scroll_19
   animationDuration: 0.3
 --- !u!114 &1964613909
