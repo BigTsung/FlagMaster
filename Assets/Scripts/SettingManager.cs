@@ -31,7 +31,6 @@ public class SettingsManager : Singleton<SettingsManager>
     // 初始化音量設定，從保存的設置讀取
     private void InitializeVolumeSettings()
     {
-        
         float musicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, 0.4f);
         float sfxVolume = PlayerPrefs.GetFloat(SFX_VOLUME_KEY, 0.75f);
 

@@ -25,6 +25,7 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     public Button languageEnglishButton;
 
     public Button cleanReviewModeButton;
+
     public Button updateButton;
 
     [SerializeField] private LocalizeStringEvent[] localizedTextElements; // 新增這個變量來控制所有本地化的 UI 文字
@@ -46,8 +47,8 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     public void InitializeUI()
     {
         // Load the saved settings and set button colors accordingly
-        float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.5f); // Default volume is 0.5
-        float sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.5f);     // Default volume is 0.5
+        float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.4f); // Default volume is 0.5
+        float sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.75f);     // Default volume is 0.5
 
         // Update button text colors
         UpdateMusicButtonColors(musicVolume);
@@ -56,6 +57,9 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
         // Update language button colors
         string currentLanguage = PlayerPrefs.GetString("Language", "zh-TW");
         UpdateLanguageButtonColors(currentLanguage);
+
+
+        UpdateCleanReviewModeButtonColors();
 
         InitializeLanguageSetting();
     }
@@ -77,7 +81,7 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
             Debug.Log("button name:" + musicHighButton.name);
 
             SettingsManager.Instance.SetMusicVolumeHigh();
-            UpdateMusicButtonColors(0.85f);
+            UpdateMusicButtonColors(0.75f);
         });
 
       
@@ -90,7 +94,7 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
             Debug.Log("button name:" + musicMediumButton.name);
 
             SettingsManager.Instance.SetMusicVolumeMedium();
-            UpdateMusicButtonColors(0.5f);
+            UpdateMusicButtonColors(0.4f);
         });
     }
 
@@ -121,7 +125,7 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
         defaultEffect.PlayButtonFeedback(sfxHighButton, false, () => {
             Debug.Log("button name:" + sfxHighButton.name);
             SettingsManager.Instance.SetSFXVolumeHigh();
-            UpdateSFXButtonColors(0.85f);
+            UpdateSFXButtonColors(1f);
         });
     }
 
@@ -131,7 +135,7 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
         defaultEffect.PlayButtonFeedback(sfxMediumButton, false, () => {
             Debug.Log("button name:" + sfxMediumButton.name);
             SettingsManager.Instance.SetSFXVolumeMedium();
-            UpdateSFXButtonColors(0.5f);
+            UpdateSFXButtonColors(0.75f);
         });
     }
 
@@ -141,7 +145,7 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
         defaultEffect.PlayButtonFeedback(sfxLowButton, false, () => {
             Debug.Log("button name:" + sfxLowButton.name);
             SettingsManager.Instance.SetSFXVolumeLow();
-            UpdateSFXButtonColors(0.25f);
+            UpdateSFXButtonColors(0.5f);
         });
     }
 
@@ -195,10 +199,10 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     }
 
     // 更新音樂按鈕的顏色
-        private void UpdateMusicButtonColors(float volume)
+    private void UpdateMusicButtonColors(float volume)
     {
-        SetTextColor(musicHighButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.85f);
-        SetTextColor(musicMediumButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.5f);
+        SetTextColor(musicHighButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.75f);
+        SetTextColor(musicMediumButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.4f);
         SetTextColor(musicLowButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.25f);
         SetTextColor(musicOffButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0f);
     }
@@ -206,9 +210,9 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     // 更新音效按鈕的顏色
     private void UpdateSFXButtonColors(float volume)
     {
-        SetTextColor(sfxHighButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.85f);
-        SetTextColor(sfxMediumButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.5f);
-        SetTextColor(sfxLowButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.25f);
+        SetTextColor(sfxHighButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 1f);
+        SetTextColor(sfxMediumButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.75f);
+        SetTextColor(sfxLowButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0.5f);
         SetTextColor(sfxOffButton.GetComponentInChildren<TextMeshProUGUI>(), volume == 0f);
     }
 
@@ -217,6 +221,12 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
     {
         SetTextColor(languageChineseButton.GetComponentInChildren<TextMeshProUGUI>(), language == "zh-TW");
         SetTextColor(languageEnglishButton.GetComponentInChildren<TextMeshProUGUI>(), language == "en");
+    }
+
+    private void UpdateCleanReviewModeButtonColors()
+    {
+        SetTextColor(cleanReviewModeButton.GetComponentInChildren<TextMeshProUGUI>(), false);
+        
     }
 
     // 設置按鈕文字顏色

@@ -195,7 +195,8 @@ public class GameManager : MonoBehaviour
 
         if (availableCountries.Count == 0)
         {
-            EndGame();
+            //EndGame();
+            StartCoroutine(WaitAndEndGame());
             return;
         }
 
@@ -276,19 +277,6 @@ public class GameManager : MonoBehaviour
 
         totalQuestions++;
 
-        
-        //totalQuestionLimit--;
-        if (currentGameMode == GameMode.SpeedRound)
-        {
-            UpdateRemainingQuestionsText();
-            if (totalQuestionLimit - totalQuestions <= 0)
-            {
-                StopCoroutine(countdownCoroutine);
-                EndGame();
-                return;
-            }
-        }
-
         if (index == correctAnswerIndex)
         {
             AudioManager.Instance.PlaySFX(sfx_correct);
@@ -303,9 +291,9 @@ public class GameManager : MonoBehaviour
             correctButtonText.color = correctColor;
             selectedButtonText.color = wrongColor;
 
-            string correctAnswer = dataList[correctAnswerIndex].cn;
-            string playerAnswer = dataList[index].cn;
-            wrongAnswers.Add(new WrongAnswer(dataList[correctAnswerIndex].cn, correctAnswer, playerAnswer));
+            string correctAnswer = selectedCountries[correctAnswerIndex].cn;
+            string playerAnswer = selectedCountries[index].cn;
+            wrongAnswers.Add(new WrongAnswer(selectedCountries[correctAnswerIndex].cn, correctAnswer, playerAnswer));
 
             UpdateCountryStats(selectedCountries[correctAnswerIndex].cn, false);
 
@@ -313,16 +301,32 @@ public class GameManager : MonoBehaviour
             {
                 remainingLives--;
                 UpdateLivesText();
+                // 檢查是否答錯兩次
                 if (remainingLives <= 0)
                 {
-                    EndGame();
+                    StartCoroutine(WaitAndEndGame());
+                    return;
                 }
             }
-
         }
 
         UpdateStatsText();
-        StartCoroutine(NextQuestion());
+
+        // 只有當不是 TwoLives 模式時，才根據 totalQuestions 決定是否結束遊戲
+        if (currentGameMode != GameMode.TwoLives && totalQuestions >= totalQuestionLimit)
+        {
+            StartCoroutine(WaitAndEndGame());
+        }
+        else if (currentGameMode == GameMode.TwoLives || totalQuestions < totalQuestionLimit)
+        {
+            StartCoroutine(NextQuestion());
+        }
+    }
+
+    private IEnumerator WaitAndEndGame()
+    {
+        yield return new WaitForSeconds(1f);
+        EndGame();
     }
 
     private void UpdateRemainingQuestionsText()
@@ -414,7 +418,8 @@ public class GameManager : MonoBehaviour
         if (dataList.Count == 0)
         {
             Debug.LogWarning("No valid countries found for Review Mode.");
-            EndGame();
+            //EndGame();
+            StartCoroutine(WaitAndEndGame());
         }
         else
         {
@@ -432,21 +437,33 @@ public class GameManager : MonoBehaviour
             timeRemaining--;
         }
 
-        EndGame();
+        //EndGame();
+        StartCoroutine(WaitAndEndGame());
     }
 
     private IEnumerator StartCountdown()
     {
+        // 確保在每次開始計時之前停止任何正在運行的倒數協程
+        if (countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+            countdownCoroutine = null;
+        }
+
         int timeRemaining = timeLimit;
+        countdownText.text = timeRemaining.ToString(); // 初始化顯示時間
+
         while (timeRemaining > 0)
         {
-            countdownText.text = timeRemaining.ToString();
             yield return new WaitForSeconds(1);
             timeRemaining--;
+            countdownText.text = timeRemaining.ToString();
+            Debug.Log("timeRemaining:" + timeRemaining);
         }
 
         countdownText.text = "0";
 
+        // 倒數結束時檢查是否仍在等待答案
         if (isWaitingForAnswer)
         {
             isWaitingForAnswer = false;
@@ -455,11 +472,12 @@ public class GameManager : MonoBehaviour
 
             UpdateRemainingQuestionsText();
 
-            if (totalQuestionLimit - totalQuestions <= 0)
+            // 檢查是否達到問題上限
+            if (currentGameMode == GameMode.SpeedRound && totalQuestionLimit - totalQuestions <= 0)
             {
-                StopCoroutine(countdownCoroutine);
-                EndGame();
-                yield return -1;
+                //EndGame();
+                StartCoroutine(WaitAndEndGame());
+                yield break;
             }
 
             TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();

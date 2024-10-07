@@ -28,14 +28,21 @@ public class SceneTransitionManager : MonoBehaviour
         // 初始化
         upperRect = upperCanvasGroup.GetComponent<RectTransform>();
         lowerRect = lowerCanvasGroup.GetComponent<RectTransform>();
-        modeButtonsRect = modeButtonsCanvasGroup.GetComponent<RectTransform>();
+        if(modeButtonsCanvasGroup != null)
+        {
+            modeButtonsRect = modeButtonsCanvasGroup.GetComponent<RectTransform>();
+            // 隱藏所有模式按鈕和返回按鈕
+            HideModeButtons();
+        }
 
-        // 隱藏所有模式按鈕和返回按鈕
-        HideModeButtons();
+        if (backButton != null)
+        {
+            backButton.onClick.AddListener(OnBackButtonClicked);
+        }
 
         // 設置挑戰按鈕和返回按鈕的點擊事件
         //challengeButton.onClick.AddListener(OnChallengeButtonClicked);
-        backButton.onClick.AddListener(OnBackButtonClicked);
+     
 
         // 執行淡入效果
         FadeIn();
@@ -171,9 +178,10 @@ public class SceneTransitionManager : MonoBehaviour
         // 初始化透明度和位置
         upperCanvasGroup.alpha = 0;
         lowerCanvasGroup.alpha = 0;
-      
-        modeButtonsCanvasGroup.alpha = 0; // 初始隱藏模式按鈕
-
+        if (modeButtonsCanvasGroup != null)
+        {
+            modeButtonsCanvasGroup.alpha = 0; // 初始隱藏模式按鈕
+        }
         upperRect.anchoredPosition = upperStartPos;
         lowerRect.anchoredPosition = lowerStartPos;
 

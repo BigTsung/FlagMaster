@@ -74,14 +74,18 @@ public class GameMainUIManager : Singleton<GameMainUIManager>
     public void SwitchToReviewMode()
     {
         SetActiveCountdown(false);
+
         SetActiveStateCorrectStatic(true);
         SetActiveStateCorrect(true);
+
         SetActiveStateTotalStatic(true);
         SetActiveStateTotal(true);
+
         SetActiveLivesStatic(false);
         SetActiveLives(false);
-        SetActiveRemainingQuestionsStatic(true);
-        SetActiveRemainingQuestions(true);
+
+        SetActiveRemainingQuestionsStatic(false);
+        SetActiveRemainingQuestions(false);
     }
 
     private void SetActiveCountdown(bool status)
