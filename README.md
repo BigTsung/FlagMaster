@@ -74,3 +74,18 @@ Visual Enhancements:
     <img src="Images/Project_FlagMaster_V5_1.png" width="200" alt="setting panel (English)" style="margin-right: 10px;">
     <img src="Images/Project_FlagMaster_V5_2.png" width="200" alt="setting panel (Chinese)">
 </div>
+
+### V6
+1. Game Mode Adjustments:
+	* Added a delay after the final question in each mode before transitioning to the EndGame state.
+	* Fixed the behavior in the TwoLives mode to correctly trigger EndGame only after two incorrect answers, regardless of the total questions answered.
+2.	Feedback System:
+	* Enhanced the button feedback function to optionally wait for the feedback animation to complete before executing subsequent actions.
+3.	Scene Transitions:
+	* Optimized the UI effect component for smoother panel fade-in and fade-out animations.
+	* Addressed issues where UI elements occasionally flashed or appeared incorrectly when transitioning between states.
+	<div style="display: flex; justify-content: center;">
+    <a href="https://www.youtube.com/shorts/VgsMC4MeKuU?feature=share">
+        <img src="Images/Project_FlagMaster_V6.png" width="200" alt="Watch the video" style="margin-right: 10px;">
+    </a>
+</div>

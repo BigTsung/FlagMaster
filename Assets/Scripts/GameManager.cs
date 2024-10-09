@@ -276,6 +276,7 @@ public class GameManager : MonoBehaviour
         TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
 
         totalQuestions++;
+        UpdateRemainingQuestionsText();
 
         if (index == correctAnswerIndex)
         {
@@ -318,7 +319,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(WaitAndEndGame());
         }
         else if (currentGameMode == GameMode.TwoLives || totalQuestions < totalQuestionLimit)
-        {
+        {       
             StartCoroutine(NextQuestion());
         }
     }
@@ -430,12 +431,19 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartTotalCountdown()
     {
         int timeRemaining = totalTimeLimit;
-        while (timeRemaining > 0)
+        while (timeRemaining >= 0)
         {
             countdownText.text = timeRemaining.ToString();
             yield return new WaitForSeconds(1);
             timeRemaining--;
         }
+
+        AudioManager.Instance.PlaySFX(sfx_fail);
+
+        TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
+        correctButtonText.color = correctColor;
+
+        UpdateStatsText();
 
         //EndGame();
         StartCoroutine(WaitAndEndGame());
@@ -472,6 +480,13 @@ public class GameManager : MonoBehaviour
 
             UpdateRemainingQuestionsText();
 
+            AudioManager.Instance.PlaySFX(sfx_fail);
+
+            TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
+            correctButtonText.color = correctColor;
+
+            UpdateStatsText();
+
             // 檢查是否達到問題上限
             if (currentGameMode == GameMode.SpeedRound && totalQuestionLimit - totalQuestions <= 0)
             {
@@ -480,10 +495,7 @@ public class GameManager : MonoBehaviour
                 yield break;
             }
 
-            TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
-            correctButtonText.color = correctColor;
-
-            UpdateStatsText();
+           
             StartCoroutine(NextQuestion());
         }
     }
