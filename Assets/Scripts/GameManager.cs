@@ -121,10 +121,11 @@ public class GameManager : MonoBehaviour
 
         //Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
 
-        LoadStats();
+        if (currentGameMode == GameMode.Review && LoadStats() == false)
+            return;
+
         UpdateRemainingQuestionsText();
         //Debug.Log("currentGameMode: " + currentGameMode);
-
 
         GetRandomFourCountries();
 
@@ -378,8 +379,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("Stats saved: " + json);
     }
 
-    private void LoadStats()
+    private bool LoadStats()
     {
+        bool loaded = false;
         if (File.Exists(jsonFilePath))
         {
             string json = File.ReadAllText(jsonFilePath);
@@ -388,11 +390,22 @@ public class GameManager : MonoBehaviour
             countryStatsDict = statsList.statsList.ToDictionary(stat => stat.countryName, stat => stat);
 
             Debug.Log("Stats loaded: " + json);
+
+            if (countryStatsDict.Count == 0)
+            {
+                EndGame();
+            }
+            else
+            {
+                loaded = true;
+            }
         }
         else
         {
             Debug.Log("No stats file found, starting fresh.");
+            EndGame();
         }
+        return loaded;
     }
 
     public List<CountryStats> GetLowestAccuracyCountries(int count)
