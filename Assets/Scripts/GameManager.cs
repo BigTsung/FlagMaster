@@ -315,14 +315,19 @@ public class GameManager : MonoBehaviour
         UpdateStatsText();
 
         // 只有當不是 TwoLives 模式時，才根據 totalQuestions 決定是否結束遊戲
-        if (currentGameMode != GameMode.TwoLives && totalQuestions >= totalQuestionLimit)
+        //if (currentGameMode != GameMode.TwoLives && totalQuestions >= totalQuestionLimit)
+        //{
+        //    StartCoroutine(WaitAndEndGame());
+        //}
+        if (currentGameMode == GameMode.SpeedRound && totalQuestionLimit - totalQuestions <= 0)
         {
             StartCoroutine(WaitAndEndGame());
         }
-        else if (currentGameMode == GameMode.TwoLives || totalQuestions < totalQuestionLimit)
-        {       
+        else
+        {
             StartCoroutine(NextQuestion());
         }
+        
     }
 
     private IEnumerator WaitAndEndGame()
@@ -517,7 +522,7 @@ public class GameManager : MonoBehaviour
     {
         isWaitingForAnswer = false;
         PauseManager pauseManager = FindObjectOfType<PauseManager>();
-        Debug.Log("pauseManager: " + pauseManager);
+        //Debug.Log("pauseManager: " + pauseManager);
         pauseManager.PauseGame(true);
 
         Debug.Log("EndGame");

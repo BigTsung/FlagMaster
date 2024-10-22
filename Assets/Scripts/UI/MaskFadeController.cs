@@ -20,7 +20,7 @@ public class MaskFadeController : MonoBehaviour
     public void FadeIn()
     {
 
-        Debug.Log("mask fadeIN");
+        //Debug.Log("mask fadeIN");
 
         fadeCanvasGroup.alpha = 1; // 初始為透明
         fadeCanvasGroup.interactable = false;

@@ -20,11 +20,11 @@ public class PauseManager : MonoBehaviour
     private bool isPaused = false;  // 紀錄目前是否處於暫停狀態
     public float animationDuration = 0.5f;  // 動畫持續時間
 
-    private void Awake()
-    {
-        //pauseMenuUI.SetActive(false);
-        Debug.Log("WHAT");
-    }
+    //private void Awake()
+    //{
+    //    //pauseMenuUI.SetActive(false);
+    //    Debug.Log("WHAT");
+    //}
 
     void Start()
     {
