@@ -40,14 +40,7 @@ public class CountryStats
 
     public void UpdateAccuracy()
     {
-        if (totalAttempts > 0)
-        {
-            accuracy = (float)correctAnswers / totalAttempts * 100f;
-        }
-        else
-        {
-            accuracy = 0f;
-        }
+        accuracy = totalAttempts > 0 ? (float)correctAnswers / totalAttempts * 100f : 0f;
     }
 }
 
@@ -65,20 +58,10 @@ public class GameManager : MonoBehaviour
         TimedChallenge,
         SpeedRound,
         TwoLives,
-        Review // 新增 Review 模式
+        Review
     }
 
     public static GameMode currentGameMode = GameMode.Endless;
-
-    private List<CountryData> dataList = new List<CountryData>();
-    private int correctAnswerIndex;
-    private bool isWaitingForAnswer = true;
-    private Coroutine countdownCoroutine;
-    private int totalTimeLimit = 60;
-    private int timeLimit = 10;
-    private int selectedEffectIndex = 0;
-
-    private List<CountryData> selectedCountries;
 
     [SerializeField] private Color originalColor;
     [SerializeField] private Color correctColor;
@@ -90,17 +73,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI statsTotalText;
     [SerializeField] private TextMeshProUGUI livesText;
     [SerializeField] private TextMeshProUGUI remainingQuestionsText;
-    [SerializeField] private float secondToNextQuestion = 1f;
 
+    private List<CountryData> dataList = new List<CountryData>();
+    private List<CountryData> selectedCountries;
+    private int correctAnswerIndex;
+    private bool isWaitingForAnswer = true;
+    private Coroutine countdownCoroutine;
+
+    private int correctAnswers = 0;
     private int totalQuestions = 0;
     private int incorrectAnswers = 0;
-    private int correctAnswers = 0;
     private int remainingLives = 2;
     private int totalQuestionLimit = 20;
+    private int timeLimit = 10;
+    private int totalTimeLimit = 60;
+    private float secondToNextQuestion = 1f;
 
     private List<WrongAnswer> wrongAnswers = new List<WrongAnswer>();
     private HashSet<string> correctAnswerCountries = new HashSet<string>();
-
     private Dictionary<string, CountryStats> countryStatsDict = new Dictionary<string, CountryStats>();
     private string jsonFilePath;
 
@@ -109,80 +99,75 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        statsCorrectText.text = "0";
-        statsTotalText.text =  "0";
-
+        InitializeUI();
         SetGameModeRules();
+        LoadCountries();
+        InitializeFilePath();
 
-        Countries countries = CountryFlagsLoader.Instance.GetCountries();
-        dataList = new List<CountryData>(countries.countries);
-
-        jsonFilePath = Path.Combine(Application.persistentDataPath, "CountryStats.json");
-
-        //Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
-
-        if (currentGameMode == GameMode.Review && LoadStats() == false)
-            return;
+        //if (currentGameMode == GameMode.Review && !LoadStats()) return;
 
         UpdateRemainingQuestionsText();
-        //Debug.Log("currentGameMode: " + currentGameMode);
-
         GetRandomFourCountries();
+        SetupGameMode();
+    }
 
-        if (currentGameMode == GameMode.Review)
-        {
-            secondToNextQuestion = 2;
-            PrepareReviewMode();
-            GameMainUIManager.Instance.SwitchToReviewMode();
-        }
-        else if (currentGameMode == GameMode.Endless)
-        {
-            secondToNextQuestion = 2;
-            GameMainUIManager.Instance.SwitchToEndlessMode();
-        }
-        else if (currentGameMode == GameMode.TimedChallenge)
-        {
-            countdownCoroutine = StartCoroutine(StartTotalCountdown());
-            secondToNextQuestion = 0.5f;
-            GameMainUIManager.Instance.SwitchToTimedChallengeMode();
-        }
-        else if (currentGameMode == GameMode.SpeedRound)
-        {
-            countdownCoroutine = StartCoroutine(StartCountdown());
-            secondToNextQuestion = 2;
-            GameMainUIManager.Instance.SwitchToSpeedRoundMode();
-        }
-        else if (currentGameMode == GameMode.TwoLives)
-        {
-            UpdateLivesText();
-            secondToNextQuestion = 2;
-            GameMainUIManager.Instance.SwitchToTwoLivesMode();
-        }
+    private void InitializeUI()
+    {
+        statsCorrectText.text = "0";
+        statsTotalText.text = "0";
+    }
+
+    private void InitializeFilePath()
+    {
+        jsonFilePath = Path.Combine(Application.persistentDataPath, "CountryStats.json");
+        Debug.Log(jsonFilePath);
+    }
+
+    private void LoadCountries()
+    {
+        Countries countries = CountryFlagsLoader.Instance.GetCountries();
+        dataList = new List<CountryData>(countries.countries);
     }
 
     private void SetGameModeRules()
     {
-        if (currentGameMode == GameMode.TimedChallenge)
-        {
-            countdownText.gameObject.SetActive(true);
-            livesText.gameObject.SetActive(false);
-        }
-        else if (currentGameMode == GameMode.SpeedRound)
+        countdownText.gameObject.SetActive(currentGameMode == GameMode.TimedChallenge || currentGameMode == GameMode.SpeedRound);
+        livesText.gameObject.SetActive(currentGameMode == GameMode.TwoLives);
+
+        if (currentGameMode == GameMode.SpeedRound)
         {
             timeLimit = 5;
-            countdownText.gameObject.SetActive(true);
-            livesText.gameObject.SetActive(false);
         }
-        else if (currentGameMode == GameMode.TwoLives)
+    }
+
+    private void SetupGameMode()
+    {
+        switch (currentGameMode)
         {
-            remainingLives = 2;
-            countdownText.gameObject.SetActive(false);
-            livesText.gameObject.SetActive(true);
-        }
-        else
-        {
-            countdownText.gameObject.SetActive(false);
-            livesText.gameObject.SetActive(false);
+            case GameMode.Review:
+                secondToNextQuestion = 2;
+                PrepareReviewMode();
+                GameMainUIManager.Instance.SwitchToReviewMode();
+                break;
+            case GameMode.Endless:
+                secondToNextQuestion = 2;
+                GameMainUIManager.Instance.SwitchToEndlessMode();
+                break;
+            case GameMode.TimedChallenge:
+                countdownCoroutine = StartCoroutine(StartTotalCountdown());
+                secondToNextQuestion = 0.5f;
+                GameMainUIManager.Instance.SwitchToTimedChallengeMode();
+                break;
+            case GameMode.SpeedRound:
+                countdownCoroutine = StartCoroutine(StartCountdown());
+                secondToNextQuestion = 2;
+                GameMainUIManager.Instance.SwitchToSpeedRoundMode();
+                break;
+            case GameMode.TwoLives:
+                UpdateLivesText();
+                secondToNextQuestion = 2;
+                GameMainUIManager.Instance.SwitchToTwoLivesMode();
+                break;
         }
     }
 
@@ -191,79 +176,59 @@ public class GameManager : MonoBehaviour
         isWaitingForAnswer = true;
         System.Random rng = new System.Random();
 
-        // 過濾掉已經作為正確答案出現過的國家
-        List<CountryData> availableCountries = dataList.Where(c => !correctAnswerCountries.Contains(c.cn)).ToList();
-
-        if (availableCountries.Count == 0)
+        // 确保复习模式下，选择的数据足够
+        if (dataList.Count < 4)
         {
-            //EndGame();
+            Debug.LogWarning("Not enough countries in dataList to generate a question.");
             StartCoroutine(WaitAndEndGame());
             return;
         }
 
-        // 隨機選取一個正確答案從 availableCountries 中
-        CountryData correctCountry = availableCountries[rng.Next(availableCountries.Count)];
+        // 随机选取 1 个正确答案
+        CountryData correctCountry = dataList[rng.Next(dataList.Count)];
 
-        // 將正確答案加入到已出現過的列表
-        correctAnswerCountries.Add(correctCountry.cn);
+        // 确保 selectedCountries 里有 4 个国家
+        selectedCountries = dataList
+            .Where(c => c.cn != correctCountry.cn)
+            .OrderBy(x => rng.Next())
+            .Take(3)
+            .ToList();
 
-        // 剩下的 3 個錯誤答案從 dataList 中排除正確答案，並隨機選擇
-        List<CountryData> otherCountries = dataList.Where(c => c.cn != correctCountry.cn).OrderBy(x => rng.Next()).Take(3).ToList();
-
-        // 把正確答案加到選項裡
-        selectedCountries = new List<CountryData>(otherCountries);
-        selectedCountries.Add(correctCountry);
-
-        // 隨機排列選項
+        selectedCountries.Add(correctCountry);  // 把正确答案加入到选项中
         selectedCountries = selectedCountries.OrderBy(x => rng.Next()).ToList();
 
         correctAnswerIndex = selectedCountries.IndexOf(correctCountry);
 
+        // 这里确保 imgPath 有效
         string imgPath = "CountriesFlags/" + selectedCountries[correctAnswerIndex].abb2;
         Sprite flagIcon = Resources.Load<Sprite>(imgPath);
 
         ApplyFlagEffect(flagIcon);
+        UpdateAnswerButtons();
+        StartCountdownIfNeeded();
+    }
 
+    private void UpdateAnswerButtons()
+    {
         for (int i = 0; i < selectedCountries.Count; i++)
         {
             TextMeshProUGUI buttonText = answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-            // 根據選定的語言來決定顯示的文字
-            if (LocalizationSettings.SelectedLocale.Identifier.Code == "en")
-            {
-                buttonText.text = selectedCountries[i].en;  // 如果語言是英文，顯示英文名稱
-            }
-            else
-            {
-                buttonText.text = selectedCountries[i].cn;  // 如果不是英文，顯示中文名稱
-            }
-
+            buttonText.text = LocalizationSettings.SelectedLocale.Identifier.Code == "en"
+                ? selectedCountries[i].en
+                : selectedCountries[i].cn;
             buttonText.color = originalColor;
             answerButtons[i].interactable = true;
-
             ApplyButtonEffect(answerButtons[i], i);
         }
+    }
 
-        if (currentGameMode == GameMode.SpeedRound)
+    private void StartCountdownIfNeeded()
+    {
+        if (currentGameMode == GameMode.SpeedRound && countdownCoroutine != null)
         {
-            if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
+            StopCoroutine(countdownCoroutine);
             countdownCoroutine = StartCoroutine(StartCountdown());
         }
-
-        Debug.Log("Correct Answer: " + correctCountry.cn);
-        Debug.Log("Appeared Countries: " + string.Join(", ", correctAnswerCountries));
-    }
-
-    private void ApplyFlagEffect(Sprite flagIcon)
-    {
-        imageFlag.sprite = flagIcon;
-        imageFlag.color = new Color(1f, 1f, 1f, 0f);
-        LeanTween.alpha(imageFlag.rectTransform, 1f, 0.75f);
-    }
-
-    private void ApplyButtonEffect(Button button, int index)
-    {
-        button.transform.localScale = Vector3.zero;
-        LeanTween.scale(button.gameObject, Vector3.one, 1f).setEaseOutBack().setDelay(0.1f * index);
     }
 
     public void OnCountrySelected(int index)
@@ -272,7 +237,21 @@ public class GameManager : MonoBehaviour
 
         isWaitingForAnswer = false;
         answerButtons[index].interactable = false;
+        HandleAnswerSelection(index);
+        UpdateStatsText();
 
+        if (currentGameMode == GameMode.SpeedRound && totalQuestionLimit - totalQuestions <= 0)
+        {
+            StartCoroutine(WaitAndEndGame());
+        }
+        else
+        {
+            StartCoroutine(NextQuestion());
+        }
+    }
+
+    private void HandleAnswerSelection(int index)
+    {
         TextMeshProUGUI selectedButtonText = answerButtons[index].GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
 
@@ -288,58 +267,57 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            incorrectAnswers++;
-            AudioManager.Instance.PlaySFX(sfx_fail);
-            correctButtonText.color = correctColor;
+            HandleIncorrectAnswer(selectedButtonText, correctButtonText, index);
+        }
+    }
+
+    private void HandleIncorrectAnswer(TextMeshProUGUI selectedButtonText, TextMeshProUGUI correctButtonText, int index)
+    {
+        incorrectAnswers++;
+        AudioManager.Instance.PlaySFX(sfx_fail);
+        correctButtonText.color = correctColor;
+
+        // 设置错误答案的颜色
+        if (index >= 0 && index < selectedCountries.Count)
+        {
             selectedButtonText.color = wrongColor;
 
             string correctAnswer = selectedCountries[correctAnswerIndex].cn;
             string playerAnswer = selectedCountries[index].cn;
-            wrongAnswers.Add(new WrongAnswer(selectedCountries[correctAnswerIndex].cn, correctAnswer, playerAnswer));
+            wrongAnswers.Add(new WrongAnswer(correctAnswer, correctAnswer, playerAnswer));
 
-            UpdateCountryStats(selectedCountries[correctAnswerIndex].cn, false);
+            UpdateCountryStats(correctAnswer, false);  // 每次答错都更新国家统计数据
+        }
 
-            if (currentGameMode == GameMode.TwoLives)
+        // 挑战模式下，更新并保存到JSON
+        SaveStatsToJson();
+
+        if (currentGameMode == GameMode.TwoLives)
+        {
+            remainingLives--;
+            UpdateLivesText();
+
+            if (remainingLives <= 0)
             {
-                remainingLives--;
-                UpdateLivesText();
-                // 檢查是否答錯兩次
-                if (remainingLives <= 0)
-                {
-                    StartCoroutine(WaitAndEndGame());
-                    return;
-                }
+                StartCoroutine(WaitAndEndGame());
             }
         }
-
-        UpdateStatsText();
-
-        // 只有當不是 TwoLives 模式時，才根據 totalQuestions 決定是否結束遊戲
-        //if (currentGameMode != GameMode.TwoLives && totalQuestions >= totalQuestionLimit)
-        //{
-        //    StartCoroutine(WaitAndEndGame());
-        //}
-        if (currentGameMode == GameMode.SpeedRound && totalQuestionLimit - totalQuestions <= 0)
-        {
-            StartCoroutine(WaitAndEndGame());
-        }
-        else
-        {
-            StartCoroutine(NextQuestion());
-        }
-        
     }
 
-    private IEnumerator WaitAndEndGame()
+    private void SaveStatsToJson()
     {
-        yield return new WaitForSeconds(1f);
-        EndGame();
+        CountryStatsList statsList = new CountryStatsList();
+        statsList.statsList = countryStatsDict.Values.ToList();
+
+        string json = JsonUtility.ToJson(statsList, true);
+        File.WriteAllText(jsonFilePath, json);  // 保存到持久化路径中的JSON文件
+
+        Debug.Log("Stats saved to JSON: " + json);
     }
 
     private void UpdateRemainingQuestionsText()
     {
-        int remainingQuestions = totalQuestionLimit - totalQuestions;
-        remainingQuestionsText.text = remainingQuestions.ToString();
+        remainingQuestionsText.text = (totalQuestionLimit - totalQuestions).ToString();
     }
 
     private void UpdateStatsText()
@@ -367,82 +345,103 @@ public class GameManager : MonoBehaviour
         }
 
         countryStatsDict[countryName].totalAttempts++;
-
         countryStatsDict[countryName].UpdateAccuracy();
-
-        SaveStats();
     }
 
-    private void SaveStats()
-    {
-        CountryStatsList statsList = new CountryStatsList();
-        statsList.statsList = countryStatsDict.Values.ToList();
+    //private void SaveStats()
+    //{
+    //    CountryStatsList statsList = new CountryStatsList { statsList = countryStatsDict.Values.ToList() };
+    //    string json = JsonUtility.ToJson(statsList, true);
+    //    File.WriteAllText(jsonFilePath, json);
+    //}
 
-        string json = JsonUtility.ToJson(statsList, true);
-        File.WriteAllText(jsonFilePath, json);
+    //private bool LoadStats()
+    //{
+    //    if (!File.Exists(jsonFilePath)) return false;
 
-        Debug.Log("Stats saved: " + json);
-    }
+    //    string json = File.ReadAllText(jsonFilePath);
+    //    CountryStatsList statsList = JsonUtility.FromJson<CountryStatsList>(json);
+    //    countryStatsDict = statsList.statsList.ToDictionary(stat => stat.countryName, stat => stat);
 
-    private bool LoadStats()
-    {
-        bool loaded = false;
-        if (File.Exists(jsonFilePath))
-        {
-            string json = File.ReadAllText(jsonFilePath);
-            CountryStatsList statsList = JsonUtility.FromJson<CountryStatsList>(json);
 
-            countryStatsDict = statsList.statsList.ToDictionary(stat => stat.countryName, stat => stat);
-
-            Debug.Log("Stats loaded: " + json);
-
-            if (countryStatsDict.Count == 0)
-            {
-                EndGame();
-            }
-            else
-            {
-                loaded = true;
-            }
-        }
-        else
-        {
-            Debug.Log("No stats file found, starting fresh.");
-            EndGame();
-        }
-        return loaded;
-    }
+    //    Debug.Log("WHAT:" + countryStatsDict.Count);
+    //    return countryStatsDict.Count > 0;
+    //}
 
     public List<CountryStats> GetLowestAccuracyCountries(int count)
     {
+        // 按错误率从高到低排序，并返回前count个国家
         return countryStatsDict.Values.OrderBy(stat => stat.accuracy).Take(count).ToList();
     }
 
     private void PrepareReviewMode()
     {
-        // 從錯誤次數多的國家中選取，最多選取 50 個國家
+        // 从 JSON 文件加载统计数据
+        if (!LoadStatsFromJson())
+        {
+            Debug.LogWarning("No stats data found in JSON.");
+            StartCoroutine(WaitAndEndGame());  // 如果加载失败，直接结束游戏
+            return;
+        }
+
+        // 获取错误率最高的前50个国家
         List<CountryStats> topWrongCountries = GetLowestAccuracyCountries(50);
 
-        Debug.Log("topWrongCountries.Count: " + topWrongCountries.Count);
+        // 如果没有任何错误率国家，结束游戏
+        if (topWrongCountries.Count == 0)
+        {
+            Debug.LogWarning("No countries with wrong answers found for Review Mode.");
+            StartCoroutine(WaitAndEndGame());
+            return;
+        }
 
-        // 確保選擇題目來源是 dataList 中存在的國家，並匹配正確的國家名
-        dataList = topWrongCountries
-            .Select(stat => dataList.FirstOrDefault(country =>
-                country.cn.Trim().ToLower() == stat.countryName.Trim().ToLower()))
-            .Where(country => country != null)
+        // 随机选择其中一个作为正确答案
+        System.Random rng = new System.Random();
+        CountryStats correctCountryStat = topWrongCountries[rng.Next(topWrongCountries.Count)];
+        CountryData correctCountry = dataList.FirstOrDefault(c => c.cn == correctCountryStat.countryName);
+
+        if (correctCountry == null)
+        {
+            Debug.LogWarning("No matching country found for: " + correctCountryStat.countryName);
+            StartCoroutine(WaitAndEndGame());
+            return;
+        }
+
+        // 选择其他三个随机国家作为错误答案
+        List<CountryData> otherCountries = dataList
+            .Where(c => c.cn != correctCountry.cn)  // 排除正确答案
+            .OrderBy(x => rng.Next())
+            .Take(3)
             .ToList();
 
-        Debug.Log("dataList.Count: " + dataList.Count);
+        // 将正确答案和其他国家组成选项
+        selectedCountries = new List<CountryData>(otherCountries) { correctCountry };
+        selectedCountries = selectedCountries.OrderBy(x => rng.Next()).ToList();
 
-        if (dataList.Count == 0)
+        correctAnswerIndex = selectedCountries.IndexOf(correctCountry);
+
+        // 显示国旗和答案按钮
+        string imgPath = "CountriesFlags/" + selectedCountries[correctAnswerIndex].abb2;
+        Sprite flagIcon = Resources.Load<Sprite>(imgPath);
+        ApplyFlagEffect(flagIcon);
+        UpdateAnswerButtons();
+    }
+
+    private bool LoadStatsFromJson()
+    {
+        if (File.Exists(jsonFilePath))
         {
-            Debug.LogWarning("No valid countries found for Review Mode.");
-            //EndGame();
-            StartCoroutine(WaitAndEndGame());
+            string json = File.ReadAllText(jsonFilePath);
+            CountryStatsList statsList = JsonUtility.FromJson<CountryStatsList>(json);
+            countryStatsDict = statsList.statsList.ToDictionary(stat => stat.countryName, stat => stat);
+
+            Debug.Log("Stats loaded from JSON: " + json);
+            return true;
         }
         else
         {
-            GetRandomFourCountries(); // 從選定的國家中開始出題
+            Debug.LogWarning("No stats file found.");
+            return false;
         }
     }
 
@@ -456,40 +455,38 @@ public class GameManager : MonoBehaviour
             timeRemaining--;
         }
 
+        HandleCountdownEnd();
+    }
+
+    private void HandleCountdownEnd()
+    {
         AudioManager.Instance.PlaySFX(sfx_fail);
 
         TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
         correctButtonText.color = correctColor;
 
         UpdateStatsText();
-
-        //EndGame();
         StartCoroutine(WaitAndEndGame());
     }
 
     private IEnumerator StartCountdown()
     {
-        // 確保在每次開始計時之前停止任何正在運行的倒數協程
-        if (countdownCoroutine != null)
-        {
-            StopCoroutine(countdownCoroutine);
-            countdownCoroutine = null;
-        }
+        if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
 
         int timeRemaining = timeLimit;
-        countdownText.text = timeRemaining.ToString(); // 初始化顯示時間
+        countdownText.text = timeRemaining.ToString();
 
         while (timeRemaining > 0)
         {
             yield return new WaitForSeconds(1);
-            timeRemaining--;
-            countdownText.text = timeRemaining.ToString();
-            Debug.Log("timeRemaining:" + timeRemaining);
+            countdownText.text = (--timeRemaining).ToString();
         }
 
-        countdownText.text = "0";
+        HandleTimeOut();
+    }
 
-        // 倒數結束時檢查是否仍在等待答案
+    private void HandleTimeOut()
+    {
         if (isWaitingForAnswer)
         {
             isWaitingForAnswer = false;
@@ -497,35 +494,26 @@ public class GameManager : MonoBehaviour
             totalQuestions++;
 
             UpdateRemainingQuestionsText();
-
             AudioManager.Instance.PlaySFX(sfx_fail);
 
             TextMeshProUGUI correctButtonText = answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>();
             correctButtonText.color = correctColor;
 
             UpdateStatsText();
-
-            // 檢查是否達到問題上限
-            if (currentGameMode == GameMode.SpeedRound && totalQuestionLimit - totalQuestions <= 0)
-            {
-                //EndGame();
-                StartCoroutine(WaitAndEndGame());
-                yield break;
-            }
-
-           
             StartCoroutine(NextQuestion());
         }
+    }
+
+    private IEnumerator WaitAndEndGame()
+    {
+        yield return new WaitForSeconds(1f);
+        EndGame();
     }
 
     private void EndGame()
     {
         isWaitingForAnswer = false;
-        PauseManager pauseManager = FindObjectOfType<PauseManager>();
-        //Debug.Log("pauseManager: " + pauseManager);
-        pauseManager.PauseGame(true);
-
-        Debug.Log("EndGame");
+        FindObjectOfType<PauseManager>().PauseGame(true);
     }
 
     private void UpdateLivesText()
@@ -535,14 +523,8 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        totalQuestions = 0;
-        incorrectAnswers = 0;
-        correctAnswers = 0;
-        wrongAnswers.Clear();
-
-        Countries countries = CountryFlagsLoader.Instance.GetCountries();
-        dataList = new List<CountryData>(countries.countries);
-
+        ResetGameStats();
+        LoadCountries();
         correctAnswerCountries.Clear();
 
         UpdateStatsText();
@@ -550,10 +532,6 @@ public class GameManager : MonoBehaviour
 
         if (currentGameMode == GameMode.TimedChallenge)
         {
-            if (countdownCoroutine != null)
-            {
-                StopCoroutine(countdownCoroutine);
-            }
             countdownCoroutine = StartCoroutine(StartTotalCountdown());
         }
         else if (currentGameMode == GameMode.SpeedRound)
@@ -562,8 +540,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void ResetGameStats()
+    {
+        totalQuestions = 0;
+        incorrectAnswers = 0;
+        correctAnswers = 0;
+        wrongAnswers.Clear();
+    }
+
     public void ClearAppearedCountries()
     {
         correctAnswerCountries.Clear();
+    }
+
+    private void ApplyFlagEffect(Sprite flagIcon)
+    {
+        imageFlag.sprite = flagIcon;
+        imageFlag.color = new Color(1f, 1f, 1f, 0f);
+        LeanTween.alpha(imageFlag.rectTransform, 1f, 0.75f);
+    }
+
+    private void ApplyButtonEffect(Button button, int index)
+    {
+        button.transform.localScale = Vector3.zero;
+        LeanTween.scale(button.gameObject, Vector3.one, 1f).setEaseOutBack().setDelay(0.1f * index);
     }
 }
