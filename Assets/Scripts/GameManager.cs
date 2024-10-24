@@ -104,11 +104,12 @@ public class GameManager : MonoBehaviour
         LoadCountries();
         InitializeFilePath();
 
-        //if (currentGameMode == GameMode.Review && !LoadStats()) return;
+        // UpdateRemainingQuestionsText(); 移动到最后确保更新的题目数量是准确的
+        SetupGameMode();  // 确保游戏模式先设置好
 
-        UpdateRemainingQuestionsText();
-        GetRandomFourCountries();
-        SetupGameMode();
+        GetRandomFourCountries();  // 确保在设置好模式后再生成题目
+
+        UpdateRemainingQuestionsText();  // 更新剩余问题数
     }
 
     private void InitializeUI()
@@ -175,34 +176,72 @@ public class GameManager : MonoBehaviour
     {
         isWaitingForAnswer = true;
         System.Random rng = new System.Random();
+        CountryData correctCountry = null;  // 这里提前声明 correctCountry 变量，确保在整个函数中都可以访问
 
-        // 确保复习模式下，选择的数据足够
-        if (dataList.Count < 4)
+        // 检查复习模式是否有足够的数据可用
+        if (currentGameMode == GameMode.Review)
         {
-            Debug.LogWarning("Not enough countries in dataList to generate a question.");
-            StartCoroutine(WaitAndEndGame());
-            return;
+            if (dataList.Count < 4)
+            {
+                Debug.LogWarning("Not enough countries in dataList to generate a question.");
+                StartCoroutine(WaitAndEndGame());
+                return;
+            }
+
+            // 从错误率最高的国家中选择
+            List<CountryStats> topWrongCountries = GetLowestAccuracyCountries(50);
+            if (topWrongCountries.Count == 0)
+            {
+                Debug.LogWarning("No more countries available for Review Mode.");
+                StartCoroutine(WaitAndEndGame());
+                return;
+            }
+
+            // 从错题中随机选择一个正确答案
+            CountryStats correctCountryStat = topWrongCountries[rng.Next(topWrongCountries.Count)];
+            correctCountry = dataList.FirstOrDefault(c => c.cn == correctCountryStat.countryName);
+
+            Debug.Log("correctCountryStat: " + correctCountryStat.countryName);
+
+            if (correctCountry == null)
+            {
+                Debug.LogWarning("No matching country found for: " + correctCountryStat.countryName);
+                StartCoroutine(WaitAndEndGame());
+                return;
+            }
+        }
+        else
+        {
+            // 对于其他模式，使用通用逻辑生成题目
+            List<CountryData> availableCountries = dataList.Where(c => !correctAnswerCountries.Contains(c.cn)).ToList();
+
+            if (availableCountries.Count == 0)
+            {
+                Debug.Log("No more countries available to show.");
+                StartCoroutine(WaitAndEndGame());
+                return;
+            }
+
+            // 随机选择正确答案
+            correctCountry = availableCountries[rng.Next(availableCountries.Count)];
+            correctAnswerCountries.Add(correctCountry.cn);
         }
 
-        // 随机选取 1 个正确答案
-        CountryData correctCountry = dataList[rng.Next(dataList.Count)];
-
-        // 确保 selectedCountries 里有 4 个国家
-        selectedCountries = dataList
+        // 随机选择其他三个错误答案
+        List<CountryData> otherCountries = dataList
             .Where(c => c.cn != correctCountry.cn)
             .OrderBy(x => rng.Next())
             .Take(3)
             .ToList();
 
-        selectedCountries.Add(correctCountry);  // 把正确答案加入到选项中
+        // 把正确答案加到选项里
+        selectedCountries = new List<CountryData>(otherCountries) { correctCountry };
         selectedCountries = selectedCountries.OrderBy(x => rng.Next()).ToList();
 
-        correctAnswerIndex = selectedCountries.IndexOf(correctCountry);
+        correctAnswerIndex = selectedCountries.IndexOf(correctCountry);  // 这里可以安全使用 correctCountry
 
-        // 这里确保 imgPath 有效
         string imgPath = "CountriesFlags/" + selectedCountries[correctAnswerIndex].abb2;
         Sprite flagIcon = Resources.Load<Sprite>(imgPath);
-
         ApplyFlagEffect(flagIcon);
         UpdateAnswerButtons();
         StartCountdownIfNeeded();
@@ -269,6 +308,8 @@ public class GameManager : MonoBehaviour
         {
             HandleIncorrectAnswer(selectedButtonText, correctButtonText, index);
         }
+
+        SaveStatsToJson();
     }
 
     private void HandleIncorrectAnswer(TextMeshProUGUI selectedButtonText, TextMeshProUGUI correctButtonText, int index)
@@ -289,8 +330,7 @@ public class GameManager : MonoBehaviour
             UpdateCountryStats(correctAnswer, false);  // 每次答错都更新国家统计数据
         }
 
-        // 挑战模式下，更新并保存到JSON
-        SaveStatsToJson();
+        //SaveStatsToJson();
 
         if (currentGameMode == GameMode.TwoLives)
         {
