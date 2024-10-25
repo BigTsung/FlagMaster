@@ -21,7 +21,7 @@ public class SlidePanel : MonoBehaviour
         if (!isVisible)
         {
             rectTransform.anchoredPosition = new Vector2(0, -Screen.height);  // 初始位置在屏幕外
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 

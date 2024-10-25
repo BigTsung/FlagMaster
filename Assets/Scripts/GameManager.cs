@@ -22,33 +22,33 @@ public class WrongAnswer
     }
 }
 
-[System.Serializable]
-public class CountryStats
-{
-    public string countryName;
-    public int correctAnswers;
-    public int totalAttempts;
-    public float accuracy;
+//[System.Serializable]
+//public class CountryStats
+//{
+//    public string countryName;
+//    public int correctAnswers;
+//    public int totalAttempts;
+//    public float accuracy;
 
-    public CountryStats(string name)
-    {
-        countryName = name;
-        correctAnswers = 0;
-        totalAttempts = 0;
-        accuracy = 0f;
-    }
+//    public CountryStats(string name)
+//    {
+//        countryName = name;
+//        correctAnswers = 0;
+//        totalAttempts = 0;
+//        accuracy = 0f;
+//    }
 
-    public void UpdateAccuracy()
-    {
-        accuracy = totalAttempts > 0 ? (float)correctAnswers / totalAttempts * 100f : 0f;
-    }
-}
+//    public void UpdateAccuracy()
+//    {
+//        accuracy = totalAttempts > 0 ? (float)correctAnswers / totalAttempts * 100f : 0f;
+//    }
+//}
 
-[System.Serializable]
-public class CountryStatsList
-{
-    public List<CountryStats> statsList = new List<CountryStats>();
-}
+//[System.Serializable]
+//public class CountryStatsList
+//{
+//    public List<CountryStats> statsList = new List<CountryStats>();
+//}
 
 public class GameManager : MonoBehaviour
 {
@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour
             if (topWrongCountries.Count == 0)
             {
                 Debug.LogWarning("No more countries available for Review Mode.");
-                StartCoroutine(WaitAndEndGame());
+                //StartCoroutine(WaitAndEndGame());
                 return;
             }
 
@@ -420,7 +420,7 @@ public class GameManager : MonoBehaviour
         if (!LoadStatsFromJson())
         {
             Debug.LogWarning("No stats data found in JSON.");
-            StartCoroutine(WaitAndEndGame());  // 如果加载失败，直接结束游戏
+            StartCoroutine(WaitAndEndGame(0f));  // 如果加载失败，直接结束游戏
             return;
         }
 
@@ -544,9 +544,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator WaitAndEndGame()
+    private IEnumerator WaitAndEndGame(float second = 1f)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(second);
         EndGame();
     }
 

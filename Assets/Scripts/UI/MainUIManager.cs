@@ -10,6 +10,10 @@ public class MainUIManager : Singleton<MainUIManager>
     [SerializeField] private Vector3 pressedScale = new Vector3(0.9f, 0.9f, 0.9f);  // 按鈕按下時的縮放
 
     [SerializeField] private GameObject settingPanel;
+    [SerializeField] private GameObject recordPanel;
+
+    [SerializeField] private GameObject modeButtons;
+    [SerializeField] private GameObject fadeInMask;
 
     [SerializeField] private Button challenageButton;
     [SerializeField] private Button settingButton;
@@ -21,6 +25,22 @@ public class MainUIManager : Singleton<MainUIManager>
     [SerializeField] private Button timeChallengeButton;
     [SerializeField] private Button reviewButton;
 
+    private void Start()
+    {
+        // UI Initial 
+        modeButtons.SetActive(true);
+        fadeInMask.SetActive(true);
+    }
+
+    public void OnRecordButtonPressed()
+    {
+        UIEffect defaultEffect = new UIEffect(sfx: sfx_click_button);
+        defaultEffect.PlayButtonFeedback(settingButton, false, () => {
+            Debug.Log("button name:" + settingButton.name);
+            ToggleRecordPanel();
+        });
+    }
+
     public void OnSettingButtonPressed()
     {
         UIEffect defaultEffect = new UIEffect(sfx: sfx_click_button);
@@ -29,6 +49,23 @@ public class MainUIManager : Singleton<MainUIManager>
             ToggleSettingPanel();
         });
     }
+
+    public void ToggleRecordPanel()
+    {
+        Debug.Log("ToggleRecordPanel");
+        //AudioManager.Instance.PlaySFX(sfx_click_button);
+
+        //PlayButtonFeedback(settingButton);
+
+        if (recordPanel != null)
+        {
+            //Debug.Log(settingPanel.activeSelf);
+            recordPanel.GetComponent<SlidePanel>().TogglePanel();
+            //settingPanel.SetActive(!settingPanel.activeSelf);
+            //Debug.Log("After: " + settingPanel.activeSelf);
+        }
+    }
+
 
     public void ToggleSettingPanel()
     {
