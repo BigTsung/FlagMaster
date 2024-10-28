@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using UnityEngine.Localization.Settings;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 public class CountryRankingUI : MonoBehaviour
 {
@@ -41,11 +43,20 @@ public class CountryRankingUI : MonoBehaviour
     }
 
     // 动态生成并填充排行榜
-    private void PopulateCountryRanking()
+    public void PopulateCountryRanking()
     {
+        // 清空 contentParent 的所有子对象
+        foreach (Transform child in contentParent)
+        {
+            Destroy(child.gameObject);
+        }
+
         Countries countriesData = CountryFlagsLoader.Instance.GetCountries();
 
-        foreach (CountryStats stat in countryStatsDict.Values)
+        // 根据 accuracy 从低到高排序
+        var sortedStats = countryStatsDict.Values.OrderBy(stat => stat.accuracy).ToList();
+
+        foreach (CountryStats stat in sortedStats)
         {
             // 找到对应的 CountryData 信息
             CountryData countryData = System.Array.Find(countriesData.countries, c => c.cn == stat.countryName);
@@ -64,8 +75,15 @@ public class CountryRankingUI : MonoBehaviour
                 string imgPath = "CountriesFlags/" + countryData.abb2;
                 Sprite flagSprite = Resources.Load<Sprite>(imgPath);
 
-                // 设置每个国家的数据
-                itemController.SetupItem(flagSprite, countryData.cn, stat.accuracy);
+                Debug.Log(" LocalizationSettings.SelectedLocale.Identifier.Code: " + LocalizationSettings.SelectedLocale.Identifier.Code);
+
+                string countryDadaText = LocalizationSettings.SelectedLocale.Identifier.Code == "en"
+                ? countryData.en
+                : countryData.cn;
+
+                // 设置每个国家的数据，并去掉小数点
+                float accuracy = Mathf.RoundToInt(stat.accuracy);
+                itemController.SetupItem(flagSprite, countryDadaText, accuracy);
             }
             else
             {

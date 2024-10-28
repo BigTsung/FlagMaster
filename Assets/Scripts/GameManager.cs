@@ -22,34 +22,6 @@ public class WrongAnswer
     }
 }
 
-//[System.Serializable]
-//public class CountryStats
-//{
-//    public string countryName;
-//    public int correctAnswers;
-//    public int totalAttempts;
-//    public float accuracy;
-
-//    public CountryStats(string name)
-//    {
-//        countryName = name;
-//        correctAnswers = 0;
-//        totalAttempts = 0;
-//        accuracy = 0f;
-//    }
-
-//    public void UpdateAccuracy()
-//    {
-//        accuracy = totalAttempts > 0 ? (float)correctAnswers / totalAttempts * 100f : 0f;
-//    }
-//}
-
-//[System.Serializable]
-//public class CountryStatsList
-//{
-//    public List<CountryStats> statsList = new List<CountryStats>();
-//}
-
 public class GameManager : MonoBehaviour
 {
     public enum GameMode
@@ -94,6 +66,8 @@ public class GameManager : MonoBehaviour
     private Dictionary<string, CountryStats> countryStatsDict = new Dictionary<string, CountryStats>();
     private string jsonFilePath;
 
+    private bool loadStatsFromJsonSuccess = false;
+
     public string sfx_correct = "";
     public string sfx_fail = "";
 
@@ -104,8 +78,12 @@ public class GameManager : MonoBehaviour
         LoadCountries();
         InitializeFilePath();
 
+        loadStatsFromJsonSuccess = LoadStatsFromJson();
+
         // UpdateRemainingQuestionsText(); 移动到最后确保更新的题目数量是准确的
         SetupGameMode();  // 确保游戏模式先设置好
+
+        
 
         GetRandomFourCountries();  // 确保在设置好模式后再生成题目
 
@@ -343,9 +321,31 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    //private void SaveStats()
+    //{
+    //    CountryStatsList statsList = new CountryStatsList { statsList = countryStatsDict.Values.ToList() };
+    //    string json = JsonUtility.ToJson(statsList, true);
+    //    File.WriteAllText(jsonFilePath, json);
+    //}
+
+    //private bool LoadStats()
+    //{
+    //    if (!File.Exists(jsonFilePath)) return false;
+
+    //    string json = File.ReadAllText(jsonFilePath);
+    //    CountryStatsList statsList = JsonUtility.FromJson<CountryStatsList>(json);
+    //    countryStatsDict = statsList.statsList.ToDictionary(stat => stat.countryName, stat => stat);
+
+
+    //    Debug.Log("WHAT:" + countryStatsDict.Count);
+    //    return countryStatsDict.Count > 0;
+    //}
+
 
     private void SaveStatsToJson()
     {
+        Debug.Log(" SaveStatsToJson ");
+
         CountryStatsList statsList = new CountryStatsList();
         statsList.statsList = countryStatsDict.Values.ToList();
 
@@ -353,6 +353,24 @@ public class GameManager : MonoBehaviour
         File.WriteAllText(jsonFilePath, json);  // 保存到持久化路径中的JSON文件
 
         Debug.Log("Stats saved to JSON: " + json);
+    }
+
+    private bool LoadStatsFromJson()
+    {
+        if (File.Exists(jsonFilePath))
+        {
+            string json = File.ReadAllText(jsonFilePath);
+            CountryStatsList statsList = JsonUtility.FromJson<CountryStatsList>(json);
+            countryStatsDict = statsList.statsList.ToDictionary(stat => stat.countryName, stat => stat);
+
+            Debug.Log("Stats loaded from JSON: " + json);
+            return true;
+        }
+        else
+        {
+            Debug.LogWarning("No stats file found.");
+            return false;
+        }
     }
 
     private void UpdateRemainingQuestionsText()
@@ -388,25 +406,7 @@ public class GameManager : MonoBehaviour
         countryStatsDict[countryName].UpdateAccuracy();
     }
 
-    //private void SaveStats()
-    //{
-    //    CountryStatsList statsList = new CountryStatsList { statsList = countryStatsDict.Values.ToList() };
-    //    string json = JsonUtility.ToJson(statsList, true);
-    //    File.WriteAllText(jsonFilePath, json);
-    //}
 
-    //private bool LoadStats()
-    //{
-    //    if (!File.Exists(jsonFilePath)) return false;
-
-    //    string json = File.ReadAllText(jsonFilePath);
-    //    CountryStatsList statsList = JsonUtility.FromJson<CountryStatsList>(json);
-    //    countryStatsDict = statsList.statsList.ToDictionary(stat => stat.countryName, stat => stat);
-
-
-    //    Debug.Log("WHAT:" + countryStatsDict.Count);
-    //    return countryStatsDict.Count > 0;
-    //}
 
     public List<CountryStats> GetLowestAccuracyCountries(int count)
     {
@@ -417,7 +417,7 @@ public class GameManager : MonoBehaviour
     private void PrepareReviewMode()
     {
         // 从 JSON 文件加载统计数据
-        if (!LoadStatsFromJson())
+        if (!loadStatsFromJsonSuccess)
         {
             Debug.LogWarning("No stats data found in JSON.");
             StartCoroutine(WaitAndEndGame(0f));  // 如果加载失败，直接结束游戏
@@ -465,24 +465,6 @@ public class GameManager : MonoBehaviour
         Sprite flagIcon = Resources.Load<Sprite>(imgPath);
         ApplyFlagEffect(flagIcon);
         UpdateAnswerButtons();
-    }
-
-    private bool LoadStatsFromJson()
-    {
-        if (File.Exists(jsonFilePath))
-        {
-            string json = File.ReadAllText(jsonFilePath);
-            CountryStatsList statsList = JsonUtility.FromJson<CountryStatsList>(json);
-            countryStatsDict = statsList.statsList.ToDictionary(stat => stat.countryName, stat => stat);
-
-            Debug.Log("Stats loaded from JSON: " + json);
-            return true;
-        }
-        else
-        {
-            Debug.LogWarning("No stats file found.");
-            return false;
-        }
     }
 
     private IEnumerator StartTotalCountdown()

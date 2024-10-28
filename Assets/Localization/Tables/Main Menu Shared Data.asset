@@ -123,6 +123,18 @@ MonoBehaviour:
     m_Key: Record_Key
     m_Metadata:
       m_Items: []
+  - m_Id: 11968322336710656
+    m_Key: Accuracy_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11968451231866880
+    m_Key: Flag_Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11968610254708736
+    m_Key: Country_Key
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
