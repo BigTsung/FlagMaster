@@ -55,6 +55,20 @@ public class CountryFlagsLoader : Singleton<CountryFlagsLoader>
         }
     }
 
+    //// 清除 countries.countries 的數據
+    //public void ClearAllCountries()
+    //{
+    //    if (countries != null)
+    //    {
+    //        countries.countries = new CountryData[0]; // 設置為空數組
+    //        Debug.Log("All countries have been cleared.");
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("Countries data is null and cannot be cleared.");
+    //    }
+    //}
+
     // 提供對國家數據的訪問方法
     public Countries GetCountries()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 
-public class CountryRankingUI : MonoBehaviour
+public class CountryRankingUI : Singleton<CountryRankingUI>
 {
     [SerializeField] private GameObject countryItemPrefab;  // 预制件引用，需在 Inspector 中设置
     [SerializeField] private Transform contentParent;       // ScrollView 的 Content 对象，需在 Inspector 中设置
@@ -42,12 +42,18 @@ public class CountryRankingUI : MonoBehaviour
         }
     }
 
+    public void ClearAllCountryStatsDict()
+    {
+        countryStatsDict.Clear();
+    }
+
     // 动态生成并填充排行榜
     public void PopulateCountryRanking()
     {
         // 清空 contentParent 的所有子对象
         foreach (Transform child in contentParent)
         {
+            Debug.Log("Destroy all elements");
             Destroy(child.gameObject);
         }
 

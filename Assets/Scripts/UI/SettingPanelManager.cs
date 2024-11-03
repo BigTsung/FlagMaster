@@ -186,6 +186,8 @@ public class SettingPanelManager : Singleton<SettingPanelManager>
         defaultEffect.PlayButtonFeedback(cleanReviewModeButton, false, () => {
             Debug.Log("button name:" + cleanReviewModeButton.name);
             SettingsManager.Instance.ClearReviewModeData();
+
+            CountryRankingUI.Instance.ClearAllCountryStatsDict();
         });
     }
 
