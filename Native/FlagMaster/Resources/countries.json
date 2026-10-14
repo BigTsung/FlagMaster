@@ -1169,11 +1169,11 @@
     },
     {
         "cn": "多明尼加",
-        "en": "Dominica",
-        "full": "the Commonwealth of Dominica",
-        "abb2": "DM",
-        "abb3": "DMA",
-        "code": "212"
+        "en": "Dominican Republic",
+        "full": "the Dominican Republic",
+        "abb2": "DO",
+        "abb3": "DOM",
+        "code": "214"
     },
     {
         "cn": "薩爾瓦多",
@@ -1568,17 +1568,9 @@
         "code": "158"
     },
    {
-        "cn": "約旦河西岸",
-        "en": "West Bank",
-        "full": "West Bank",
-        "abb2": "PS",
-        "abb3": "PSE",
-        "code": "275"
-    },
-    {
-        "cn": "加薩走廊",
-        "en": "Gaza Strip",
-        "full": "Gaza Strip",
+        "cn": "巴勒斯坦",
+        "en": "Palestine",
+        "full": "State of Palestine",
         "abb2": "PS",
         "abb3": "PSE",
         "code": "275"

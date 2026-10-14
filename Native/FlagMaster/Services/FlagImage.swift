@@ -19,8 +19,8 @@ struct FlagImage: View {
             }
         }
         .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 18).stroke(.white.opacity(0.22), lineWidth: 1))
+        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 4).stroke(.white.opacity(0.22), lineWidth: 1))
         .shadow(color: .black.opacity(0.28), radius: 16, y: 8)
         .accessibilityHidden(true)
     }

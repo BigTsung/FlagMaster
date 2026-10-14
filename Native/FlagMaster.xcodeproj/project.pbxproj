@@ -277,6 +277,12 @@
 		FF3019B0360E81CA75E9BB54 /* LA.png in Resources */ = {isa = PBXBuildFile; fileRef = 17A7AD7654808A8CB91A0B5E /* LA.png */; };
 		FF9966D46DB421C7D91A2C11 /* SI.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F572A436BDC71B92FEFA62 /* SI.png */; };
 		FFB2520A1F5D7771E65F1500 /* MT.png in Resources */ = {isa = PBXBuildFile; fileRef = C1AE5458452C1CB0320BCA83 /* MT.png */; };
+		FD49F69875002E98324385E1 /* LearningContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A78B8DACBED6A86BAA2C86 /* LearningContent.swift */; };
+		4AEB142E2AF71B2B069FDC97 /* LearningHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D3961B843256504B443C69 /* LearningHubView.swift */; };
+		C1B2C3D4E5F60718293A4B5C /* WorldMapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5C /* WorldMapData.swift */; };
+		E1B2C3D4E5F60718293A4B5C /* world-map.geojson in Resources */ = {isa = PBXBuildFile; fileRef = D1B2C3D4E5F60718293A4B5C /* world-map.geojson */; };
+		114A1B2C3D4E5F60718293A4 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214A1B2C3D4E5F60718293A4 /* AudioManager.swift */; };
+		314A1B2C3D4E5F60718293A4 /* Audio in Resources */ = {isa = PBXBuildFile; fileRef = 414A1B2C3D4E5F60718293A4 /* Audio */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -551,6 +557,12 @@
 		FD2B8E8E18CE28165A8D254A /* BS.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = BS.png; sourceTree = "<group>"; };
 		FE86D81F5643BA34DE1342D2 /* GW.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = GW.png; sourceTree = "<group>"; };
 		FEDF8B67CB8C17D8D6767840 /* LB.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = LB.png; sourceTree = "<group>"; };
+		B3A78B8DACBED6A86BAA2C86 /* LearningContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LearningContent.swift; path = Models/LearningContent.swift; sourceTree = "<group>"; };
+		D9D3961B843256504B443C69 /* LearningHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LearningHubView.swift; path = Views/LearningHubView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5C /* WorldMapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WorldMapData.swift; path = Models/WorldMapData.swift; sourceTree = "<group>"; };
+		D1B2C3D4E5F60718293A4B5C /* world-map.geojson */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = "world-map.geojson"; path = "Resources/world-map.geojson"; sourceTree = "<group>"; };
+		214A1B2C3D4E5F60718293A4 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AudioManager.swift; path = Services/AudioManager.swift; sourceTree = "<group>"; };
+		414A1B2C3D4E5F60718293A4 /* Audio */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Audio; path = Resources/Audio; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -854,11 +866,15 @@
 		D276646FEFA29A64403BAF31 /* FlagMaster */ = {
 			isa = PBXGroup;
 			children = (
+				D9D3961B843256504B443C69 /* LearningHubView.swift */,
+				B3A78B8DACBED6A86BAA2C86 /* LearningContent.swift */,
+				A1B2C3D4E5F60718293A4B5C /* WorldMapData.swift */,
 				8D599ADE2D94311637B8E796 /* FlagMasterApp.swift */,
 				8ABBCB6EF1678FE26D3D89A1 /* Country.swift */,
 				2DA6218416B7F82A0F21576F /* CountryStat.swift */,
 				95399CCC27BFF91CC39A7E89 /* GameMode.swift */,
 				59B5371FE3A2BE96A2155FC1 /* AppSettings.swift */,
+				214A1B2C3D4E5F60718293A4 /* AudioManager.swift */,
 				BCA1C0A57975774C036DA7A5 /* CountryRepository.swift */,
 				47EF85CC652FC80544F4BBAD /* FlagImage.swift */,
 				521C210DC68F7E7645CF2269 /* StatsStore.swift */,
@@ -870,6 +886,8 @@
 				290A9C9CCD2812CF4042B34B /* SettingsView.swift */,
 				5409D457B972BCBB019F2CC3 /* Assets.xcassets */,
 				330E1395A6F57CDC650623F6 /* countries.json */,
+				D1B2C3D4E5F60718293A4B5C /* world-map.geojson */,
+				414A1B2C3D4E5F60718293A4 /* Audio */,
 				9A0721F02FBC18A51672F83A /* Flags */,
 			);
 			path = FlagMaster;
@@ -943,6 +961,8 @@
 			files = (
 				E92AC1D57A431501B4984A0A /* Assets.xcassets in Resources */,
 				1C62671D9AB60D452CDEEA00 /* countries.json in Resources */,
+				E1B2C3D4E5F60718293A4B5C /* world-map.geojson in Resources */,
+				314A1B2C3D4E5F60718293A4 /* Audio in Resources */,
 				38A5E1CB4B128BEA1B50407D /* AC.png in Resources */,
 				EDB0DE047EE16A2DC1B541CF /* AD.png in Resources */,
 				D71FF7D1060451A77041B238 /* AE.png in Resources */,
@@ -1206,11 +1226,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AEB142E2AF71B2B069FDC97 /* LearningHubView.swift in Sources */,
+				FD49F69875002E98324385E1 /* LearningContent.swift in Sources */,
+				C1B2C3D4E5F60718293A4B5C /* WorldMapData.swift in Sources */,
 				D1E04EE981BE4CA289D70811 /* FlagMasterApp.swift in Sources */,
 				E4C06B3FF42BE0A7CD35B771 /* Country.swift in Sources */,
 				6687E4C986CFF85DD5697E4E /* CountryStat.swift in Sources */,
 				77B29B732FFD473B6D6FF054 /* GameMode.swift in Sources */,
 				5E459423B313E6703B6808A8 /* AppSettings.swift in Sources */,
+				114A1B2C3D4E5F60718293A4 /* AudioManager.swift in Sources */,
 				92ED7D34213214E93410A0F8 /* CountryRepository.swift in Sources */,
 				84934CE22923A9637D941EB8 /* FlagImage.swift in Sources */,
 				C9955F2611BCF6D36F2248FD /* StatsStore.swift in Sources */,

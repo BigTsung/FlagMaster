@@ -19,8 +19,8 @@ enum GameMode: String, CaseIterable, Identifiable, Sendable {
         case (.speedRound, .traditionalChinese): "極速模式"
         case (.twoLives, .english): "Two Lives"
         case (.twoLives, .traditionalChinese): "兩次機會"
-        case (.review, .english): "Review"
-        case (.review, .traditionalChinese): "錯題複習"
+        case (.review, .english): "Spaced Review"
+        case (.review, .traditionalChinese): "間隔複習"
         }
     }
 
@@ -30,7 +30,7 @@ enum GameMode: String, CaseIterable, Identifiable, Sendable {
         case .timedChallenge: "timer"
         case .speedRound: "bolt.fill"
         case .twoLives: "heart.fill"
-        case .review: "arrow.trianglehead.2.clockwise.rotate.90"
+        case .review: "arrow.triangle.2.circlepath"
         }
     }
 }

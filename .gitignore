@@ -82,3 +82,7 @@ crashlytics-build.properties
 DerivedData/
 *.xcuserstate
 xcuserdata/
+
+# Native Swift package build products
+Native/.build/
+Native/.swiftpm/
