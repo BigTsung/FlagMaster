@@ -1,5 +1,7 @@
 # FlagMaster
 
+> The actively maintained app is now the native SwiftUI project at [`Native/FlagMaster.xcodeproj`](Native/FlagMaster.xcodeproj). See [`Native/README.md`](Native/README.md) for architecture, build, and release instructions. The Unity files below are retained as migration reference.
+
 ## Introduction
 
 This is a simple flag guessing game. Each round, four countries are randomly selected from a list and displayed on the screen. The player needs to choose the correct country name based on the displayed flag.
