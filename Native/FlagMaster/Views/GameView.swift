@@ -19,32 +19,25 @@ struct GameView: View {
 
     var body: some View {
         ZStack {
-            ScrollViewReader { proxy in
-            ScrollView {
-                VStack(spacing: 16) {
-                    header.id("game-top")
+            GeometryReader { geometry in
+                VStack(spacing: geometry.size.height < 720 ? 9 : 14) {
+                    header
                     status
                     if let country = model.question {
-                        flagStage(country)
-                        choices
-                        if answered { answerNote(country).id("answer-note").transition(.opacity) }
-                        else {
-                            Label(en ? "Look closely. Trust your curiosity." : "仔細觀察，跟著你的直覺選擇。", systemImage: "eye")
-                                .font(.caption).foregroundStyle(Atlas.muted).padding(.top, 4)
+                        Spacer(minLength: 0)
+                        flagStage(country, compact: geometry.size.height < 680)
+                        Spacer(minLength: 0)
+                        choices(compact: geometry.size.height < 680)
+                        if !answered {
+                            Label(en ? "LOCK IN YOUR ANSWER" : "鎖定答案，拿下這一題！", systemImage: "scope")
+                                .font(.caption).foregroundStyle(Atlas.muted)
                         }
                     }
-                }.padding(22).frame(maxWidth: 700).frame(maxWidth: .infinity)
-            }
-            .onChange(of: model.selectedCode) { _, value in
-                if value != nil && model.isLearning {
-                    withAnimation(animate ? .easeInOut(duration: 0.3) : nil) { proxy.scrollTo("answer-note", anchor: .bottom) }
-                } else if value == nil {
-                    withAnimation(animate ? .easeInOut(duration: 0.2) : nil) { proxy.scrollTo("game-top", anchor: .top) }
-                }
-            }
+                }.padding(.horizontal, 20).padding(.vertical, 10).frame(maxWidth: 700, maxHeight: .infinity).frame(maxWidth: .infinity)
             }
             .allowsHitTesting(model.phase == .playing)
             .accessibilityHidden(model.phase != .playing)
+            if answered, model.isLearning, let country = model.question { learningFeedbackOverlay(country).transition(.move(edge: .bottom).combined(with: .opacity)) }
             if model.phase == .paused { pauseOverlay.transition(.opacity) }
             if model.phase == .finished { resultOverlay.transition(.opacity) }
         }
@@ -80,12 +73,12 @@ struct GameView: View {
             Image(systemName: model.isRetryingMistakes ? "arrow.triangle.2.circlepath" : model.mode.symbol)
                 .foregroundStyle(model.mode.tint).font(.title2)
             VStack(alignment: .leading, spacing: 4) {
-                Eyebrow(text: en ? "EXPEDITION IN PROGRESS" : "探索進行中", color: Atlas.muted)
+                Eyebrow(text: en ? "CHALLENGE LIVE" : "挑戰進行中", color: Atlas.mint)
                 Text(model.isRetryingMistakes ? (en ? "Practice mistakes" : "本局錯題練習") : (model.practice?.title(settings.language) ?? model.mode.title(settings.language))).font(.headline)
             }
             Spacer()
             Button { model.togglePause() } label: {
-                Image(systemName: "pause.fill").frame(width: 48, height: 48).background(.white.opacity(0.08), in: Circle())
+                Image(systemName: "pause.fill").frame(width: 44, height: 44).modifier(GamePanel(tint: Atlas.violet, radius: 14))
             }.accessibilityLabel(en ? "Pause" : "暫停")
         }
     }
@@ -94,7 +87,7 @@ struct GameView: View {
         VStack(spacing: 14) {
             HStack {
                 Metric(value: "\(model.correctAnswers)", label: en ? "Correct" : "答對題數")
-                Metric(value: "\(model.streak)", label: en ? "In a row" : "連續答對", color: Atlas.gold)
+                Metric(value: "\(model.streak)×", label: "COMBO", color: Atlas.gold)
                 if model.mode == .twoLives && !model.isRetryingMistakes {
                     VStack(spacing: 6) {
                         HStack(spacing: 6) { ForEach(0..<2) { index in Image(systemName: index < model.lives ? "heart.fill" : "heart").foregroundStyle(Atlas.coral) } }
@@ -113,10 +106,10 @@ struct GameView: View {
                 ProgressView(value: Double(model.secondsRemaining), total: 60).tint(model.mode.tint)
                     .accessibilityLabel(en ? "Time remaining" : "剩餘時間")
             }
-        }.modifier(AtlasCard())
+        }.modifier(AtlasCard(tint: Atlas.violet))
     }
 
-    private func flagStage(_ country: Country) -> some View {
+    private func flagStage(_ country: Country, compact: Bool) -> some View {
         VStack(spacing: 12) {
             HStack {
                 Eyebrow(text: String(format: "FLAG / %03d", model.totalQuestions + (answered ? 0 : 1)))
@@ -126,35 +119,41 @@ struct GameView: View {
                     .symbolEffect(.bounce, options: .nonRepeating, value: animate && answered)
             }
             FlagImage(code: country.abb2)
-                .frame(height: 118).padding(.vertical, 6)
+                .frame(height: compact ? 90 : 140).padding(.vertical, compact ? 4 : 12)
+                .shadow(color: Atlas.blue.opacity(0.3), radius: 20, y: 8)
                 .overlay { if answered && correct && animate { DiscoveryBurst().id(model.totalQuestions) } }
                 .id(country.id).transition(.opacity)
                 .accessibilityHidden(false)
                 .accessibilityLabel(en ? "Flag to identify" : "待辨識的國旗")
-            Text(en ? "Where in the world?" : "這面國旗，來自哪裡？")
+            Text(answered ? (correct ? (en ? "PERFECT!" : "漂亮！答對了") : (en ? "TRY AGAIN!" : "再接再厲！")) : (en ? "NAME THIS FLAG" : "這是哪個國家？"))
                 .font(.system(.title3, design: .rounded).bold())
-            Text(en ? "CHOOSE ONE ANSWER" : "觀察圖案與配色，選出答案")
-                .font(.system(.caption2, design: .monospaced)).tracking(1.5).foregroundStyle(Atlas.muted)
+            if !compact {
+                Text(en ? "CHOOSE ONE ANSWER" : "觀察圖案與配色，選出答案")
+                    .font(.system(.caption2, design: .monospaced)).tracking(1.5).foregroundStyle(Atlas.muted)
+            }
         }
-        .modifier(AtlasCard(tint: answered ? (correct ? Atlas.mint : Atlas.gold) : .white))
+        .modifier(AtlasCard(tint: answered ? (correct ? Atlas.mint : Atlas.coral) : Atlas.blue))
+        .rotationEffect(.degrees(answered && !correct && animate ? -1.5 : 0))
     }
 
-    private var choices: some View {
-        VStack(spacing: 10) {
+    private func choices(compact: Bool) -> some View {
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
             ForEach(Array(model.choices.enumerated()), id: \.element.id) { index, country in
                 let state = model.colorState(for: country)
                 Button { model.select(country) } label: {
-                    HStack(spacing: 14) {
-                        Text(String(UnicodeScalar(65 + index)!)).font(.system(.caption, design: .monospaced).bold())
-                            .frame(width: 32, height: 32).background(.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
-                        Text(country.name(for: settings.language)).font(.headline).multilineTextAlignment(.leading)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        if state == .correct || state == .wrong {
-                            Image(systemName: state == .correct ? "checkmark.circle.fill" : "xmark.circle.fill").foregroundStyle(state == .correct ? Atlas.mint : Atlas.coral)
+                    VStack(alignment: .leading, spacing: 9) {
+                        HStack {
+                            Text(String(UnicodeScalar(65 + index)!)).font(.system(.caption, design: .rounded).weight(.black))
+                                .foregroundStyle(Atlas.gold).frame(width: 24, height: 24).background(Atlas.gold.opacity(0.12), in: RoundedRectangle(cornerRadius: 7))
+                            Spacer()
+                            Image(systemName: state == .correct ? "checkmark.circle.fill" : state == .wrong ? "xmark.circle.fill" : "plus")
+                                .font(.caption).foregroundStyle(state == .correct ? Atlas.mint : state == .wrong ? Atlas.coral : Atlas.muted)
                         }
-                    }.padding(14).frame(minHeight: 62)
-                        .background(answerColor(state).opacity(state == .idle ? 1 : 0.16), in: RoundedRectangle(cornerRadius: 19))
-                        .overlay(RoundedRectangle(cornerRadius: 19).stroke(answerColor(state).opacity(state == .idle ? 0.6 : 0.8)))
+                        Text(country.name(for: settings.language)).font(.headline).multilineTextAlignment(.leading)
+                            .lineLimit(2).minimumScaleFactor(0.75)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }.padding(14).frame(maxWidth: .infinity, minHeight: compact ? 90 : 100, alignment: .topLeading)
+                        .modifier(GamePanel(tint: state == .idle || state == .disabled ? Atlas.violet : answerColor(state), radius: 19))
                         .foregroundStyle(state == .disabled ? Atlas.muted : .white)
                 }.buttonStyle(AtlasPressStyle(sound: nil)).disabled(answered || model.phase != .playing)
                     .accessibilityValue(state == .correct ? (en ? "Correct answer" : "正確答案") : state == .wrong ? (en ? "Incorrect choice" : "選錯了") : "")
@@ -190,11 +189,18 @@ struct GameView: View {
         }.frame(maxWidth: .infinity, alignment: .leading).modifier(AtlasCard(tint: Atlas.mint))
     }
 
+    private func learningFeedbackOverlay(_ country: Country) -> some View {
+        ZStack {
+            Color.black.opacity(0.68).ignoresSafeArea()
+            answerNote(country).padding(20).frame(maxWidth: 560)
+        }
+    }
+
     private var pauseOverlay: some View {
         modal {
-            Image(systemName: "cup.and.saucer.fill").font(.system(size: 46)).foregroundStyle(Atlas.gold)
-            Eyebrow(text: en ? "TAKE A BREATHER" : "旅途中，休息一下")
-            Text(en ? "The world can wait." : "世界，等你準備好。")
+            Image(systemName: "pause.circle.fill").font(.system(size: 60)).foregroundStyle(Atlas.gold).shadow(color: Atlas.gold.opacity(0.4), radius: 20)
+            Eyebrow(text: "PAUSED", color: Atlas.gold)
+            Text(en ? "Ready for the next round?" : "休息一下，再戰一回。")
                 .font(.system(.title, design: .rounded).bold()).multilineTextAlignment(.center)
             Text(en ? "Your progress is right here." : "進度已保留，準備好就繼續出發。")
                 .font(.subheadline).foregroundStyle(Atlas.muted)
@@ -210,7 +216,7 @@ struct GameView: View {
             Image(systemName: model.errorMessage == nil ? "trophy.fill" : "safari")
                 .font(.system(size: 48)).foregroundStyle(Atlas.gold)
                 .symbolEffect(.bounce, options: .nonRepeating, value: animate && model.phase == .finished)
-            Eyebrow(text: en ? "EXPEDITION REPORT" : "這一站的探索成果")
+            Eyebrow(text: en ? "CHALLENGE COMPLETE" : "挑戰完成", color: Atlas.gold)
             Text(resultTitle).font(.system(.title, design: .rounded).bold()).multilineTextAlignment(.center)
             if model.errorMessage == nil {
                 HStack {
@@ -221,7 +227,7 @@ struct GameView: View {
                 if !model.wrongAnswers.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {
                         Text(en ? "Revisit these discoveries" : "再看一眼，就更熟悉了").font(.subheadline.bold())
-                        ForEach(model.wrongAnswers) { answer in
+                        ForEach(model.wrongAnswers.prefix(2)) { answer in
                             HStack(spacing: 12) {
                                 FlagImage(code: answer.country.abb2).frame(width: 54, height: 36)
                                 VStack(alignment: .leading, spacing: 3) {
@@ -233,10 +239,12 @@ struct GameView: View {
                             }
                             if let selected = answer.selected,
                                let pair = FlagComparison.match(answer.country.abb2, selected.abb2) {
-                                DisclosureGroup(en ? "Compare these flags" : "對照這兩面國旗") {
-                                    ComparisonCard(pair: pair, countries: [answer.country, selected], initiallyRevealed: true)
-                                }.font(.subheadline).tint(Atlas.gold)
+                                Text(pair.clue(settings.language)).font(.caption).foregroundStyle(Atlas.gold).lineLimit(2)
                             }
+                        }
+                        if model.wrongAnswers.count > 2 {
+                            Text(en ? "+ \(model.wrongAnswers.count - 2) more in your passport" : "其餘 \(model.wrongAnswers.count - 2) 面已記錄在探索護照")
+                                .font(.caption).foregroundStyle(Atlas.muted)
                         }
                     }.frame(maxWidth: .infinity, alignment: .leading)
                     Button(en ? "Practice these mistakes" : "再練一次本局錯題") { model.retryMistakes() }.buttonStyle(AtlasButtonStyle(filled: true))
@@ -259,19 +267,16 @@ struct GameView: View {
     private var resultTitle: String {
         if model.errorMessage == "review-empty" { return en ? "All caught up." : "目前沒有到期的複習。" }
         if model.errorMessage != nil { return en ? "Unable to load flags" : "暫時無法載入國旗" }
-        return en ? "A little more worldly." : "世界，又熟悉了一點。"
+        return model.accuracy >= 0.8 ? (en ? "OUTSTANDING!" : "實力超群！") : (en ? "KEEP LEVELING UP!" : "繼續突破！")
     }
 
     private func modal<Content: View>(@ViewBuilder content: () -> Content) -> some View {
         ZStack {
             Atlas.ink.opacity(0.97).ignoresSafeArea()
-            ScrollView {
-                VStack(spacing: 20, content: content)
-                    .padding(26).frame(maxWidth: 520)
-                    .background(Atlas.panel, in: RoundedRectangle(cornerRadius: 30))
-                    .overlay(RoundedRectangle(cornerRadius: 30).stroke(Atlas.mint.opacity(0.2)))
-                    .padding(22).frame(maxWidth: .infinity)
-            }.defaultScrollAnchor(.top)
+            VStack(spacing: 14, content: content)
+                .padding(22).frame(maxWidth: 520)
+                .modifier(GamePanel(tint: Atlas.gold, radius: 30))
+                .padding(18).frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }

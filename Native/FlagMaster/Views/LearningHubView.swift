@@ -13,53 +13,43 @@ struct JourneyPickerView: View {
     var body: some View {
         ZStack {
             AppBackground()
-            ScrollView {
-                VStack(alignment: .leading, spacing: 22) {
-                    Eyebrow(text: en ? "ONE REGION AT A TIME" : "一站一站，認識世界")
-                    Text(en ? "Where shall we go?" : "這次，想去哪裡？").font(.largeTitle.bold())
-                    Text(en ? "Tap a map pin or choose a region below. Each journey has up to 10 flags, with new discoveries first." : "點選地圖上的區域，或從下方選擇。每趟最多 10 面國旗，優先探索還不熟悉的地方。")
-                        .font(.subheadline).foregroundStyle(Atlas.muted)
+            GeometryReader { geometry in
+                VStack(alignment: .leading, spacing: geometry.size.height < 720 ? 10 : 14) {
+                    Eyebrow(text: "WORLD TOUR / SELECT STAGE", color: Atlas.mint)
+                    Text(en ? "Choose your arena" : "選擇你的挑戰區域").font(.system(.title2, design: .rounded).weight(.black))
                     RegionMap(selected: $selected, language: settings.language)
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
                         ForEach(StudyRegion.allCases) { region in
                             let members = region.countries(in: countries)
                             let explored = members.filter { stats.stats[$0.abb2] != nil }.count
                             Button { select(region) } label: {
-                                VStack(alignment: .leading, spacing: 10) {
-                                    HStack {
-                                        Text(region.title(settings.language)).font(.headline)
-                                        Spacer(minLength: 0)
-                                        if selected == region { Image(systemName: "checkmark.circle.fill").foregroundStyle(Atlas.mint) }
-                                    }
-                                    Text(en ? "\(explored)/\(members.count) explored" : "已探索 \(explored)/\(members.count)")
-                                        .font(.caption).foregroundStyle(Atlas.muted)
-                                    ProgressView(value: Double(explored), total: Double(max(1, members.count))).tint(Atlas.mint)
-                                }.padding(16).frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(selected == region ? Atlas.mint.opacity(0.12) : Atlas.panel, in: RoundedRectangle(cornerRadius: 20))
-                                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(selected == region ? Atlas.mint : .clear))
+                                HStack(spacing: 6) {
+                                    Text(region.title(settings.language)).font(.subheadline.bold()).lineLimit(1).minimumScaleFactor(0.72)
+                                    Spacer(minLength: 0)
+                                    Text("\(explored)/\(members.count)").font(.caption2.monospacedDigit()).foregroundStyle(Atlas.muted)
+                                    if selected == region { Image(systemName: "checkmark.circle.fill").foregroundStyle(Atlas.mint) }
+                                }.padding(12).frame(maxWidth: .infinity, minHeight: 46, alignment: .leading)
+                                    .modifier(GamePanel(tint: selected == region ? Atlas.mint : Atlas.violet, radius: 16))
                             }.buttonStyle(AtlasPressStyle(sound: nil)).accessibilityAddTraits(selected == region ? .isSelected : [])
                         }
                     }
-                    VStack(alignment: .leading, spacing: 14) {
-                        Text(selected.title(settings.language)).font(.title2.bold())
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(selected.title(settings.language)).font(.headline)
                         HStack {
                             Metric(value: "\(min(10, pool.count))", label: en ? "Flags this trip" : "本趟題數")
                             Metric(value: "\(pool.filter { stats.stats[$0.abb2]?.isMastered == true }.count)", label: en ? "Familiar flags" : "熟悉國旗", color: Atlas.gold)
                         }
-                        Text(en ? "Untimed · No repeats · Your progress is saved after every answer." : "不計時・本趟不重複・每次作答都儲存探索進度")
-                            .font(.caption).foregroundStyle(Atlas.muted)
                         Button { start(.region(selected)) } label: {
-                            Label(en ? "Start this journey" : "出發探索這一區", systemImage: "location.north.fill")
+                            Label(en ? "ENTER STAGE" : "進入關卡", systemImage: "play.fill")
                         }.buttonStyle(AtlasButtonStyle(filled: true)).disabled(pool.count < 4)
                     }.modifier(AtlasCard(tint: Atlas.mint))
-                    Text(en ? "Study regions are geographic groups. North America includes Central America and the Caribbean. The EU flag remains in free exploration." : "按地理分組學習；北美洲包含中美洲與加勒比海。歐盟旗幟保留在自由探索中。")
-                        .font(.caption).foregroundStyle(Atlas.muted)
-                }.padding(22).frame(maxWidth: 760).frame(maxWidth: .infinity)
+                }.padding(.horizontal, 20).padding(.vertical, 10).frame(maxWidth: 760, maxHeight: .infinity).frame(maxWidth: .infinity)
             }
         }.foregroundStyle(.white)
         .navigationTitle(en ? "Regional journeys" : "地圖分區旅程").navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .confirmationAction) { Button(en ? "Done" : "完成") { dismiss() } } }
         .tint(Atlas.mint)
+        .modifier(GameScreen(title: en ? "WORLD TOUR" : "世界闖關", symbol: "globe.asia.australia.fill", tint: Atlas.mint))
     }
 
     private func select(_ region: StudyRegion) {
@@ -126,13 +116,8 @@ private struct RegionMap: View {
             // 141 degrees of latitude. Keeping that ratio prevents compact
             // screens from squeezing the continents horizontally.
             .aspectRatio(360.0 / 141.0, contentMode: .fit)
-            VStack(spacing: 2) {
-                Text(language == .english ? "DETAILED WORLD MAP · TAP A REGION" : "世界國界圖・點選區域開始探索")
-                    .font(.system(.caption2, design: .monospaced)).foregroundStyle(Atlas.muted)
-                Text("Natural Earth 1:110m · Public domain")
-                    .font(.system(size: 9, design: .monospaced)).foregroundStyle(Atlas.muted.opacity(0.75))
-            }
-        }.modifier(AtlasCard(tint: Atlas.blue))
+        }.padding(10).background(Atlas.panel, in: RoundedRectangle(cornerRadius: 20))
+            .overlay(RoundedRectangle(cornerRadius: 20).stroke(Atlas.blue.opacity(0.15)))
     }
 
     private func select(_ region: StudyRegion) {
@@ -208,6 +193,7 @@ struct FlagLibraryView: View {
     @State private var query = ""
     @State private var region: StudyRegion?
     @State private var selectedCountry: Country?
+    @State private var page = 0
     private let countries = ((try? CountryRepository.load()) ?? []).sorted { $0.en < $1.en }
     private var en: Bool { settings.language == .english }
 
@@ -219,74 +205,92 @@ struct FlagLibraryView: View {
         }
     }
 
-    private var columns: [GridItem] {
-        [GridItem(.adaptive(minimum: 145, maximum: 210), spacing: 14)]
+    @State private var pageSize = 6
+    private var pageCount: Int { max(1, Int(ceil(Double(filteredCountries.count) / Double(pageSize)))) }
+    private var pageCountries: [Country] {
+        let safePage = min(page, pageCount - 1), start = safePage * pageSize
+        return Array(filteredCountries.dropFirst(start).prefix(pageSize))
     }
 
     var body: some View {
         ZStack {
             AppBackground()
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    Eyebrow(text: en ? "THE WORLD, FLAG BY FLAG" : "一面一面，看見世界")
-                    Text(en ? "Flag atlas" : "世界國旗圖鑑").font(.largeTitle.bold())
-                    Text(en ? "Browse all \(countries.count) flags. Search by country name or code, or narrow the atlas to one region." : "瀏覽全部 \(countries.count) 面國旗；可搜尋國名、國家代碼，或依洲別篩選。")
-                        .font(.subheadline).foregroundStyle(Atlas.muted)
-                    regionFilters
+            GeometryReader { geometry in
+                VStack(alignment: .leading, spacing: geometry.size.height < 720 ? 10 : 14) {
+                    Eyebrow(text: "FLAG COLLECTION", color: Atlas.blue)
+                    HStack {
+                        Text(en ? "Your world of flags" : "世界國旗圖鑑").font(.system(.title2, design: .rounded).weight(.black))
+                        Spacer()
+                        regionFilter
+                    }
                     HStack {
                         Text(en ? "\(filteredCountries.count) flags" : "\(filteredCountries.count) 面國旗")
                             .font(.subheadline.bold())
                         Spacer()
                         if !query.isEmpty || region != nil {
-                            Button(en ? "Clear" : "清除篩選") { query = ""; region = nil }
+                            Button(en ? "Clear" : "清除篩選") { query = ""; region = nil; page = 0 }
                                 .font(.caption.bold()).foregroundStyle(Atlas.mint)
                         }
                     }
-                    LazyVGrid(columns: columns, spacing: 14) {
-                        ForEach(filteredCountries) { country in
+                    HStack(spacing: 8) {
+                        Image(systemName: "magnifyingglass").foregroundStyle(Atlas.blue)
+                        TextField(en ? "Country or code" : "搜尋國名或代碼", text: $query)
+                            .font(.subheadline).autocorrectionDisabled().submitLabel(.search)
+                        if !query.isEmpty { Button { query = "" } label: { Image(systemName: "xmark.circle.fill") }.accessibilityLabel(en ? "Clear search" : "清除搜尋") }
+                    }.padding(12).modifier(GamePanel(tint: Atlas.blue, radius: 14))
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                        ForEach(pageCountries) { country in
                             Button { selectedCountry = country } label: {
                                 FlagLibraryCard(country: country, language: settings.language)
                             }
-                            .buttonStyle(AtlasPressStyle())
+                            .buttonStyle(AtlasPressStyle(sound: nil))
                         }
                     }
+                    Spacer(minLength: 0)
+                    HStack {
+                        Button { page = max(0, page - 1) } label: { Image(systemName: "chevron.left").frame(width: 44, height: 40) }
+                            .buttonStyle(AtlasPressStyle(sound: nil)).disabled(page == 0)
+                        Spacer()
+                        Text("\(min(page + 1, pageCount)) / \(pageCount)").font(.caption.monospacedDigit()).foregroundStyle(Atlas.muted)
+                        Spacer()
+                        Button { page = min(pageCount - 1, page + 1) } label: { Image(systemName: "chevron.right").frame(width: 44, height: 40) }
+                            .buttonStyle(AtlasPressStyle(sound: nil)).disabled(page >= pageCount - 1)
+                    }.padding(.horizontal, 8).background(Atlas.panel, in: Capsule())
                     if filteredCountries.isEmpty {
                         ContentUnavailableView.search(text: query)
                             .foregroundStyle(.white)
-                            .frame(maxWidth: .infinity).padding(.vertical, 50)
+                            .frame(maxWidth: .infinity)
                     }
-                }.padding(22).frame(maxWidth: 760).frame(maxWidth: .infinity)
+                }.padding(.horizontal, 20).padding(.vertical, 10).frame(maxWidth: 760, maxHeight: .infinity).frame(maxWidth: .infinity)
+                    .onChange(of: geometry.size.height, initial: true) { _, height in
+                        let nextSize = height < 480 ? 2 : height < 650 ? 4 : 6
+                        if pageSize != nextSize { pageSize = nextSize; page = 0 }
+                    }
             }
         }
         .foregroundStyle(.white)
         .navigationTitle(en ? "All flags" : "所有國旗").navigationBarTitleDisplayMode(.inline)
-        .searchable(text: $query, prompt: en ? "Country or code" : "搜尋國名或代碼")
         .toolbar { ToolbarItem(placement: .confirmationAction) { Button(en ? "Done" : "完成") { dismiss() } } }
-        .sheet(item: $selectedCountry) { country in FlagDetailView(country: country) }
-        .tint(Atlas.mint)
-    }
-
-    private var regionFilters: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                filterButton(title: en ? "All" : "全部", value: nil)
-                ForEach(StudyRegion.allCases) { item in
-                    filterButton(title: item.title(settings.language), value: item)
-                }
-            }
+        .fullScreenCover(item: $selectedCountry) { country in
+            FlagDetailView(country: country).environment(\.gameDismiss, nil)
         }
+        .onChange(of: query) { _, _ in page = 0 }
+        .onChange(of: region) { _, _ in page = 0 }
+        .tint(Atlas.mint)
+        .modifier(GameScreen(title: en ? "COLLECTION" : "國旗收藏室", symbol: "square.stack.3d.up.fill", tint: Atlas.blue))
     }
 
-    private func filterButton(title: String, value: StudyRegion?) -> some View {
-        Button {
-            region = value
-            AudioManager.shared.play(.tap)
+    private var regionFilter: some View {
+        Menu {
+            Button(en ? "All regions" : "全部地區") { region = nil }
+            ForEach(StudyRegion.allCases) { item in
+                Button(item.title(settings.language)) { region = item }
+            }
         } label: {
-            Text(title).font(.caption.bold()).padding(.horizontal, 14).padding(.vertical, 9)
-                .foregroundStyle(region == value ? Atlas.ink : .white)
-                .background(region == value ? Atlas.mint : Atlas.panel, in: Capsule())
-                .overlay(Capsule().stroke(Atlas.mint.opacity(region == value ? 0 : 0.22)))
-        }.buttonStyle(AtlasPressStyle(sound: nil))
+            Label(region?.title(settings.language) ?? (en ? "All" : "全部"), systemImage: "line.3.horizontal.decrease.circle")
+                .font(.caption.bold()).padding(.horizontal, 12).padding(.vertical, 9)
+                .background(Atlas.panel, in: Capsule())
+        }
     }
 }
 
@@ -294,15 +298,20 @@ private struct FlagLibraryCard: View {
     let country: Country
     let language: AppLanguage
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            FlagImage(code: country.abb2).frame(maxWidth: .infinity).aspectRatio(3 / 2, contentMode: .fit)
-            Text(country.name(for: language)).font(.subheadline.bold()).lineLimit(2)
-            Text("\(country.abb2) · \(country.abb3)")
-                .font(.system(.caption2, design: .monospaced)).foregroundStyle(Atlas.muted)
+        VStack(alignment: .leading, spacing: 7) {
+            HStack {
+                Text(country.abb3).font(.system(size: 8, weight: .black, design: .monospaced)).foregroundStyle(Atlas.blue)
+                Spacer()
+                Image(systemName: "sparkle").font(.system(size: 9)).foregroundStyle(Atlas.gold)
+            }
+            FlagImage(code: country.abb2).frame(maxWidth: .infinity).frame(height: 55)
+                .shadow(color: .black.opacity(0.3), radius: 5, y: 4)
+            Text(country.name(for: language)).font(.system(size: 13, weight: .bold, design: .rounded)).lineLimit(1).minimumScaleFactor(0.65)
+            Label(language == .english ? "Locate" : "查看位置", systemImage: "mappin.and.ellipse")
+                .font(.system(size: 9, weight: .semibold)).foregroundStyle(Atlas.muted)
         }
-        .padding(12).frame(maxWidth: .infinity, alignment: .leading)
-        .background(Atlas.panel, in: RoundedRectangle(cornerRadius: 18))
-        .overlay(RoundedRectangle(cornerRadius: 18).stroke(.white.opacity(0.08)))
+        .padding(10).frame(maxWidth: .infinity, minHeight: 125, alignment: .leading)
+        .modifier(GamePanel(tint: Atlas.blue, radius: 18))
     }
 }
 
@@ -315,20 +324,72 @@ private struct FlagDetailView: View {
         NavigationStack {
             ZStack {
                 AppBackground()
-                VStack(spacing: 24) {
-                    FlagImage(code: country.abb2).frame(maxWidth: 420).aspectRatio(3 / 2, contentMode: .fit)
+                VStack(spacing: 16) {
+                    Eyebrow(text: "WORLD COLLECTION / " + country.abb3, color: Atlas.gold)
+                    FlagImage(code: country.abb2).frame(maxWidth: 300, maxHeight: 150).aspectRatio(3 / 2, contentMode: .fit)
                     VStack(spacing: 7) {
                         Text(country.name(for: settings.language)).font(.title.bold()).multilineTextAlignment(.center)
                         if !en { Text(country.en).foregroundStyle(Atlas.muted) }
                         Text("\(country.abb2)  ·  \(country.abb3)  ·  \(country.code)")
                             .font(.system(.subheadline, design: .monospaced)).foregroundStyle(Atlas.gold)
                     }
+                    CountryLocationMap(country: country)
+                        .frame(maxWidth: 430).aspectRatio(2.35, contentMode: .fit)
+                    Label(en ? "Highlighted on the world map" : "在世界地圖上的位置", systemImage: "mappin.and.ellipse")
+                        .font(.caption).foregroundStyle(Atlas.muted)
                     Spacer()
                 }.padding(24)
             }
             .foregroundStyle(.white).navigationTitle(en ? "Flag details" : "國旗資訊").navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button(en ? "Done" : "完成") { dismiss() } } }
-        }.presentationDetents([.medium, .large]).tint(Atlas.mint)
+            .modifier(GameScreen(title: en ? "FLAG DISCOVERY" : "國旗探索", symbol: "mappin.and.ellipse", tint: Atlas.blue))
+        }.tint(Atlas.mint)
+    }
+}
+
+private struct CountryLocationMap: View {
+    let country: Country
+    private let latitudeTop = 83.0, latitudeBottom = -58.0
+
+    var body: some View {
+        Canvas { context, size in
+            let selected = WorldMapData.mapCountry(for: country)
+            for mapCountry in WorldMapData.countries {
+                let path = path(for: mapCountry, size: size)
+                let highlighted = selected.map { $0.name == mapCountry.name } ?? false
+                context.fill(path, with: .color(highlighted ? Atlas.mint.opacity(0.9) : Color.white.opacity(0.10)), style: FillStyle(eoFill: true))
+                context.stroke(path, with: .color(highlighted ? Atlas.mint : Color.white.opacity(0.18)), lineWidth: highlighted ? 0.8 : 0.3)
+            }
+            let marker = project(WorldMapData.marker(for: country), size: size)
+            let glow = CGRect(x: marker.x - 8, y: marker.y - 8, width: 16, height: 16)
+            context.fill(Path(ellipseIn: glow), with: .color(Atlas.gold.opacity(0.25)))
+            context.fill(Path(ellipseIn: CGRect(x: marker.x - 3, y: marker.y - 3, width: 6, height: 6)), with: .color(Atlas.gold))
+        }
+        .padding(8).background(Atlas.panel, in: RoundedRectangle(cornerRadius: 18))
+        .overlay(RoundedRectangle(cornerRadius: 18).stroke(Atlas.mint.opacity(0.18)))
+        .accessibilityLabel(country.name(for: .traditionalChinese) + "在世界地圖上的位置")
+    }
+
+    private func project(_ coordinate: WorldCoordinate, size: CGSize) -> CGPoint {
+        CGPoint(x: (coordinate.longitude + 180) / 360 * size.width,
+                y: (latitudeTop - coordinate.latitude) / (latitudeTop - latitudeBottom) * size.height)
+    }
+
+    private func path(for country: WorldMapCountry, size: CGSize) -> Path {
+        var result = Path()
+        for polygon in country.polygons {
+            for ring in polygon {
+                var previous: CGPoint?
+                for (index, coordinate) in ring.enumerated() {
+                    let point = project(coordinate, size: size)
+                    if index == 0 || (previous.map { abs(point.x - $0.x) > size.width * 0.5 } ?? false) { result.move(to: point) }
+                    else { result.addLine(to: point) }
+                    previous = point
+                }
+                result.closeSubpath()
+            }
+        }
+        return result
     }
 }
 
@@ -342,28 +403,37 @@ struct ComparisonLibraryView: View {
     @EnvironmentObject private var settings: AppSettings
     @Environment(\.dismiss) private var dismiss
     private let countries = (try? CountryRepository.load()) ?? []
+    @State private var page = 0
     let start: (PracticePlan) -> Void
     private var en: Bool { settings.language == .english }
     var body: some View {
         ZStack {
             AppBackground()
-            ScrollView {
-                VStack(alignment: .leading, spacing: 22) {
-                    Eyebrow(text: en ? "LOOK AGAIN. SPOT THE CLUE." : "多看一眼，就能找到線索")
-                    Text(en ? "Similar, but different." : "很像，卻不一樣。") .font(.largeTitle.bold())
-                    Text(en ? "Name both flags before revealing the clue. Then try a two-question practice round." : "先試著說出兩面國旗的名字，再揭曉辨識線索。最後用兩題小練習確認自己記住了。")
-                        .font(.subheadline).foregroundStyle(Atlas.muted)
-                    ForEach(FlagComparison.all) { pair in
-                        if pair.codes.isSubset(of: Set(countries.map(\.abb2))) {
-                            ComparisonCard(pair: pair, countries: countries) { start(.comparison(pair)) }
-                        }
+            GeometryReader { geometry in
+                VStack(alignment: .leading, spacing: 16) {
+                    Eyebrow(text: "TRAINING / SPOT THE DIFFERENCE", color: Atlas.coral)
+                    Text(en ? "Can you tell them apart?" : "你能看出差別嗎？").font(.system(.title2, design: .rounded).weight(.black))
+                    if !FlagComparison.all.isEmpty {
+                        let pair = FlagComparison.all[page]
+                        ComparisonCard(pair: pair, countries: countries) { start(.comparison(pair)) }.id(pair.first + pair.second)
+                        Spacer(minLength: 0)
+                        HStack {
+                            Button { page = max(0, page - 1) } label: { Label(en ? "Previous" : "上一組", systemImage: "chevron.left") }
+                                .buttonStyle(AtlasPressStyle(sound: nil)).disabled(page == 0)
+                            Spacer()
+                            Text("\(page + 1) / \(FlagComparison.all.count)").font(.caption.monospacedDigit()).foregroundStyle(Atlas.muted)
+                            Spacer()
+                            Button { page = min(FlagComparison.all.count - 1, page + 1) } label: { Label(en ? "Next" : "下一組", systemImage: "chevron.right") }
+                                .labelStyle(.titleAndIcon).buttonStyle(AtlasPressStyle(sound: nil)).disabled(page == FlagComparison.all.count - 1)
+                        }.padding(14).background(Atlas.panel, in: Capsule())
                     }
                     if countries.isEmpty { Text(en ? "Flag data could not be loaded." : "無法載入國旗資料。") }
-                }.padding(22).frame(maxWidth: 760).frame(maxWidth: .infinity)
+                }.padding(20).frame(maxWidth: 760, maxHeight: .infinity).frame(maxWidth: .infinity)
             }
         }.foregroundStyle(.white)
         .navigationTitle(en ? "Flag comparisons" : "相似國旗對照").navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .confirmationAction) { Button(en ? "Done" : "完成") { dismiss() } } }.tint(Atlas.mint)
+        .modifier(GameScreen(title: en ? "TRAINING ARENA" : "辨識特訓場", symbol: "scope", tint: Atlas.coral))
     }
 }
 
@@ -378,6 +448,7 @@ struct ComparisonCard: View {
     private var en: Bool { settings.language == .english }
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
+            HStack { Spacer(); Text("VS").font(.system(size: 30, weight: .black, design: .rounded)).italic().foregroundStyle(Atlas.gold); Spacer() }
             HStack(alignment: .top, spacing: 14) {
                 ForEach([pair.first, pair.second], id: \.self) { code in
                     if let country = countries.first(where: { $0.abb2 == code }) {

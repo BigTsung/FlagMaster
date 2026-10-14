@@ -11,7 +11,7 @@ struct FlagMasterApp: App {
             // Isolate screenshot fixtures from the player's saved history and preferences.
             let preferences = AppSettings(defaults: UserDefaults(suiteName: "FlagMasterPreview.\(UUID())")!)
             preferences.language = ProcessInfo.processInfo.arguments.contains("--preview-english") ? .english : .traditionalChinese
-            preferences.animatedEffects = false
+            preferences.animatedEffects = ProcessInfo.processInfo.arguments.contains("--preview-motion")
             preferences.musicVolume = .off
             preferences.soundVolume = .off
             preferences.hapticsEnabled = false
@@ -42,6 +42,7 @@ struct FlagMasterApp: App {
             switch args[index + 1] {
             case "journeys": NavigationStack { JourneyPickerView { _ in } }
             case "comparisons": NavigationStack { ComparisonLibraryView { _ in } }
+            case "flags": NavigationStack { FlagLibraryView() }
             case "region-game": ZStack { AppBackground(); GameView(mode: .endless, stats: stats, settings: settings, practice: .region(.asia)) {} }
             case "comparison-game": ZStack { AppBackground(); GameView(mode: .endless, stats: stats, settings: settings, practice: .comparison(FlagComparison.all[0])) {} }
             case "review": ZStack { AppBackground(); GameView(mode: .review, stats: stats, settings: settings) {} }

@@ -113,6 +113,14 @@ struct LearningTests {
         }
     }
 
+    @Test func everyFlagHasAValidWorldMapLocation() throws {
+        for country in try catalogue() {
+            let marker = WorldMapData.marker(for: country)
+            #expect((-180.0...180.0).contains(marker.longitude), "\(country.abb2) longitude")
+            #expect((-90.0...90.0).contains(marker.latitude), "\(country.abb2) latitude")
+        }
+    }
+
     @Test func eachRegionalJourneyIsFiniteAndStaysWithinRegion() throws {
         let countries = try catalogue()
         for region in StudyRegion.allCases {
