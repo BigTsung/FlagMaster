@@ -1,0 +1,21 @@
+{
+  "device": "iPhone 17 Pro",
+  "device_id": "F60B3393-19E7-46F7-9070-EA65E59AC6C2",
+  "runtime": "iOS 26.2",
+  "resolution": [
+    1206,
+    2622
+  ],
+  "capture": "xcrun simctl io screenshot",
+  "language": "zh-Hant",
+  "font_workaround": "STHeitiTC-Medium in temporary screenshot build to replace missing simulator Chinese fonts",
+  "screens": [
+    "game",
+    "answer",
+    "journeys",
+    "records",
+    "home",
+    "results",
+    "pause"
+  ]
+}
