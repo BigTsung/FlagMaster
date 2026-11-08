@@ -11,6 +11,13 @@ struct Country: Codable, Identifiable, Hashable, Sendable {
     var id: String { abb2 }
 
     func name(for language: AppLanguage) -> String {
-        language == .english ? en : cn
+        if abb2 == "PS" {
+            return language.text(en, cn, ja: "パレスチナ", ko: "팔레스타인")
+        }
+        switch language {
+        case .english: return en
+        case .traditionalChinese: return cn
+        case .japanese, .korean: return language.locale.localizedString(forRegionCode: abb2) ?? en
+        }
     }
 }

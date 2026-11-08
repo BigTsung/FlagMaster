@@ -23,6 +23,51 @@ struct LearningTests {
         return settings
     }
 
+    @Test func unityHistoryMergesAliasesAndStaysCleared() throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let source = directory.appendingPathComponent("CountryStats.json")
+        let destination = directory.appendingPathComponent("country-stats.json")
+        let fixture = """
+            {"statsList":[
+                {"countryName":"約旦河西岸","correctAnswers":2,"totalAttempts":3},
+                {"countryName":"加薩走廊","correctAnswers":1,"totalAttempts":4},
+                {"countryName":"日本","correctAnswers":4,"totalAttempts":5},
+                {"countryName":"澳洲","correctAnswers":5,"totalAttempts":1}
+            ]}
+            """
+        try Data(fixture.utf8).write(to: source)
+        let countries = try catalogue()
+        func openStore() -> StatsStore {
+            StatsStore(fileURL: destination, legacyFileURL: source, legacyCountries: countries)
+        }
+
+        let migrated = openStore()
+        #expect(migrated.stats["PS"]?.totalAttempts == 7)
+        #expect(migrated.stats["PS"]?.correctAnswers == 3)
+        #expect(migrated.stats["JP"]?.correctAnswers == 4)
+        #expect(migrated.stats["AU"] == nil)
+        #expect(openStore().attempts == 12)
+        migrated.clear()
+        #expect(openStore().stats.isEmpty)
+    }
+
+    @Test func unitySettingsUseNearestVolumeAndRespectNativeOverrides() {
+        let suite = "unity-settings-\(UUID())"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        defaults.set("en", forKey: "Language")
+        defaults.set(0.4, forKey: "MusicVolume")
+        defaults.set(0.75, forKey: "SFXVolume")
+        let migrated = AppSettings(defaults: defaults)
+        #expect(migrated.language == .english)
+        #expect(migrated.musicVolume == .low)
+        #expect(migrated.soundVolume == .medium)
+        migrated.musicVolume = .off
+        #expect(AppSettings(defaults: defaults).musicVolume == .off)
+    }
+
     @Test func oldHistoryMigratesWithoutLosingCounts() throws {
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("legacy-\(UUID()).json")
         defer { try? FileManager.default.removeItem(at: url) }
@@ -84,6 +129,16 @@ struct LearningTests {
         stats.record(countries[2], correct: true, at: epoch)
         #expect(stats.dueCountryCodes(at: epoch.addingTimeInterval(600), limit: 1) == [countries[1].abb2])
         #expect(stats.dueCountryCodes(at: epoch.addingTimeInterval(600), limit: -1).isEmpty)
+    }
+
+    @Test(arguments: [AppLanguage.japanese, .korean])
+    func localizedCatalogueHasDistinctNames(_ language: AppLanguage) throws {
+        let countries = try catalogue()
+        let names = countries.map { $0.name(for: language) }
+        #expect(Set(names).count == countries.count)
+        for (country, name) in zip(countries, names) {
+            #expect(!name.isEmpty && name != country.en && name != country.abb2, "\(country.abb2) · \(language.rawValue)")
+        }
     }
 
     @Test func allCountriesHaveExactlyOneStudyRegionExceptEU() throws {

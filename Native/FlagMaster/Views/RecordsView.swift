@@ -8,7 +8,6 @@ struct RecordsView: View {
     @State private var onlyMistakes = false
     @State private var page = 0
     private let pageSize = 4
-    private var en: Bool { settings.language == .english }
     private var pageCount: Int { max(1, Int(ceil(Double(ranked.count) / Double(pageSize)))) }
     private var pageRecords: [(CountryStat, Country)] { Array(ranked.dropFirst(min(page, pageCount - 1) * pageSize).prefix(pageSize)) }
 
@@ -19,27 +18,27 @@ struct RecordsView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
-                            Eyebrow(text: "PLAYER RECORDS", color: Atlas.gold)
-                            Text(en ? "Your trophy room" : "你的榮耀戰績").font(.system(.title2, design: .rounded).weight(.black))
+                            Eyebrow(text: settings.language.text("PLAYER RECORDS", "玩家紀錄", ja: "プレイヤーの記録", ko: "플레이어 기록"), color: Atlas.gold)
+                            Text(settings.language.text("Your trophy room", "你的榮耀戰績", ja: "チャレンジの記録", ko: "나의 도전 기록")).font(.system(.title2, design: .rounded).weight(.black))
                         }
                         Spacer()
                         VStack(alignment: .trailing) {
                             Text("\(stats.stats.count)/\(countries.count)").font(.title2.bold()).foregroundStyle(Atlas.mint)
-                            Text(en ? "explored" : "已探索").font(.caption).foregroundStyle(Atlas.muted)
+                            Text(settings.language.text("explored", "已探索", ja: "発見済み", ko: "발견 완료")).font(.caption).foregroundStyle(Atlas.muted)
                         }
                     }
                     HStack(spacing: 16) {
                         Image(systemName: "trophy.fill").font(.system(size: 42)).foregroundStyle(Atlas.gold).shadow(color: Atlas.gold.opacity(0.4), radius: 12)
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(en ? "WORLD DISCOVERY" : "世界探索進度").font(.system(size: 12, weight: .black, design: .rounded))
+                            Text(settings.language.text("WORLD DISCOVERY", "世界探索進度", ja: "世界の探索状況", ko: "세계 탐험 진행률")).font(.system(size: 12, weight: .black, design: .rounded))
                             ProgressView(value: Double(stats.stats.count), total: Double(max(1, countries.count))).tint(Atlas.gold)
                         }
                     }.padding(18).modifier(GamePanel(tint: Atlas.gold))
-                    Picker(en ? "Show records" : "顯示紀錄", selection: $onlyMistakes) {
-                        Text(en ? "All" : "所有探索").tag(false); Text(en ? "Practice" : "待加強").tag(true)
+                    Picker(settings.language.text("Show records", "顯示紀錄", ja: "記録の表示", ko: "기록 보기"), selection: $onlyMistakes) {
+                        Text(settings.language.text("All", "所有探索", ja: "すべて", ko: "전체")).tag(false); Text(settings.language.text("Practice", "待加強", ja: "要練習", ko: "연습 필요")).tag(true)
                     }.pickerStyle(.segmented).onChange(of: onlyMistakes) { _, _ in page = 0 }
                     if pageRecords.isEmpty {
-                        ContentUnavailableView(en ? "More discoveries ahead" : "新的發現，正等著你", systemImage: "globe.asia.australia")
+                        ContentUnavailableView(settings.language.text("More discoveries ahead", "新的發現，正等著你", ja: "新しい発見が待っています", ko: "새로운 발견이 기다리고 있어요"), systemImage: "globe.asia.australia")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
                         VStack(spacing: 8) { ForEach(pageRecords, id: \.0.countryCode) { stat, country in record(stat, country) } }
@@ -49,10 +48,10 @@ struct RecordsView: View {
                 }.padding(20).frame(maxWidth: 700, maxHeight: .infinity).frame(maxWidth: .infinity)
             }
         }.foregroundStyle(.white)
-        .navigationTitle(en ? "Passport" : "探索護照").navigationBarTitleDisplayMode(.inline)
-        .toolbar { ToolbarItem(placement: .confirmationAction) { Button(en ? "Done" : "完成") { dismiss() }.tint(Atlas.mint) } }
+        .navigationTitle(settings.language.text("Passport", "探索護照", ja: "探検パスポート", ko: "탐험 여권")).navigationBarTitleDisplayMode(.inline)
+        .toolbar { ToolbarItem(placement: .confirmationAction) { Button(settings.language.text("Done", "完成", ja: "完了", ko: "완료")) { dismiss() }.tint(Atlas.mint) } }
         .toolbarBackground(Atlas.ink, for: .navigationBar)
-        .modifier(GameScreen(title: en ? "TROPHY ROOM" : "戰績殿堂", symbol: "trophy.fill", tint: Atlas.gold))
+        .modifier(GameScreen(title: settings.language.text("TROPHY ROOM", "戰績殿堂", ja: "トロフィールーム", ko: "트로피 전시실"), symbol: "trophy.fill", tint: Atlas.gold))
     }
 
     private var pager: some View {

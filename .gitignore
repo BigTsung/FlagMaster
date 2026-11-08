@@ -86,3 +86,10 @@ xcuserdata/
 # Native Swift package build products
 Native/.build/
 Native/.swiftpm/
+
+# Licensed sound-pack assets installed locally for app builds
+/Native/FlagMaster/Resources/Audio/LocalEffects/
+/Native/FlagMaster/Resources/Audio/LocalMusic/
+
+# macOS Finder metadata
+.DS_Store

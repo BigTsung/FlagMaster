@@ -52,32 +52,33 @@ enum WorldMapData {
 
     static func mapCountry(for country: Country) -> WorldMapCountry? {
         let aliases: [String: String] = [
-            "BS": "The Bahamas", "CV": "Cape Verde", "CI": "Ivory Coast", "CN": "People's Republic of China",
-            "GM": "The Gambia", "TL": "East Timor", "US": "United States of America"
+            "BS": "The Bahamas", "CI": "Ivory Coast", "CN": "People's Republic of China",
+            "GM": "The Gambia", "TL": "East Timor", "TR": "Turkey", "US": "United States of America"
         ]
         let target = aliases[country.abb2] ?? country.en
         return countries.first { $0.name.caseInsensitiveCompare(target) == .orderedSame }
     }
 
     static func marker(for country: Country) -> WorldCoordinate {
-        if let mapped = mapCountry(for: country) {
-            let points = mapped.polygons.flatMap { $0 }.flatMap { $0 }
-            guard !points.isEmpty else { return fallbackMarkers[country.abb2] ?? .init(longitude: 0, latitude: 0) }
-            let longitudes = points.map(\.longitude)
-            let minimumLongitude = longitudes.min()!
-            let maximumLongitude = longitudes.max()!
-            let longitude: Double
-            if maximumLongitude - minimumLongitude > 180 {
-                let unwrapped = longitudes.map { $0 < 0 ? $0 + 360 : $0 }
-                let midpoint = (unwrapped.min()! + unwrapped.max()!) / 2
-                longitude = midpoint > 180 ? midpoint - 360 : midpoint
-            } else {
-                longitude = (minimumLongitude + maximumLongitude) / 2
-            }
-            let latitude = (points.map(\.latitude).min()! + points.map(\.latitude).max()!) / 2
-            return .init(longitude: longitude, latitude: latitude)
+        if let mapped = mapCountry(for: country),
+           let mainland = mapped.polygons.compactMap(\.first).max(by: { ringArea($0) < ringArea($1) }) {
+            let longitudes = mainland.map(\.longitude)
+            let latitudes = mainland.map(\.latitude)
+            return .init(
+                longitude: (longitudes.min()! + longitudes.max()!) / 2,
+                latitude: (latitudes.min()! + latitudes.max()!) / 2
+            )
         }
         return fallbackMarkers[country.abb2] ?? regionMarker(for: country.abb2)
+    }
+
+    // Use the largest land polygon so outlying territories don't pull the
+    // marker away from the country's main landmass.
+    private static func ringArea(_ ring: [WorldCoordinate]) -> Double {
+        let edges = zip(ring, ring.dropFirst() + ring.prefix(1))
+        return abs(edges.reduce(0) { area, edge in
+            area + edge.0.longitude * edge.1.latitude - edge.1.longitude * edge.0.latitude
+        })
     }
 
     private static func regionMarker(for code: String) -> WorldCoordinate {
@@ -98,7 +99,7 @@ enum WorldMapData {
     private static let fallbackMarkers: [String: WorldCoordinate] = [
         "AD": .init(longitude: 1.60, latitude: 42.55), "AG": .init(longitude: -61.80, latitude: 17.06),
         "BH": .init(longitude: 50.55, latitude: 26.07), "BB": .init(longitude: -59.54, latitude: 13.19),
-        "KM": .init(longitude: 43.33, latitude: -11.88), "DM": .init(longitude: -61.37, latitude: 15.42),
+        "CV": .init(longitude: -23.6, latitude: 15.1), "KM": .init(longitude: 43.33, latitude: -11.88), "DM": .init(longitude: -61.37, latitude: 15.42),
         "EU": .init(longitude: 10.45, latitude: 50.85), "GD": .init(longitude: -61.68, latitude: 12.12),
         "KI": .init(longitude: -157.36, latitude: 1.87), "LI": .init(longitude: 9.55, latitude: 47.17),
         "MV": .init(longitude: 73.22, latitude: 3.20), "MT": .init(longitude: 14.38, latitude: 35.94),

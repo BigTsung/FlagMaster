@@ -50,7 +50,8 @@ final class AudioManager {
             updateVolumes()
             return
         }
-        guard let url = resourceURL(named: track.rawValue, extension: "m4a"),
+        let localURL = Bundle.main.url(forResource: track.rawValue, withExtension: "m4a", subdirectory: "Audio/LocalMusic")
+        guard let url = localURL ?? resourceURL(named: track.rawValue, extension: "m4a"),
               let next = try? AVAudioPlayer(contentsOf: url) else { return }
 
         fadingPlayer?.stop()
@@ -126,7 +127,8 @@ final class AudioManager {
     }
 
     private func makeEffectPlayer(_ effect: SoundEffect) -> AVAudioPlayer? {
-        guard let url = resourceURL(named: effect.rawValue, extension: "wav"),
+        let localURL = Bundle.main.url(forResource: effect.rawValue, withExtension: "wav", subdirectory: "Audio/LocalEffects")
+        guard let url = localURL ?? resourceURL(named: effect.rawValue, extension: "wav"),
               let player = try? AVAudioPlayer(contentsOf: url) else { return nil }
         player.prepareToPlay()
         return player

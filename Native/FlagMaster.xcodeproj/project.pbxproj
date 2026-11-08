@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F13472AA0000000000000004 /* country-info.json in Resources */ = {isa = PBXBuildFile; fileRef = F13472AA0000000000000003 /* country-info.json */; };
+		F13472AA0000000000000002 /* CountryInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13472AA0000000000000001 /* CountryInformation.swift */; };
+		A13F2D4461B04356A10FA001 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A13F2D4461B04356A10FA002 /* InfoPlist.strings */; };
 		006CF029734F7DEE9D523AB2 /* PH.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C6F7125D40C21BD25E2A6E2 /* PH.png */; };
 		00E26BC445EE0354B0CCBADE /* HT.png in Resources */ = {isa = PBXBuildFile; fileRef = 384F23227A17FAB7585EFB5A /* HT.png */; };
 		01CC36CE3BB0DD82906651B9 /* HK.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA29056F6420AA6205F9E6C /* HK.png */; };
@@ -36,6 +39,7 @@
 		1B511BAF82B76B8C31319A4D /* IR.png in Resources */ = {isa = PBXBuildFile; fileRef = A1107F957F9BF2F80989CA4C /* IR.png */; };
 		1B95B9579104118EC9F8F6AB /* AT.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AF010B84B4BCD9288DB01 /* AT.png */; };
 		1C62671D9AB60D452CDEEA00 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 330E1395A6F57CDC650623F6 /* countries.json */; };
+		F82C6F7AB887447E9FA46711 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A4F918BDEB1945ED9AB3D15F /* PrivacyInfo.xcprivacy */; };
 		1C8990C2D21D8C1AAE3D865D /* SX.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA14AD95E18251C67793572 /* SX.png */; };
 		1EEAC87FEA45B41326C9D572 /* NI.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B364FB54315C9F8B215CA0 /* NI.png */; };
 		1FE824559915D3184BEF250F /* SC.png in Resources */ = {isa = PBXBuildFile; fileRef = 82495F2A98278144E9A3FAB0 /* SC.png */; };
@@ -286,6 +290,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F13472AA0000000000000003 /* country-info.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = "country-info.json"; path = "Resources/country-info.json"; sourceTree = "<group>"; };
+		F13472AA0000000000000001 /* CountryInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CountryInformation.swift"; path = "Models/CountryInformation.swift"; sourceTree = "<group>"; };
+		A13F2D4461B04356A10FA003 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = Resources/ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A13F2D4461B04356A10FA004 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Resources/ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		000A319DB1014A419F5A3A3E /* KI.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = KI.png; sourceTree = "<group>"; };
 		00ADB9A2825C355EAD4444DF /* RS.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = RS.png; sourceTree = "<group>"; };
 		010541F0EAF8DD174F80333B /* EU.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = EU.png; sourceTree = "<group>"; };
@@ -341,6 +349,7 @@
 		319174F71E6894515C9C40A4 /* TO.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = TO.png; sourceTree = "<group>"; };
 		32EE440D32E9F059AD270132 /* HU.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = HU.png; sourceTree = "<group>"; };
 		330E1395A6F57CDC650623F6 /* countries.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = countries.json; path = Resources/countries.json; sourceTree = "<group>"; };
+		A4F918BDEB1945ED9AB3D15F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Resources/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		34BC42E507F9CBF0BC0E2249 /* IL.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = IL.png; sourceTree = "<group>"; };
 		379F1A32723A994F8AEC7493 /* SY.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = SY.png; sourceTree = "<group>"; };
 		384F23227A17FAB7585EFB5A /* HT.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = HT.png; sourceTree = "<group>"; };
@@ -871,6 +880,7 @@
 				A1B2C3D4E5F60718293A4B5C /* WorldMapData.swift */,
 				8D599ADE2D94311637B8E796 /* FlagMasterApp.swift */,
 				8ABBCB6EF1678FE26D3D89A1 /* Country.swift */,
+				F13472AA0000000000000001 /* CountryInformation.swift */,
 				2DA6218416B7F82A0F21576F /* CountryStat.swift */,
 				95399CCC27BFF91CC39A7E89 /* GameMode.swift */,
 				59B5371FE3A2BE96A2155FC1 /* AppSettings.swift */,
@@ -885,7 +895,10 @@
 				D17988E78645A0756F66412F /* RootView.swift */,
 				290A9C9CCD2812CF4042B34B /* SettingsView.swift */,
 				5409D457B972BCBB019F2CC3 /* Assets.xcassets */,
+				A13F2D4461B04356A10FA002 /* InfoPlist.strings */,
 				330E1395A6F57CDC650623F6 /* countries.json */,
+				F13472AA0000000000000003 /* country-info.json */,
+				A4F918BDEB1945ED9AB3D15F /* PrivacyInfo.xcprivacy */,
 				D1B2C3D4E5F60718293A4B5C /* world-map.geojson */,
 				414A1B2C3D4E5F60718293A4 /* Audio */,
 				9A0721F02FBC18A51672F83A /* Flags */,
@@ -942,6 +955,9 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-TW",
+				ja,
+				ko,
 				Base,
 			);
 			mainGroup = 3C2932D9648F0860B16F118A;
@@ -960,7 +976,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E92AC1D57A431501B4984A0A /* Assets.xcassets in Resources */,
+				A13F2D4461B04356A10FA001 /* InfoPlist.strings in Resources */,
 				1C62671D9AB60D452CDEEA00 /* countries.json in Resources */,
+				F13472AA0000000000000004 /* country-info.json in Resources */,
+				F82C6F7AB887447E9FA46711 /* PrivacyInfo.xcprivacy in Resources */,
 				E1B2C3D4E5F60718293A4B5C /* world-map.geojson in Resources */,
 				314A1B2C3D4E5F60718293A4 /* Audio in Resources */,
 				38A5E1CB4B128BEA1B50407D /* AC.png in Resources */,
@@ -1231,6 +1250,7 @@
 				C1B2C3D4E5F60718293A4B5C /* WorldMapData.swift in Sources */,
 				D1E04EE981BE4CA289D70811 /* FlagMasterApp.swift in Sources */,
 				E4C06B3FF42BE0A7CD35B771 /* Country.swift in Sources */,
+				F13472AA0000000000000002 /* CountryInformation.swift in Sources */,
 				6687E4C986CFF85DD5697E4E /* CountryStat.swift in Sources */,
 				77B29B732FFD473B6D6FF054 /* GameMode.swift in Sources */,
 				5E459423B313E6703B6808A8 /* AppSettings.swift in Sources */,
@@ -1248,6 +1268,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A13F2D4461B04356A10FA002 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A13F2D4461B04356A10FA003 /* ja */,
+				A13F2D4461B04356A10FA004 /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		54DB094A81EAADEACF7A0B0C /* Release */ = {
@@ -1380,6 +1412,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.0;
@@ -1408,6 +1442,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.0;

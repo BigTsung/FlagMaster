@@ -151,7 +151,7 @@
         "abb3": "GNQ",
         "code": "226"
     },
-   {
+    {
         "cn": "史瓦帝尼",
         "en": "Eswatini",
         "full": "the Kingdom of Eswatini",
@@ -255,7 +255,7 @@
         "abb3": "XXK",
         "code": "383"
     },
-        {
+    {
         "cn": "寮國",
         "en": "Laos",
         "full": "the Lao People's Democratic Republic",
@@ -322,7 +322,7 @@
     {
         "cn": "蒙特內哥羅",
         "en": "Montenegro",
-        "full": "he Republic of Montenegro",
+        "full": "Montenegro",
         "abb2": "ME",
         "abb3": "MNE",
         "code": "499"
@@ -623,7 +623,7 @@
         "abb3": "COL",
         "code": "170"
     },
-        {
+    {
         "cn": "剛果",
         "en": "Republic of the Congo",
         "full": "the Republic of the Congo",
@@ -770,7 +770,7 @@
     {
         "cn": "科威特",
         "en": "Kuwait",
-        "full": "he State of Kuwait",
+        "full": "the State of Kuwait",
         "abb2": "KW",
         "abb3": "KWT",
         "code": "414"
@@ -951,7 +951,7 @@
         "abb3": "SLB",
         "code": "090"
     },
-   {
+    {
         "cn": "南蘇丹",
         "en": "South Sudan",
         "full": "the Republic of South Sudan",
@@ -965,7 +965,7 @@
         "full": "the Republic of the Sudan",
         "abb2": "SD",
         "abb3": "SDN",
-        "code": "736"
+        "code": "729"
     },
     {
         "cn": "瑞士",
@@ -1090,7 +1090,7 @@
     {
         "cn": "玻利維亞",
         "en": "Bolivia",
-        "full": "the Republic of Bolivia",
+        "full": "the Plurinational State of Bolivia",
         "abb2": "BO",
         "abb3": "BOL",
         "code": "068"
@@ -1194,7 +1194,7 @@
     {
         "cn": "斐濟",
         "en": "Fiji",
-        "full": "the Republic of the Fiji Islands",
+        "full": "the Republic of Fiji",
         "abb2": "FJ",
         "abb3": "FJI",
         "code": "242"
@@ -1210,7 +1210,7 @@
     {
         "cn": "德國",
         "en": "Germany",
-        "full": "he Federal Republic of Germany",
+        "full": "the Federal Republic of Germany",
         "abb2": "DE",
         "abb3": "DEU",
         "code": "276"
@@ -1423,8 +1423,8 @@
         "abb3": "ROU",
         "code": "642"
     },
-   {
-        "cn": "聖基茨和尼維斯",
+    {
+        "cn": "聖克里斯多福及尼維斯",
         "en": "Saint Kitts and Nevis",
         "full": "the Federation of Saint Kitts and Nevis",
         "abb2": "KN",
@@ -1504,7 +1504,7 @@
         "code": "764"
     },
     {
-        "cn": "湯加",
+        "cn": "東加",
         "en": "Tonga",
         "full": "the Kingdom of Tonga",
         "abb2": "TO",
@@ -1513,8 +1513,8 @@
     },
     {
         "cn": "土耳其",
-        "en": "Turkey",
-        "full": "the Republic of Turkey",
+        "en": "Türkiye",
+        "full": "the Republic of Türkiye",
         "abb2": "TR",
         "abb3": "TUR",
         "code": "792"
@@ -1567,7 +1567,7 @@
         "abb3": "TWN",
         "code": "158"
     },
-   {
+    {
         "cn": "巴勒斯坦",
         "en": "Palestine",
         "full": "State of Palestine",

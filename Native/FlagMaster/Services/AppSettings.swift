@@ -15,10 +15,28 @@ final class AppSettings: ObservableObject {
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         animatedEffects = defaults.object(forKey: "AnimatedEffects") as? Bool ?? true
-        language = AppLanguage(rawValue: defaults.string(forKey: Keys.language) ?? "zh-TW") ?? .traditionalChinese
-        musicVolume = VolumeLevel(rawValue: defaults.string(forKey: Keys.music) ?? "medium") ?? .medium
-        soundVolume = VolumeLevel(rawValue: defaults.string(forKey: Keys.sound) ?? "high") ?? .high
+        let bundleLanguage = Bundle.main.preferredLocalizations.first.flatMap(AppLanguage.init(rawValue:))
+        let defaultLanguage: AppLanguage = switch bundleLanguage {
+        case .japanese: .japanese
+        case .korean: .korean
+        default: .traditionalChinese
+        }
+        language = defaults.string(forKey: Keys.language).flatMap(AppLanguage.init(rawValue:)) ?? defaultLanguage
+        musicVolume = Self.volume(defaults, nativeKey: Keys.music, legacyKey: "MusicVolume", fallback: .medium)
+        soundVolume = Self.volume(defaults, nativeKey: Keys.sound, legacyKey: "SFXVolume", fallback: .high)
         hapticsEnabled = defaults.object(forKey: Keys.haptics) as? Bool ?? true
+    }
+
+    private static func volume(
+        _ defaults: UserDefaults, nativeKey: String, legacyKey: String, fallback: VolumeLevel
+    ) -> VolumeLevel {
+        if let value = defaults.string(forKey: nativeKey).flatMap(VolumeLevel.init(rawValue:)) {
+            return value
+        }
+        guard let legacy = defaults.object(forKey: legacyKey) as? NSNumber else { return fallback }
+        return VolumeLevel.allCases.min {
+            abs($0.value - legacy.floatValue) < abs($1.value - legacy.floatValue)
+        } ?? fallback
     }
 
     private enum Keys {

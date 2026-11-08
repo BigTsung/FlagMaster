@@ -1,0 +1,4087 @@
+{
+  "AF": {
+    "capital": {
+      "en": "Kabul",
+      "zhHant": "喀布爾"
+    },
+    "flagDescription": {
+      "en": "This card shows the historical republic-era flag: black, red and green vertical bands with a white national emblem. The emblem includes a mosque and wheat. Afghanistan’s current de facto authorities use a different, white flag.",
+      "zhHant": "圖中為黑、紅、綠三色直條旗，中央白色徽章包含清真寺與麥穗。這是阿富汗共和國時期的旗幟；目前實際統治當局使用另一面白色旗幟。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Afghanistan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/af.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": true
+  },
+  "AD": {
+    "capital": {
+      "en": "Andorra la Vella",
+      "zhHant": "安道爾城"
+    },
+    "flagDescription": {
+      "en": "description: three vertical bands of blue (left side), yellow, and red, with the national coat of arms centered in the yellow band, which is slightly wider than the other two; the coat of arms features a quartered shield with the emblems of Urgell, Foix, Bearn, and Catalonia; the motto reads VIRTUS UNITA FORTIOR (Strength United is Stronger)\n\nmeaning: the flag combines the blue and red French colors with the red and yellow of Spain to symbolize Franco-Spanish protection",
+      "zhHant": "藍、黃、紅三色直條，中間黃色較寬並放置國徽。配色結合法國與西班牙的旗色，反映安道爾與兩國的歷史關係。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Andorra",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/an.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "AR": {
+    "capital": {
+      "en": "Buenos Aires",
+      "zhHant": "布宜諾斯艾利斯"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of sky blue (top), white, and sky blue; centered in the white band is a radiant yellow sun with a human face that is known as the Sun of May\n\nmeaning: the colors represent the clear skies and snow of the Andes Mountains; the sun commemorates the first mass demonstration in favor of independence on 25 May 1810, when the sun broke through the clouds; the sun is designed to look like Inti, the Incan god of the sun",
+      "zhHant": "天藍、白、天藍三條橫帶，中央是帶有人臉的金色「五月太陽」。太陽圖案紀念五月革命與獨立運動。"
+    },
+    "flower": {
+      "en": "Ceibo (Erythrina crista-galli)",
+      "zhHant": "雞冠刺桐（Ceibo）"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Argentina",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/ar.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://www.argentina.gob.ar/pais/ceibo"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "AT": {
+    "capital": {
+      "en": "Vienna",
+      "zhHant": "維也納"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), white, and red\n\nhistory: one of the oldest national flags in the world; according to tradition, after a fierce battle in the Third Crusade in 1191, Duke Leopold V of Austria's white tunic became blood-spattered; when his sash was removed, a white band was revealed, and the red-white-red color combination was adopted as his banner",
+      "zhHant": "紅、白、紅三條等寬橫帶。這是歷史悠久的旗色組合；白色軍服染血而腰帶下留白的故事，是關於它起源的傳說。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Austria",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/au.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BH": {
+    "capital": {
+      "en": "Manama",
+      "zhHant": "麥納瑪"
+    },
+    "flagDescription": {
+      "en": "description: red, with a white serrated band of five white points on the left side\n\nmeaning: red is the traditional color for flags of Persian Gulf states; the five points represent the five pillars of Islam\n\nhistory: until 2002, the flag had eight white points, but this was reduced to five to avoid confusion with the Qatari flag",
+      "zhHant": "旗面以紅色為主，左側白帶形成五個鋸齒尖角。五個尖角象徵伊斯蘭教的五功。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Bahrain",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/ba.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BY": {
+    "capital": {
+      "en": "Minsk",
+      "zhHant": "明斯克"
+    },
+    "flagDescription": {
+      "en": "description: red horizontal band (top), with a green horizontal band below that is half the width of the red band; a white vertical stripe on the left side has traditional Belarusian designs in red\n\nmeaning: the red stands for past struggles to escape oppression, and the green for hope and the country's forests",
+      "zhHant": "上方紅帶較寬，下方是綠帶，左側有紅白傳統織紋。紅色與歷史奮鬥有關，綠色代表森林與希望。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Belarus",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/bo.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BJ": {
+    "capital": {
+      "en": "Porto-Novo (constitutional capital); Cotonou (seat of government)",
+      "zhHant": "波多諾伏（憲定首都）；科托努（政府所在地）"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of yellow (top) and red (bottom) to the right, with a vertical green band on the left side \n\nmeaning: green stands for hope and revival, yellow for wealth, and red for courage\n\nhistory: uses the colors of the Pan-African movement",
+      "zhHant": "左側綠色直帶，右側上黃、下紅。綠、黃、紅也是泛非色彩，分別與希望、財富及勇氣相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Benin",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/bn.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BA": {
+    "capital": {
+      "en": "Sarajevo",
+      "zhHant": "塞拉耶佛"
+    },
+    "flagDescription": {
+      "en": "description: a wide blue vertical band on the right side, with a large yellow isosceles triangle in the middle of the flag, based at the top; the rest of the flag is blue, with seven five-pointed white stars and two half-stars along the triangle's hypotenuse\n\nmeaning: the triangle approximates the country's shape, and its three points stand for the Bosniaks, Croats, and Serbs; the stars represent Europe; the colors (white, blue, and yellow) are traditional and are also associated with neutrality and peace",
+      "zhHant": "藍底上有黃色三角形，斜邊排列白色星星，兩端各有半顆星。三角形呼應國土輪廓及三大族群，星星與歐洲相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Bosnia and Herzegovina",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/bk.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BN": {
+    "capital": {
+      "en": "Bandar Seri Begawan",
+      "zhHant": "斯里巴加灣市"
+    },
+    "flagDescription": {
+      "en": "description: yellow with a diagonal white band and second below it in black, both starting from the upper left; the national emblem in red is at the center; the state motto, \"Always render service with God's guidance,\" appears in yellow Arabic script on the emblem's crescent; a ribbon below the crescent reads \"Brunei, the Abode of Peace\"\n\nmeaning: yellow symbolizes the sultanate, and the white and black bands stand for the chief ministers; the emblem includes a royal umbrella (the monarchy), two wings with four feathers (justice, tranquility, prosperity, and peace), two upraised hands (the government's pledge to preserve and promote the people's welfare), and the crescent moon of Islam (the state religion)",
+      "zhHant": "黃色旗面斜跨白、黑兩帶，中央為紅色國徽。黃色象徵蘇丹，黑白斜帶與主要大臣的傳統旗色有關。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Brunei",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/bx.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MM": {
+    "capital": {
+      "en": "Nay Pyi Taw (administrative capital)",
+      "zhHant": "奈比多（行政首都）"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal stripes of yellow (top), green, and red; centered on the green band is a five-pointed white star that overlaps onto the yellow and red stripes\n\nhistory: the design revives the triband colors that Burma used from 1943 to 1945, during the Japanese occupation",
+      "zhHant": "黃、綠、紅三條橫帶，中央有一顆跨越色帶的大白星。這組三色也曾出現在緬甸較早期的旗幟上。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Myanmar",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/bm.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CM": {
+    "capital": {
+      "en": "Yaounde",
+      "zhHant": "雅溫德"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of green (left side), red, and yellow, with a small five-pointed yellow star centered in the red band\n\nmeaning: red stands for unity; yellow for the sun, happiness, and the northern savannahs; green for hope and the southern forests; the star is called the \"star of unity;\" the vertical tricolor design is similar to the French flag\n\nhistory: uses the colors of the Pan-African movement",
+      "zhHant": "綠、紅、黃三條直帶，紅帶中央有黃色五角星。中間的紅色與星星強調團結，綠色呼應森林，黃色呼應陽光與草原。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Cameroon",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/cm.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CF": {
+    "capital": {
+      "en": "Bangui",
+      "zhHant": "班基"
+    },
+    "flagDescription": {
+      "en": "description: four equal horizontal bands of blue (top), white, green, and yellow with a vertical red band in the center; a five-pointed yellow star sits in the top left corner of the flag, on the blue band\n\nmeaning: combines the pan-African and French flag colors; red stands for blood spilled in the struggle for independence, blue for the sky and freedom, white for peace and dignity, green for hope and faith, and yellow for tolerance; the star represents aspiring to a vibrant future",
+      "zhHant": "藍、白、綠、黃四條橫帶，被中央紅色直帶貫穿；左上角有黃星。設計融合泛非色彩與法國旗色，星星象徵對未來的期望。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Central African Republic",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ct.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CN": {
+    "capital": {
+      "en": "Beijing",
+      "zhHant": "北京"
+    },
+    "flagDescription": {
+      "en": "description: red with a large five-pointed yellow star and four smaller ones in the upper-left corner; the small stars are arranged in a vertical arc around the large one\n\nmeaning: red represents revolution; the stars symbolize the four social classes -- the working class, the peasantry, the urban petty bourgeoisie, and the national bourgeoisie (capitalists) -- united under the Communist Party of China",
+      "zhHant": "紅底左上角有一顆大黃星與四顆小黃星。紅色與革命相連，五顆星的組合表達中國共產黨領導下的團結。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · China",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/ch.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CD": {
+    "capital": {
+      "en": "Kinshasa",
+      "zhHant": "金夏沙"
+    },
+    "flagDescription": {
+      "en": "description: sky-blue field divided diagonally from the lower-left corner to the upper-right corner by a red stripe bordered with two narrow yellow stripes; a five-pointed yellow star is in the upper-left corner\n\nmeaning: blue stands for peace and hope, red for the blood of the country's martyrs, and yellow for the country's wealth and prosperity; the star symbolizes unity and a brilliant future for the country",
+      "zhHant": "天藍底上有黃邊紅色斜帶，左上角是一顆黃星。藍色代表和平與希望，黃色象徵財富，紅色紀念犧牲者。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Democratic Republic of the Congo",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/cg.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CI": {
+    "capital": {
+      "en": "Yamoussoukro (legislative capital), Abidjan (administrative and economic capital); note - the US Embassy is in Abidjan",
+      "zhHant": "雅穆蘇克羅（首都）；阿比讓（行政與經濟中心）"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of orange (left side), white, and green\n\nmeaning: orange stands for the savannah and fertility, white for peace and unity, green for the forests of the south and the hope for a bright future; design based on France's flag",
+      "zhHant": "由左至右為橙、白、綠三條直帶。橙色呼應北方草原，白色代表和平，綠色呼應南方森林與希望。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Côte d'Ivoire",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/iv.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CY": {
+    "capital": {
+      "en": "Nicosia (Lefkosia/Lefkosa)",
+      "zhHant": "尼古西亞"
+    },
+    "flagDescription": {
+      "en": "description: a copper-colored silhouette of the island is centered on a white field above two crossed green olive branches\n\nmeaning: the olive branches symbolize hope for peace and reconciliation between the Greek and Turkish communities",
+      "zhHant": "白底中央是銅色的島嶼輪廓，下方有兩枝交叉的綠色橄欖枝。橄欖枝表達和平與族群和解的願望。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Cyprus",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/cy.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "DJ": {
+    "capital": {
+      "en": "Djibouti",
+      "zhHant": "吉布地市"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of light blue (top) and light green, with a white isosceles triangle based on the left side that has a five-pointed red star in the center\n\nmeaning: blue stands for sea, sky, and the Issa Somali people, green for earth and the Afar people, and white for peace; the red star stands for the struggle for independence and unity",
+      "zhHant": "上藍、下綠，左側白色三角形內有紅色五角星。白色象徵和平，紅星與獨立及團結有關。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Djibouti",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/dj.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "EC": {
+    "capital": {
+      "en": "Quito",
+      "zhHant": "基多"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands of yellow (top, double-width), blue, and red, with the coat of arms at the center of the flag\n\nmeaning: yellow stands for sunshine, grain, and mineral wealth; blue for the sky, sea, and rivers; red for patriots' blood spilled in the struggle for freedom and justice",
+      "zhHant": "黃、藍、紅三條橫帶，黃色占旗面一半，中央有國徽。黃色與陽光、農作及礦產相連，藍色呼應天空與水域。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Ecuador",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/ec.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GQ": {
+    "capital": {
+      "en": "Ciudad de la Paz",
+      "zhHant": "和平城（Ciudad de la Paz）"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of green (top), white, and red, with a blue isosceles triangle based on the left side and the coat of arms centered in the white band; the coat of arms has six six-pointed yellow stars (representing the mainland and five offshore islands) above a gray shield with a silk-cotton tree; below is a scroll with the motto UNIDAD, PAZ, JUSTICIA (Unity, Peace, Justice)\n\nmeaning: green stands for the jungle and natural resources, blue for the sea, white for peace, and red for the fight for independence",
+      "zhHant": "綠、白、紅三條橫帶，左側藍色三角形，中央有國徽。徽章中的木棉樹與六顆星是醒目的辨識線索。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Equatorial Guinea",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ek.json"
+      },
+      {
+        "title": "Capital reference",
+        "url": "https://www.guineaecuatorialpress.com/noticias/el_presidente_de_la_republica_proclama_la_ciudad_de_la_paz_como_capital_de_la_republica_de_guinea_ecuatorial_con_la_firma_de_un_decreto_ley"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SZ": {
+    "capital": {
+      "en": "Mbabane (administrative capital); Lobamba (royal and legislative capital)",
+      "zhHant": "墨巴本（行政）；洛班巴（王室與立法）"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands of blue (top), red (triple-width), and blue; the red band is edged in yellow, with a large black-and-white shield in the center that covers two horizontal spears and a staff with feather tassels\n\nmeaning: blue stands for peace and stability, red for past struggles, and yellow for the mineral resources of the country; the shield, spears, and staff symbolize protection from enemies, and the shield colors stand for ethnic groups living in peaceful coexistence",
+      "zhHant": "中央寬紅帶上下有黃邊與藍帶，中間是黑白盾牌、長矛和權杖。盾牌黑白兩色表達不同族群和平共處。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Eswatini",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/wz.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "FI": {
+    "capital": {
+      "en": "Helsinki",
+      "zhHant": "赫爾辛基"
+    },
+    "flagDescription": {
+      "en": "description: white with a blue cross extending to the edges of the flag; the cross is shifted to the left in the style of the Dannebrog (Danish flag)\n\nmeaning: the blue stands for the country's thousands of lakes, and the white for snow",
+      "zhHant": "白底藍色北歐十字，直線偏向旗桿側。藍色呼應湖泊，白色呼應雪景。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Finland",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/fi.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GM": {
+    "capital": {
+      "en": "Banjul",
+      "zhHant": "班竹"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), blue with white edges, and green\n\nmeaning: red stands for the sun and the savannah, blue for the Gambia River, and green for forests and agriculture; the white stripes denote unity and peace",
+      "zhHant": "紅、藍、綠三色橫帶之間以細白線分隔。藍色代表甘比亞河，紅色呼應陽光與草原，綠色呼應森林及農業。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Gambia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ga.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GH": {
+    "capital": {
+      "en": "Accra",
+      "zhHant": "阿克拉"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), yellow, and green, with a large five-pointed black star centered in the yellow band\n\nmeaning: red stands for the blood shed for independence, yellow for the country's mineral wealth, and green for its forests and natural wealth; the black star is said to be the lodestar of African freedom\n\nhistory: uses the colors of the Pan-African movement",
+      "zhHant": "紅、黃、綠三條橫帶，中央有黑色五角星。黃色代表礦產，綠色代表森林，黑星象徵非洲自由。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Ghana",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/gh.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GT": {
+    "capital": {
+      "en": "Guatemala City",
+      "zhHant": "瓜地馬拉市"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of light blue (left side), white, and light blue, with the coat of arms centered in the white band; the coat of arms includes a green-and-red quetzal (the national bird), a scroll with the inscription LIBERTAD 15 DE SEPTIEMBRE DE 1821 (the original date of independence from Spain), a pair of crossed rifles, and a pair of crossed swords; a laurel wreath frames the objects\n\nmeaning: the rifles stand for Guatemala's willingness to defend itself, the swords for honor, and the laurel wreath for victory; blue stands for the Pacific Ocean and Caribbean Sea, and white for peace and purity",
+      "zhHant": "藍、白、藍直條旗，中央國徽包含格查爾鳥、卷軸及交叉武器。藍色呼應兩側海域，白色代表和平。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Guatemala",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/gt.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GY": {
+    "capital": {
+      "en": "Georgetown",
+      "zhHant": "喬治敦"
+    },
+    "flagDescription": {
+      "en": "description: green with a red isosceles triangle (based on the left side) on top of a long yellow arrowhead shape that extends to the opposite side of the flag; a narrow black border sits between the red and yellow, and a narrow white border between the yellow and green\n\nmeaning: green stands for forest and foliage, yellow for mineral resources and a bright future, white for the rivers, red for zeal and the people's sacrifice, and black for perseverance",
+      "zhHant": "綠底上有指向右側的黃色箭頭，左側疊著黑邊紅色三角形。綠色代表森林，黃色代表礦產，白色邊線呼應河流。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Guyana",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/gy.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "HN": {
+    "capital": {
+      "en": "Tegucigalpa",
+      "zhHant": "德古西加巴"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of cerulean blue (top), white, and cerulean blue, with five five-pointed cerulean stars arranged in an \"X\" pattern and centered in the white band\n\nmeaning: the stars represent the members of the former Federal Republic of Central America: Costa Rica, El Salvador, Guatemala, Honduras, and Nicaragua; blue stands for the Pacific Ocean and the Caribbean Sea, and white for the land and the people's peace and prosperity",
+      "zhHant": "藍、白、藍三條橫帶，中間五顆藍星排成 X 形。五顆星代表昔日中美洲聯邦的五個成員。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Honduras",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/ho.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "IN": {
+    "capital": {
+      "en": "New Delhi",
+      "zhHant": "新德里"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of saffron (top), white, and green, with a blue chakra (24-spoked wheel) centered in the white band\n\nmeaning: saffron stands for courage, sacrifice, and the spirit of renunciation; white for purity and truth; green for faith and fertility; the chakra symbolizes the wheel of life in movement and death in stagnation",
+      "zhHant": "橙黃、白、綠三條橫帶，白帶中央是藍色二十四輻法輪。法輪與持續前進相連，白色代表純潔與真理。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · India",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/in.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "IQ": {
+    "capital": {
+      "en": "Baghdad",
+      "zhHant": "巴格達"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), white, and black; the Takbir (Arabic phrase meaning \"God is great\") in green Arabic script is centered in the white band\n\nmeaning: the colors come from the Arab Liberation flag and stand for oppression (black) overcome through bloody struggle (red), to be replaced by a bright future (white)\n\nhistory: the Council of Representatives approved this flag in 2008 as a compromise replacement for the Ba'thist SADDAM-era flag",
+      "zhHant": "紅、白、黑三條橫帶，中央白帶有綠色阿拉伯文，意為「真主至大」。三色沿用阿拉伯解放旗的配色。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Iraq",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/iz.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "IT": {
+    "capital": {
+      "en": "Rome",
+      "zhHant": "羅馬"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of green (left side), white, and red\n\nmeaning: colors are those of Milan (red and white) combined with the green uniform color of the Milanese civic guard\n\nhistory: design inspired by the French flag that Napoleon brought to Italy in 1797",
+      "zhHant": "綠、白、紅三條等寬直帶。設計受法國三色旗影響，紅白色與米蘭傳統有關，綠色則與當地民兵制服相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Italy",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/it.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "JO": {
+    "capital": {
+      "en": "Amman",
+      "zhHant": "安曼"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of black (top), white, and green; a red isosceles triangle is on the left side, with a small white seven-pointed star in the center\n\nmeaning: black stands for the Abbassid Caliphate, white for the Ummayyad Caliphate, and green for the Fatimid Caliphate; the triangle stands for the Great Arab Revolt of 1916, and the star's points for the seven verses of the opening Sura (Al-Fatiha) of the Quran, as well as faith in One God, humanity, national spirit, humility, social justice, virtue, and aspirations\n\nhistory: the design is based on the Arab Revolt flag of World War I",
+      "zhHant": "黑、白、綠三條橫帶，左側紅三角形內有白色七角星。設計源自阿拉伯起義旗，七角星具有宗教與國家理想的意義。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Jordan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/jo.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "KI": {
+    "capital": {
+      "en": "Tarawa",
+      "zhHant": "塔拉瓦"
+    },
+    "flagDescription": {
+      "en": "description: the upper half is red with a yellow frigatebird flying over a yellow rising sun, and the lower half is blue with three wavy horizontal white stripes to represent the Pacific Ocean\n\nmeaning: the white stripes represent the Gilbert, Line, and Phoenix island groups; the 17 rays of the sun represent the 16 Gilbert Islands and Banaba (formerly Ocean Island); the frigatebird symbolizes authority and freedom",
+      "zhHant": "紅色上半部有金色軍艦鳥與旭日，下半部是藍白波浪。海浪代表太平洋，軍艦鳥象徵自由與權威。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Kiribati",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/kr.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "XK": {
+    "capital": {
+      "en": "Pristina (Prishtine, Prishtina)",
+      "zhHant": "普里斯提納"
+    },
+    "flagDescription": {
+      "en": "description: a dark blue field with a gold-colored silhouette of Kosovo in the center, with six five-pointed white stars in a slight arc over it\n\nmeaning: each star represents one of the major ethnic groups of Kosovo: Albanians, Serbs, Turks, Gorani, Roma, and Bosniaks",
+      "zhHant": "深藍底中央有金色國土輪廓，上方六顆白色五角星排列成弧形。星星代表主要族群。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Kosovo",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/kv.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "LA": {
+    "capital": {
+      "en": "Vientiane (Viangchan)",
+      "zhHant": "永珍"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands of red (top), blue (double-width), and red, with a large white disk centered in the blue band\n\nmeaning: red stands for the blood shed for liberation, and blue for the Mekong River and prosperity; the white disk represents the full moon over the Mekong River and the unity of the people under the Lao People's Revolutionary Party, as well as the country's bright future",
+      "zhHant": "紅、藍、紅三條橫帶，中間藍帶較寬並有白色圓盤。圓盤可理解為湄公河上空的滿月，也表達人民團結。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Laos",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/la.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "LS": {
+    "capital": {
+      "en": "Maseru",
+      "zhHant": "馬塞魯"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal stripes of blue (top), white, and green; centered on the white stripe is a black mokorotlo, a traditional Basotho straw hat and national symbol\n\nmeaning: blue stands for rain, white for peace, and green for prosperity\n\nhistory: the redesigned flag was introduced in 2006 to celebrate 40 years of independence",
+      "zhHant": "藍、白、綠三條橫帶，中間是黑色巴索托傳統草帽。藍色代表雨水，白色代表和平，綠色代表繁榮。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Lesotho",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/lt.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "LI": {
+    "capital": {
+      "en": "Vaduz",
+      "zhHant": "瓦都茲"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of blue (top) and red, with a gold crown on the left side of the blue band\n\nhistory: the colors may derive from the blue-and-red livery used in the principality's household in the 18th century; the prince's crown was added in 1937 to distinguish it from Haiti's flag",
+      "zhHant": "上藍、下紅，左上角有金色王冠。王冠於二十世紀加入，用來區別當時相似的海地旗。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Liechtenstein",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/ls.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MK": {
+    "capital": {
+      "en": "Skopje",
+      "zhHant": "史高比耶"
+    },
+    "flagDescription": {
+      "en": "description: a red field with a yellow sun (the Sun of Liberty) in the center, with eight broadening rays extending to the edges\n\nmeaning: the red and yellow colors have long been associated with Macedonia",
+      "zhHant": "紅底中央有黃色太陽，八道光芒向旗邊擴展。這個圖案稱為「自由之日」。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · North Macedonia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/mk.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MY": {
+    "capital": {
+      "en": "Kuala Lumpur (capital); Putrajaya (administrative centre)",
+      "zhHant": "吉隆坡（首都）；布城（行政中心）"
+    },
+    "flagDescription": {
+      "en": "description: 14 equal horizontal stripes of red alternating with white; a dark blue rectangle in the upper-left corner has a yellow crescent and a 14-pointed yellow star \n\nmeaning: the flag is often called Jalur Gemilang (Stripes of Glory); the 14 stripes stand for the equal status of the 13 member states and the federal government; the points on the star represent the unity among these entities; the crescent is a traditional symbol of Islam; blue symbolizes the unity of the Malay people, and yellow is the royal color",
+      "zhHant": "十四條紅白相間橫紋，左上藍區有黃色新月與十四角星。條紋和星角象徵十三州及聯邦政府，新月與伊斯蘭教有關。"
+    },
+    "flower": {
+      "en": "Hibiscus (Hibiscus rosa-sinensis)",
+      "zhHant": "朱槿（大紅花）"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Malaysia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/my.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://www.malaysia.gov.my/en/government/kenali-malaysia/national-flower"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MT": {
+    "capital": {
+      "en": "Valletta",
+      "zhHant": "瓦萊塔"
+    },
+    "flagDescription": {
+      "en": "description: two equal vertical bands of white (left side) and red; in the upper-left corner is the George Cross, edged in red\n\nhistory: according to legend, the colors come from the red-and-white checkered banner of Count Roger of Sicily, who removed a bicolored corner and granted it to Malta in 1091, but the colors more likely come from the Knights of Saint John, who ruled Malta from 1530 to 1798; in 1942, Britain's King George VI awarded the George Cross to the islanders for their exceptional bravery and gallantry in World War II, and the George Cross bordered in red was added to the flag after independence in 1964",
+      "zhHant": "左白、右紅，左上角有紅邊的喬治十字。十字紀念馬爾他人民在第二次世界大戰中的勇氣。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Malta",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/mt.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MU": {
+    "capital": {
+      "en": "Port Louis",
+      "zhHant": "路易港"
+    },
+    "flagDescription": {
+      "en": "description: four equal horizontal bands of red (top), blue, yellow, and green\n\nmeaning: red stands for self-determination and independence; blue for the Indian Ocean; yellow for the new light of independence, golden sunshine, or the bright future; and green for agriculture or the island's lush vegetation",
+      "zhHant": "紅、藍、黃、綠四條等寬橫帶。藍色代表印度洋，綠色呼應植被，紅色與獨立相連，黃色象徵光明前景。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Mauritius",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/mp.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MD": {
+    "capital": {
+      "en": "Chisinau in Romanian (Kishinev in Russian)",
+      "zhHant": "基希訥烏"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of Prussian blue (left side), chrome yellow, and vermilion red; the Moldavan coat of arms in the center is a dark gold Roman eagle outlined in black, with a red beak and talons; the eagle carries a yellow cross in its beak, a green olive branch in its right talons, and a yellow scepter in its left talons; on the eagle's breast is a red-and-blue shield divided horizontally, with a stylized aurochs head, star, rose, and crescent in black and outlined yellow; the reverse of the flag displays a mirror image of the coat of arms\n\nhistory: replaced the communist flag in 1990; the coat of arms is based on traditional designs",
+      "zhHant": "藍、黃、紅三條直帶，黃色中央有鷹形國徽。可用中央國徽來區別同樣採三色直帶的羅馬尼亞旗。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Moldova",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/md.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "ME": {
+    "capital": {
+      "en": "Podgorica",
+      "zhHant": "波德里查"
+    },
+    "flagDescription": {
+      "en": "description: a red field bordered with a narrow golden-yellow stripe; the Montenegrin coat of arms in the center is a double-headed golden eagle, with a crown above; the eagle holds a golden scepter in its right claw and a blue orb in its left; the eagle's breast shield shows a golden lion on a green field in front of a blue sky\n\nmeaning: the eagle symbolizes the unity of church and state; the lion is a symbol of episcopal authority, a reference to the three-and-a-half centuries when Montenegro was ruled as a theocracy",
+      "zhHant": "紅底鑲金邊，中央是雙頭鷹國徽，胸前盾牌有獅子。雙頭鷹與獅子反映國家的歷史及宗教傳統。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Montenegro",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/mj.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "NA": {
+    "capital": {
+      "en": "Windhoek",
+      "zhHant": "溫荷克"
+    },
+    "flagDescription": {
+      "en": "description: a wide red stripe edged with narrow white stripes divides the flag diagonally from lower-left corner to upper-right corner; the upper triangle is blue and has a golden-yellow, 12-ray sunburst, and the lower triangle is green\n\nmeaning: red stands for the heroism of the people and their determination to build a future of equal opportunity; white stands for peace, unity, tranquility, and harmony; blue stands for the sky and the Atlantic Ocean, the sun for power and existence, and green for vegetation and agricultural resources",
+      "zhHant": "白邊紅色斜帶分開藍、綠兩區，左上有金色十二道光芒的太陽。藍色呼應天空與海洋，綠色代表植被。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Namibia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/wa.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "NL": {
+    "capital": {
+      "en": "Amsterdam (capital); The Hague (seat of government)",
+      "zhHant": "阿姆斯特丹（首都）；海牙（政府所在地）"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of bright red (top), white, and cobalt blue\n\nhistory: the colors come from WILLIAM I, Prince of Orange; originally the upper band was orange, but the dye would turn red over time, so red was eventually made the permanent color",
+      "zhHant": "紅、白、深藍三條橫帶。可注意底部的深藍色，與盧森堡旗的淺藍色區別。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Netherlands",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/nl.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "NE": {
+    "capital": {
+      "en": "Niamey",
+      "zhHant": "尼阿美"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of orange (top), white, and green, with an orange disk centered on the white band\n\nmeaning: orange stands for the northern Sahara regions, white for purity and innocence, and green for hope and the fertile and productive southern and western areas, as well as the Niger River; the orange disc represents the sun and the people's sacrifices",
+      "zhHant": "橙、白、綠三條橫帶，白帶中央有橙色圓盤。橙色呼應撒哈拉地區與太陽，綠色呼應較肥沃的地區。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Niger",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ng.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "OM": {
+    "capital": {
+      "en": "Muscat",
+      "zhHant": "馬斯喀特"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of white (top), red, and green, with a vertical red band on the left side; the national emblem (a khanjar dagger in its sheath on top of crossed swords in scabbards) in white is centered near the top of the vertical band\n\nmeaning: white stands for peace and prosperity, red for battles against foreign invaders, and green for the Jebel al Akhdar (Green Mountains) and fertility",
+      "zhHant": "白、紅、綠三條橫帶，左側另有紅色直帶與白色國徽。國徽包含彎刀及交叉的劍，綠色與山地及土地肥沃有關。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Oman",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/mu.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "PA": {
+    "capital": {
+      "en": "Panama City",
+      "zhHant": "巴拿馬市"
+    },
+    "flagDescription": {
+      "en": "description: divided into four equal rectangles; one of the top quadrants is white (left side) with a five-pointed blue star in the center, and the other is plain red; one of the bottom quadrants is plain blue (left side), and the other is white with a five-pointed red star in the center\n\nmeaning: blue and red stand for the main political parties, and white for peace between them; the blue star stands for the civic virtues of purity and honesty, and the red star for authority and law",
+      "zhHant": "旗面分四格：白底藍星、紅格、藍格、白底紅星。紅藍兩色與主要政黨有關，白色象徵彼此和平。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Panama",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/pm.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "PE": {
+    "capital": {
+      "en": "Lima",
+      "zhHant": "利馬"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of red (left side), white, and red, with the coat of arms centered on the white band; the coat of arms has a shield with a vicuna, a cinchona tree, and a yellow cornucopia spilling out coins\n\nmeaning: the vicuna represents fauna, the cinchona tree is the source of quinine, and the cornucopia symbolizes mineral wealth; red stands for blood shed for independence, and white for peace",
+      "zhHant": "紅、白、紅三條直帶；本卡顯示中央有國徽的版本。國徽包含駱馬、金雞納樹與豐饒角，表達動物、植物及礦產資源。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Peru",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/pe.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "PT": {
+    "capital": {
+      "en": "Lisbon",
+      "zhHant": "里斯本"
+    },
+    "flagDescription": {
+      "en": "description: two vertical bands of green (left side, two-fifths) and red (three-fifths), with the national coat of arms (armillary sphere and national shield) centered on the dividing line\n\nmeaning: explanations for the color meanings are ambiguous, but a popular interpretation says that green symbolizes hope and red the blood of those defending the nation",
+      "zhHant": "左綠右紅，紅色較寬，分界處有天球儀與盾形國徽。天球儀是葡萄牙航海歷史的重要象徵。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Portugal",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/po.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "RU": {
+    "capital": {
+      "en": "Moscow",
+      "zhHant": "莫斯科"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of white (top), blue, and red\n\nmeaning: colors may have been based on the Dutch flag, but no official meaning is assigned\n\nhistory: created when Russia built its first naval vessels, and was used mostly as a naval flag until the 19th century",
+      "zhHant": "白、藍、紅三條等寬橫帶。這組旗色曾用於俄羅斯船艦，顏色沒有統一的官方象徵解釋。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Russia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/rs.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "LC": {
+    "capital": {
+      "en": "Castries",
+      "zhHant": "卡斯特里"
+    },
+    "flagDescription": {
+      "en": "description: cerulean blue with a gold isosceles triangle below a black arrowhead; the upper edges of the arrowhead have a white border\n\nmeaning: blue stands for the sky and sea, gold for sunshine and prosperity, and white and black for the ethnic composition of the island; the triangles represent Gros Piton and Petit Piton, the cone-shaped volcanic plugs that are a symbol of the island",
+      "zhHant": "藍底中央疊著黃、黑及白邊的三角形。三角形呼應皮通雙峰，藍色代表天空與海洋。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Saint Lucia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/st.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SM": {
+    "capital": {
+      "en": "San Marino (city)",
+      "zhHant": "聖馬利諾市"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of white (top) and light blue, with the national coat of arms in the center; the main colors come from the shield on the coat of arms, which features three white towers on mountain peaks on a blue field; a wreath and a crown are around the shield, above a scroll with the word LIBERTAS (Liberty)\n\nmeaning: the towers represent the Guaita, Cesta, and Montale castles on Mount Titano; white and blue are said to stand for peace and liberty",
+      "zhHant": "上白、下淺藍，中央有國徽。國徽中的三座塔代表蒂塔諾山上的三座堡壘，下方文字意為「自由」。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · San Marino",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/sm.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SN": {
+    "capital": {
+      "en": "Dakar",
+      "zhHant": "達卡"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of green (left side), yellow, and red, with a small five-pointed green star centered on the yellow band; green stands for Islam, progress, and hope, yellow for natural wealth and progress, and red for sacrifice and determination; the star represents unity and hope\n\nhistory: uses the colors of the Pan-African movement",
+      "zhHant": "綠、黃、紅三條直帶，黃色中央有綠星。採用泛非色彩，星星表達團結與希望。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Senegal",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/sg.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SL": {
+    "capital": {
+      "en": "Freetown",
+      "zhHant": "自由城"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of light green (top), white, and light blue\n\nmeaning: green stands for agriculture, mountains, and natural resources; white for unity and justice; and blue for the sea and the natural harbor in Freetown",
+      "zhHant": "綠、白、藍三條橫帶。綠色呼應農業與山地，白色代表團結和正義，藍色呼應海洋及天然港灣。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Sierra Leone",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/sl.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SI": {
+    "capital": {
+      "en": "Ljubljana",
+      "zhHant": "盧比安納"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of white (top), blue, and red; the Slovenian seal (a shield with Triglav, the country's highest peak, in white on a blue background) is at the center, with two wavy blue lines under it; three six-pointed stars in an inverted triangle appear on the upper-left\n\nmeaning: the wavy lines represent seas and rivers; the colors come from the medieval coat of arms of the Duchy of Carniola; the stars come from the coat of arms of the Counts of Celje (a Slovene dynastic house)",
+      "zhHant": "白、藍、紅三條橫帶，靠左有盾形國徽。徽章中白色山峰是特里格拉夫山，下方波紋代表海洋與河流。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Slovenia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/si.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "ZA": {
+    "capital": {
+      "en": "Pretoria (administrative capital); Cape Town (legislative capital); Bloemfontein (judicial capital)",
+      "zhHant": "普利托利亞（行政）；開普敦（立法）；布隆方丹（司法）"
+    },
+    "flagDescription": {
+      "en": "description: two equal-width horizontal bands of red (top) and blue separated by a central green band that splits into a horizontal Y; a black isosceles triangle is in the Y, with narrow yellow bands around it; the red and blue bands are bordered by narrow white stripes\n\nmeaning: the colors have no official meaning, but the Y stands for \"the convergence of diverse elements within South African society, taking the road ahead in unity\"",
+      "zhHant": "紅、藍、綠、黑、白、黃六色構成旗面，中央綠帶形成橫向 Y 字。Y 形象徵多元社會匯聚並團結前進，六色沒有各自固定的官方涵義。"
+    },
+    "flower": {
+      "en": "King protea",
+      "zhHant": "帝王花"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · South Africa",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/sf.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://www.gov.za/about-sa/national-flower"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "LK": {
+    "capital": {
+      "en": "Colombo (commercial capital); Sri Jayewardenepura Kotte (legislative capital)",
+      "zhHant": "斯里賈亞瓦德納普拉科特（立法）；可倫坡（商業中心）"
+    },
+    "flagDescription": {
+      "en": "description: yellow with two panels; the smaller panel on the left has two equal vertical bands of green (left side) and orange; the larger panel has a yellow lion holding a sword on a maroon field, with a yellow bo leaf in each corner\n\nmeaning: the sword stands for national sovereignty; the lion for Sinhalese ethnicity, the strength of the nation, and bravery; the four bo leaves for Buddhism and the four virtues of kindness, friendliness, happiness, and equanimity; orange stands for Tamils, green for Moors, and maroon for the Sinhalese majority; yellow represents other ethnic groups",
+      "zhHant": "金邊旗面左側有綠、橙直帶，右側酒紅區有持劍金獅及四片菩提葉。獅子、劍與菩提葉分別連結族群、主權及佛教傳統。"
+    },
+    "flower": {
+      "en": "Blue water lily (Nymphaea nouchali)",
+      "zhHant": "藍睡蓮（Nymphaea nouchali）"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Sri Lanka",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/ce.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://www.cabinetoffice.gov.lk/cab/index.php?Itemid=49&dID=6113&id=16&lang=en&option=com_content&view=article"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SE": {
+    "capital": {
+      "en": "Stockholm",
+      "zhHant": "斯德哥爾摩"
+    },
+    "flagDescription": {
+      "en": "description: blue with a golden yellow cross extending to the edges of the flag; the cross is shifted to the left side in the style of the Dannebrog (Danish flag)\n\nmeaning: the colors come from the Swedish coat of arms",
+      "zhHant": "藍底黃色北歐十字，十字偏向旗桿側。藍黃配色源自瑞典國徽。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Sweden",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/sw.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TJ": {
+    "capital": {
+      "en": "Dushanbe",
+      "zhHant": "杜尚別"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal stripes of red (top), a wider stripe of white, and green; a gold crown under seven five-pointed gold stars is in the center of the white stripe\n\nmeaning: red stands for the sun, victory, and the unity of the nation; white for purity, cotton, and mountain snows; green for Islam and nature's bounty; the crown symbolizes the Tajik people; the stars represent the number seven, which is considered a symbol of perfection and the embodiment of happiness",
+      "zhHant": "紅、白、綠三條橫帶，較寬的白帶中央有金冠與七顆金星。白色呼應棉花及山雪，七星與圓滿、幸福的意象相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Tajikistan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/ti.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TL": {
+    "capital": {
+      "en": "Dili",
+      "zhHant": "帝力"
+    },
+    "flagDescription": {
+      "en": "description: red with a black isosceles triangle (based on the left side) on a slightly longer yellow arrowhead that extends to the center of the flag; a white star is in the center of the black triangle\n\nmeaning: yellow stands for past colonialism, black for obscurantism that needs to be overcome, and red for the struggle for freedom; the white star represents peace and a guiding light",
+      "zhHant": "紅底左側疊著黃、黑兩個三角形，黑色內有白星。紅色與爭取自由相連，白星象徵和平與指引。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Timor-Leste",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/tt.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TT": {
+    "capital": {
+      "en": "Port of Spain",
+      "zhHant": "西班牙港"
+    },
+    "flagDescription": {
+      "en": "description: red with a white-edged black diagonal band from the upper left to the lower right\n\nmeaning: the colors represent the elements of earth, water, and fire; black also stands for the wealth of the land and the dedication of the people; white for the sea, the purity of the country's aspirations, and equality; red for the sun, the vitality of the land, and the people's courage and friendliness",
+      "zhHant": "紅底上有一道由左上到右下的白邊黑色斜帶。三色分別與火、水、土等元素，以及人民的活力和團結相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Trinidad and Tobago",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/td.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TM": {
+    "capital": {
+      "en": "Ashgabat (Ashkhabad)",
+      "zhHant": "阿什哈巴特"
+    },
+    "flagDescription": {
+      "en": "description: green field with a vertical red stripe near the left side; the stripe has five tribal guls (designs used in producing carpets) stacked above two crossed olive branches; five five-pointed white stars and a white crescent moon appear in the upper left corner of the main field\n\nmeaning: the green color and crescent moon stand for Islam, the five stars for the country's regions, and the guls for national identity",
+      "zhHant": "綠底左側有紅色地毯紋飾直帶，旁邊是白色新月與五顆星。五種地毯圖紋表達部族傳統與國家認同。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Turkmenistan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/tx.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "UA": {
+    "capital": {
+      "en": "Kyiv (Kiev is the transliteration from Russian)",
+      "zhHant": "基輔"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of blue (top) and yellow\n\nmeaning: the colors date back to medieval heraldry, but they are sometimes said to represent grain fields under a blue sky",
+      "zhHant": "上藍、下黃兩條等寬橫帶。常見的理解是藍天下的金色田野，旗色也有悠久的紋章歷史。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Ukraine",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/up.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "US": {
+    "capital": {
+      "en": "Washington, D.C.",
+      "zhHant": "華盛頓哥倫比亞特區"
+    },
+    "flagDescription": {
+      "en": "description: 13 equal horizontal stripes of red (top and bottom) alternating with white; a blue rectangle in the upper-left corner has 50 five-pointed white stars, arranged in nine offset horizontal rows of six stars (top and bottom) alternating with rows of five stars\n\nmeaning: the stars represent the 50 states, and the stripes represent the 13 original colonies; blue stands for loyalty, devotion, truth, justice, and friendship; red for courage, zeal, and fervency; white for purity and rectitude of conduct",
+      "zhHant": "十三條紅白橫紋配上左上角的藍底五十顆白星。條紋代表最初十三個殖民地，星星代表五十州。"
+    },
+    "flower": {
+      "en": "Rose",
+      "zhHant": "玫瑰"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · United States",
+        "url": "https://github.com/factbook/factbook.json/blob/master/north-america/us.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://postalmuseum.si.edu/exhibition/beautiful-blooms/the-rose-queen-of-flowers"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "VU": {
+    "capital": {
+      "en": "Port-Vila (on Efate)",
+      "zhHant": "維拉港"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of red (top) and green with a black isosceles triangle (based on the left side); a black-edged yellow stripe in the shape of a horizontal \"Y\" faces the left side and encloses the triangle; a boar's tusk in the triangle circles two crossed namele fern fronds, all in yellow\n\nmeaning: red stands for unity and the blood of men and boars, green for the richness of the islands, and black for the ni-Vanuatu people; the yellow \"Y\" reflects the islands' layout in the Pacific Ocean and symbolizes the light of the Gospel; the boar's tusk is a symbol of prosperity; the ferns represent peace",
+      "zhHant": "上紅下綠，左側黑三角形被黃色 Y 形帶包圍。三角形內的野豬獠牙代表繁榮，交叉蕨葉代表和平。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Vanuatu",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/nh.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "YE": {
+    "capital": {
+      "en": "Sanaa",
+      "zhHant": "沙那"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), white, and black\n\nmeaning: the band colors come from the Arab Liberation flag and represent oppression (black) overcome through bloody struggle (red), to be replaced by a bright future (white)",
+      "zhHant": "紅、白、黑三條等寬橫帶。三色源自阿拉伯解放旗，與奮鬥、光明未來及過去的壓迫相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Yemen",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/ym.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "AL": {
+    "capital": {
+      "en": "Tirana (Tirane)",
+      "zhHant": "地拉那"
+    },
+    "flagDescription": {
+      "en": "description: red with a black two-headed eagle in the center\n\nmeaning: Albanians traditionally see themselves as descendants of the eagle; they refer to themselves as \"Shqiptare,\" which translates as \"sons of the eagle\"\n\nhistory: the design is said to originate with 15th-century Albanian hero Georgi Kastrioti SKANDERBEG, who led a successful uprising against the Ottoman Turks",
+      "zhHant": "紅底中央是一隻黑色雙頭鷹。雙頭鷹與阿爾巴尼亞民族認同，以及歷史人物斯坎德培的旗幟傳統相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Albania",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/al.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "AO": {
+    "capital": {
+      "en": "Luanda",
+      "zhHant": "羅安達"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of red (top) and black with a centered yellow emblem of a five-pointed star inside half a cogwheel, crossed by a machete (in the style of a hammer and sickle)\n\nmeaning: red stands for liberty and black for the African continent; the emblem symbolizes workers and peasants",
+      "zhHant": "上紅、下黑，中央金色徽記由半齒輪、砍刀及五角星組成。齒輪與砍刀代表工人和農民。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Angola",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ao.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "AM": {
+    "capital": {
+      "en": "Yerevan",
+      "zhHant": "葉里溫"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), blue, and orange\n\nmeaning: red stands for the blood shed for liberty, blue for the Armenian skies and hope, and orange for the land and the courage of the workers who farm it",
+      "zhHant": "紅、藍、橙三條等寬橫帶。紅色與爭取自由的犧牲相連，藍色呼應天空，橙色呼應土地與勞動。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Armenia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/am.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "AZ": {
+    "capital": {
+      "en": "Baku (Baki, Baky)",
+      "zhHant": "巴庫"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of sky blue (top), red, and green; a vertical crescent moon and an eight-pointed star in white are centered in the red band\n\nmeaning: the blue band stands for Azerbaijan's Turkic heritage, red for modernization and progress, and green for Islam; the crescent moon and star are a Turkic insignia; the eight star points represent the eight Turkic peoples of the world",
+      "zhHant": "藍、紅、綠三條橫帶，中央白色新月旁有八角星。藍色連結突厥傳統，紅色代表進步，綠色與伊斯蘭教相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Azerbaijan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/aj.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BD": {
+    "capital": {
+      "en": "Dhaka",
+      "zhHant": "達卡"
+    },
+    "flagDescription": {
+      "en": "description: green field with a large red disk shifted slightly to the left\n\nmeaning: the red disk represents the rising sun and the sacrifice to achieve independence; the green field symbolizes the lush vegetation of Bangladesh",
+      "zhHant": "綠底上有偏向旗桿側的紅色圓盤。紅盤象徵旭日及獨立犧牲，綠色代表茂盛植被。"
+    },
+    "flower": {
+      "en": "White water lily (Shapla)",
+      "zhHant": "白睡蓮（Shapla）"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Bangladesh",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/bg.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://bdembjp.mofa.gov.bd/public/storage/pdf/Country_Profile.pdf"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BE": {
+    "capital": {
+      "en": "Brussels",
+      "zhHant": "布魯塞爾"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of black (left side), yellow, and red\n\nhistory: the vertical design was based on the flag of France; the colors are from the arms of the duchy of Brabant (yellow lion with red claws and tongue on a black field)",
+      "zhHant": "黑、黃、紅三條等寬直帶。旗色源自布拉班特公國的黑底金獅紋章。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Belgium",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/be.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BT": {
+    "capital": {
+      "en": "Thimphu",
+      "zhHant": "廷布"
+    },
+    "flagDescription": {
+      "en": "description: divided diagonally from the lower-left corner to the upper-right corner; the upper triangle is yellow, and the lower triangle is dark orange; centered along the dividing line is a large, stylized black-and-white dragon facing to the right; the dragon is called the Druk (Thunder Dragon) and is the national emblem\n\nmeaning: white stands for purity, and the jewels in the dragon's claws symbolize wealth; the background colors represent the spiritual and secular powers in Bhutan, with orange standing for Buddhism and yellow for the ruling dynasty",
+      "zhHant": "旗面由斜線分成黃色與橙色，中間是一條白色雷龍。黃色與王室相連，橙色代表佛教，龍爪握珠象徵財富。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Bhutan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/bt.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BW": {
+    "capital": {
+      "en": "Gaborone",
+      "zhHant": "嘉柏隆里"
+    },
+    "flagDescription": {
+      "en": "description: light blue with a horizontal white-edged black stripe across the middle\n\nmeaning: the blue symbolizes rainwater, and the black and white bands represent racial harmony",
+      "zhHant": "淺藍底中央有白邊黑色橫帶。藍色象徵珍貴雨水，黑白兩色表達族群和諧。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Botswana",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/bc.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BG": {
+    "capital": {
+      "en": "Sofia",
+      "zhHant": "索菲亞"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of white (top), green, and red\n\nmeaning: white stands for peace, love, and freedom; green for the country's agricultural wealth; red for the independence struggle and military courage\n\nhistory: originally adopted in 1879 as a modified version of the Russian tricolor flag, using green instead of blue; the communist coat of arms was added to the flag in various forms between 1948 and 1990, when it was removed after the communist government collapsed",
+      "zhHant": "白、綠、紅三條等寬橫帶。白色代表和平與自由，綠色呼應農業，紅色與獨立及勇氣相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Bulgaria",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/bu.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BI": {
+    "capital": {
+      "en": "Gitega (political capital), Bujumbura (commercial capital)",
+      "zhHant": "基特加（政治首都）；布松布拉（商業中心）"
+    },
+    "flagDescription": {
+      "en": "description: divided by a white diagonal cross into red triangles (top and bottom) and green triangles (on each side) with a white disk at the center bearing three six-pointed red stars outlined in green and arranged in a triangular design\n\nmeaning: green stands for hope and optimism, white for purity and peace, and red for the blood shed in the struggle for independence; the three stars represent the major ethnic groups (Hutu, Twa, Tutsi), as well as unity, work, and progress",
+      "zhHant": "白色斜十字把紅、綠色區隔開，中央白圓內有三顆紅色六角星。三星與三大族群，以及團結、工作、進步的理念相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Burundi",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/by.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CA": {
+    "capital": {
+      "en": "Ottawa",
+      "zhHant": "渥太華"
+    },
+    "flagDescription": {
+      "en": "description: two vertical bands of red on each side, with a white square between them; a large 11-pointed red maple leaf is centered in the white square\n\nmeaning: the maple leaf is a national symbol",
+      "zhHant": "左右兩側為紅色直帶，中間白色區域有紅色十一尖楓葉。楓葉是加拿大重要的國家象徵。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Canada",
+        "url": "https://github.com/factbook/factbook.json/blob/master/north-america/ca.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TD": {
+    "capital": {
+      "en": "N'Djamena",
+      "zhHant": "恩將納"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of blue (left side), gold, and red\n\nmeaning: combines the blue and red French (former colonial) colors with the red and yellow Pan-African colors; blue stands for the sky, hope, and the south of the country; gold for the sun and the desert in the north; red for progress, unity, and sacrifice",
+      "zhHant": "藍、黃、紅三條等寬直帶。藍色呼應天空與希望，黃色呼應陽光與沙漠；與羅馬尼亞旗相似，需注意藍色深淺。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Chad",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/cd.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CO": {
+    "capital": {
+      "en": "Bogotá",
+      "zhHant": "波哥大"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands of yellow (top, double-width), blue, and red\n\nmeaning: various interpretations of the colors exist; one has yellow for the gold in Colombia's land, blue for the sea, and red for the blood spilled in attaining freedom; another describes them as representing sovereignty and justice (yellow), loyalty and vigilance (blue), and valor and generosity (red); another has the colors standing for liberty, equality, and fraternity",
+      "zhHant": "黃、藍、紅三條橫帶，黃色占旗面一半。常見解釋把黃色連結土地財富、藍色連結海洋、紅色連結獨立犧牲。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Colombia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/co.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CG": {
+    "capital": {
+      "en": "Brazzaville",
+      "zhHant": "布拉薩"
+    },
+    "flagDescription": {
+      "en": "description: divided diagonally from the lower-left side by a wide yellow band; the upper triangle (left side) is green, and the lower triangle is red\n\nmeaning: green stands for agriculture and forests, and yellow for the people's friendship and nobility; the meaning of the red color is not noted but has been associated with the struggle for independence",
+      "zhHant": "黃色斜帶把左上綠區與右下紅區分開。綠色呼應農業與森林，黃色與友誼及高尚品格相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Republic of the Congo",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/cf.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "HR": {
+    "capital": {
+      "en": "Zagreb",
+      "zhHant": "札格瑞布"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), white, and blue -- the pan-Slav colors -- with the Croatian coat of arms in the center, which consists of a main shield (a checkerboard of 13 red and 12 silver fields) with five smaller shields that form a crown over the main shield\n\nmeaning: the small shields represent the five historic regions (from left to right): Croatia, Dubrovnik, Dalmatia, Istria, and Slavonia\n\nhistory: Russia's 19th-century flag inspired the pan-Slav colors",
+      "zhHant": "紅、白、藍三條橫帶，中央是紅白棋盤格盾徽，上方排列五個小盾。小盾代表歷史地區。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Croatia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/hr.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CZ": {
+    "capital": {
+      "en": "Prague",
+      "zhHant": "布拉格"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of white (top) and red with a blue isosceles triangle based on the left side",
+      "zhHant": "上白下紅，左側有藍色三角形。辨識時可先找旗桿側的藍色尖角，再看上下色帶順序。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Czech Republic",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/ez.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "DM": {
+    "capital": {
+      "en": "Roseau",
+      "zhHant": "羅索"
+    },
+    "flagDescription": {
+      "en": "description: green with a centered cross of three equal bands in yellow, black, and white; in the center of the cross is a red disk with a Sisserou parrot surrounded by 10 five-pointed green stars edged in yellow\n\nmeaning: the stars represent the 10 administrative divisions (parishes); green symbolizes the island's lush vegetation; the tricolor cross represents the Christian Trinity; yellow stands for sunshine, the primary agricultural products (citrus and bananas), and the Carib people; black for the rich soil and the African heritage of most citizens; white for rivers, waterfalls, and the purity of aspirations; the red disc for social justice",
+      "zhHant": "綠底有黃、黑、白三色十字，中央紅圓內是帝鸚鵡與十顆綠星。十星代表十個行政教區，綠底呼應島上植被。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Dominica",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/do.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "EG": {
+    "capital": {
+      "en": "Cairo",
+      "zhHant": "開羅"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), white, and black; centered in the white band is the national emblem, a gold Eagle of Saladin; it faces the left side, with a shield on its chest, above a scroll with the country's name in Arabic\n\nmeaning: the band colors derive from the Arab Liberation flag and represent oppression (black) overcome through bloody struggle (red), to be replaced by a bright future (white)",
+      "zhHant": "紅、白、黑三條橫帶，中央白帶有金色薩拉丁之鷹。三色沿用阿拉伯解放旗的配色。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Egypt",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/eg.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "ER": {
+    "capital": {
+      "en": "Asmara",
+      "zhHant": "阿斯馬拉"
+    },
+    "flagDescription": {
+      "en": "description: a red isosceles triangle (based on the left side) divides the flag into two right triangles; the upper triangle is green, the lower is blue; a gold wreath around a gold olive branch is on the left side of the red triangle\n\nmeaning: green stands for the country's agriculture economy, red for the blood shed in the fight for freedom, and blue for the sea's bounty; the shape of the red triangle mimics the country's shape",
+      "zhHant": "左側紅色三角形延伸至右側，與上綠下藍兩區相接。紅三角形內有金色橄欖枝及花環，綠、藍分別呼應農業與海洋。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Eritrea",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/er.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "ET": {
+    "capital": {
+      "en": "Addis Ababa",
+      "zhHant": "阿迪斯阿貝巴"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of green (top), yellow, and red, with a light blue disk centered on the three bands; on the disk is a yellow pentagram with single yellow rays emanating from the angles between the points\n\nmeaning: green stands for hope and the land's fertility, yellow for justice and harmony, and red for sacrifice and heroism; the blue of the disk symbolizes peace, and the pentagram represents the Ethiopian people's unity and equality\n\nhistory: the emblem in the center of the current flag was added in 1996",
+      "zhHant": "綠、黃、紅三條橫帶，中央藍圓內有金色五芒星及光線。藍色代表和平，星形圖案表達人民團結與平等。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Ethiopia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/et.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "FR": {
+    "capital": {
+      "en": "Paris",
+      "zhHant": "巴黎"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of blue (left side), white, and red\n\nhistory: known as the le tricolore (tricolor), the flag dates to 1790 and the French Revolution, when the traditional color of white was combined with the blue and red of the Paris militia; for the first four years of the flag's use (1790-94), the order of colors was reversed (red-white-blue)",
+      "zhHant": "藍、白、紅三條等寬直帶。三色旗與法國大革命有關，巴黎的藍紅色與白色結合，形成今日的旗色。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · France",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/fr.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GE": {
+    "capital": {
+      "en": "Tbilisi",
+      "zhHant": "提比里斯"
+    },
+    "flagDescription": {
+      "en": "description: white rectangle with a central red cross extending to all four sides of the flag; each of the four quadrants displays a small red bolnur-katskhuri cross (also known as Bolnisi cross), which has equal-length arms that are slightly wider at the end than in the center\n\nhistory: sometimes referred to as the Five-Cross Flag, the design is based on a 14th-century banner of the Kingdom of Georgia",
+      "zhHant": "白底有貫穿旗面的紅色十字，四個角落各有一個小紅十字。它也被稱為「五十字旗」。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Georgia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/gg.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GR": {
+    "capital": {
+      "en": "Athens",
+      "zhHant": "雅典"
+    },
+    "flagDescription": {
+      "en": "description: nine equal horizontal stripes of blue alternating with white; a blue square with a white cross is in the upper-left corner\n\nmeaning: the cross symbolizes Greek Orthodoxy, the established religion; there is no set meaning for the stripes and colors",
+      "zhHant": "藍白相間的九條橫紋，左上角是藍底白色十字。十字與希臘正教傳統有關，條紋的意義沒有統一官方解釋。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Greece",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/gr.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GN": {
+    "capital": {
+      "en": "Conakry",
+      "zhHant": "科納克里"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of red (left side), yellow, and green\n\nmeaning: red stands for the people's sacrifice for liberation and work; yellow for the sun, the riches of the earth, and justice; green for the country's vegetation and unity\n\nhistory: uses the colors of the Pan-African movement",
+      "zhHant": "紅、黃、綠三條等寬直帶。紅色與獨立奮鬥相連，黃色呼應太陽與資源，綠色呼應植被與團結。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Guinea",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/gv.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "HT": {
+    "capital": {
+      "en": "Port-au-Prince",
+      "zhHant": "太子港"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of blue (top) and red; a centered white rectangle bears the coat of arms, which has a palm tree flanked by flags and two cannons above a scroll with the motto L'UNION FAIT LA FORCE (Union Makes Strength)\n\nmeaning: the colors are taken from the French flag and represent the union of ethnic groups",
+      "zhHant": "上藍下紅，中央白色矩形內有國徽。國徽包含棕櫚樹、旗幟、大砲與表達團結力量的格言。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Haiti",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/ha.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "HU": {
+    "capital": {
+      "en": "Budapest",
+      "zhHant": "布達佩斯"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), white, and green\n\nmeaning: folklore attributes virtues to the colors: red for strength, white for faithfulness, and green for hope; alternatively, the red can stand for the blood spilled in defense of the land, white for freedom, and green for pasturelands\n\nhistory: the flag dates to the national movement of the 18th and 19th centuries and fuses the medieval colors of the Hungarian coat of arms with the revolutionary tricolor of the French flag",
+      "zhHant": "紅、白、綠三條等寬橫帶。常見民間解釋把三色分別連結力量、忠誠與希望。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Hungary",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/hu.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "ID": {
+    "capital": {
+      "en": "Jakarta; Nusantara is the new-capital development project",
+      "zhHant": "雅加達；努山塔拉為新首都建設計畫"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of red (top) and white\n\nmeaning: red stands for courage and white for purity\n\nhistory: the colors derive from the banner of the Majapahit Empire of the 13th-15th centuries",
+      "zhHant": "上紅、下白兩條等寬橫帶。紅色代表勇氣，白色代表純潔；與摩納哥旗相似，也要注意與波蘭旗上下相反。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Indonesia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/id.json"
+      },
+      {
+        "title": "Capital reference",
+        "url": "https://www.dpr.go.id/kegiatan-dpr/berita/Tinjau-Implementasi-UU-IKN-Komisi-II-Fokus-Persiapan-Pembentukan-Ibu-Kota-Politik-di-2028-66140"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "IE": {
+    "capital": {
+      "en": "Dublin",
+      "zhHant": "都柏林"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of green (left side), white, and orange\n\nmeaning: the flag colors have no official meaning, but a common interpretation is that the green stands for the Irish nationalist tradition, orange for the Orange tradition (minority supporters of William of Orange), and white for peace or a lasting truce between the green and the orange",
+      "zhHant": "綠、白、橙三條等寬直帶。常見解釋把中間白色視為不同政治及宗教傳統之間的和平。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Ireland",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/ei.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "JM": {
+    "capital": {
+      "en": "Kingston",
+      "zhHant": "京斯敦"
+    },
+    "flagDescription": {
+      "en": "description: diagonal yellow cross divides the flag into four triangles, two green (top and bottom) and two black (left and right)\n\nmeaning: green stands for hope, vegetation, and agriculture; black for hardships overcome and to be faced; and yellow for sunshine and natural resources",
+      "zhHant": "黃色斜十字把旗面分成上、下綠色及左、右黑色三角形。綠色代表希望與植被，黃色代表陽光，黑色連結克服困難。"
+    },
+    "flower": {
+      "en": "Lignum vitae",
+      "zhHant": "癒創木花（Lignum vitae）"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Jamaica",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/jm.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://opm.gov.jm/symbols/national-flower-lignum-vitae/"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "KZ": {
+    "capital": {
+      "en": "Astana",
+      "zhHant": "阿斯塔納"
+    },
+    "flagDescription": {
+      "en": "description: a gold sun with 32 rays above a soaring golden steppe eagle, both centered on a sky-blue background; the left side displays a national pattern called koshkar-muiz (the horns of the ram) in gold\n\nmeaning: the blue color has religious significance for the Turkic peoples and symbolizes cultural and ethnic unity, as well as sky and water; the sun stands for wealth and plenitude, with rays shaped like grain; the eagle has appeared on Kazakh tribal flags for centuries and represents freedom, power, and the flight to the future",
+      "zhHant": "天藍底中央有金色太陽和飛翔的草原鷹，左側有金色傳統紋飾。藍色象徵天空與團結，鷹代表自由及前進。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Kazakhstan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/kz.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "KP": {
+    "capital": {
+      "en": "Pyongyang",
+      "zhHant": "平壤"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands of blue (top), red (triple-width), and blue; the red band is edged in white; on the left side of the red band is a white disk with a red five-pointed star\n\nmeaning: the red band stands for revolutionary traditions, the white for purity, strength, and dignity; blue for sovereignty, peace, and friendship; the red star represents socialism",
+      "zhHant": "中央寬紅帶上下有細白線與藍帶，靠左白圓內有紅星。紅星與社會主義相連，藍色代表主權、和平及友誼。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · North Korea",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/kn.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "KW": {
+    "capital": {
+      "en": "Kuwait City",
+      "zhHant": "科威特市"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of green (top), white, and red, with a black trapezoid based on the left side\n\nmeaning: green stands for fertile fields, white for purity, red for blood on Kuwaiti swords, and black for defeating the enemy\n\nhistory: colors and design are based on the Arab Revolt flag of World War I",
+      "zhHant": "綠、白、紅三條橫帶，左側是一塊黑色梯形。採用泛阿拉伯色彩，梯形是醒目的辨識特徵。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Kuwait",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/ku.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "LV": {
+    "capital": {
+      "en": "Riga",
+      "zhHant": "里加"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands of maroon (top), white (half-width), and maroon\n\nhistory: the flag is one of the older banners in the world -- a medieval chronicle mentions Latvian tribes using a red standard with a white stripe around 1280",
+      "zhHant": "深紅、白、深紅三條橫帶，中間白帶較窄。紅白旗色的記載可追溯至中世紀。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Latvia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/lg.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "LR": {
+    "capital": {
+      "en": "Monrovia",
+      "zhHant": "蒙羅維亞"
+    },
+    "flagDescription": {
+      "en": "description: 11 equal horizontal stripes of red alternating with white; a five-pointed white star sits on a blue square in the upper-left corner\n\nmeaning: the stripes stand for the signatories of the Liberian Declaration of Independence, the blue square for the African mainland, and the star for the freedom granted to ex-slaves; the blue stands for liberty, justice, and fidelity; the white for purity, cleanliness, and guilelessness; the red for steadfastness, valor, and fervor",
+      "zhHant": "十一條紅白橫紋，左上藍方塊內只有一顆白星。十一條紋對應獨立宣言簽署者，白星象徵自由。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Liberia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/li.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "LT": {
+    "capital": {
+      "en": "Vilnius",
+      "zhHant": "維爾紐斯"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of yellow (top), green, and red\n\nmeaning: yellow stands for golden fields, the sun, light, and goodness; green for the forests, nature, freedom, and hope; red for courage and the blood spilled in defense of the homeland",
+      "zhHant": "黃、綠、紅三條等寬橫帶。黃色呼應陽光與田野，綠色代表森林與希望，紅色與守護家園的勇氣相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Lithuania",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/lh.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MG": {
+    "capital": {
+      "en": "Antananarivo",
+      "zhHant": "安塔那那利佛"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of red (top) and green, with a vertical white band on the left side\n\nmeaning: red stands for sovereignty, green for hope, and white for purity",
+      "zhHant": "左側白色直帶，右側上紅下綠。紅色代表主權，綠色代表希望，白色代表純潔。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Madagascar",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ma.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MV": {
+    "capital": {
+      "en": "Malé",
+      "zhHant": "馬列"
+    },
+    "flagDescription": {
+      "en": "description: red with a large green rectangle in the center and a vertical white crescent moon centered on the rectangle\n\nmeaning: red stands for those who have sacrificed their lives to defend the country, green for peace and prosperity, and the white crescent is a symbol of Islam",
+      "zhHant": "紅底中央有綠色矩形，綠區內是一彎白色新月。紅色紀念犧牲，綠色代表和平與繁榮，新月連結伊斯蘭教。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Maldives",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/mv.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MH": {
+    "capital": {
+      "en": "Majuro",
+      "zhHant": "馬久羅"
+    },
+    "flagDescription": {
+      "en": "description: blue with an orange stripe and a white stripe radiating from the lower-left corner to the upper-right corner; a white star with four large rays and 20 small rays appears on the left side above the two stripes\n\nmeaning: blue stands for the Pacific Ocean, orange for the Ralik Chain (or sunset and courage), and white for the Ratak Chain (or sunrise and peace); the star symbolizes the Christian cross, with a small ray for each electoral district and a larger ray for the principal cultural centers of Majuro, Jaluit, Wotje, and Ebeye; the diagonal stripes can also be interpreted as representing the equator, with the star showing the archipelago's position",
+      "zhHant": "藍底上有從左下向右上展開的橙白斜帶，左上有多道光芒的白星。藍色代表太平洋，斜帶及星星與群島位置和地區有關。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Marshall Islands",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/rm.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MX": {
+    "capital": {
+      "en": "Mexico City (Ciudad de Mexico)",
+      "zhHant": "墨西哥城"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of green (left side), white, and red; Mexico's coat of arms (an eagle with a snake in its beak, perched on a cactus) is centered in the white band\n\nmeaning: green stands for hope, joy, and love; white for peace and honesty; red for hardiness, bravery, strength, and valor",
+      "zhHant": "綠、白、紅三條直帶，中間有鷹立仙人掌、口銜蛇的國徽。中央圖案是辨識墨西哥旗的重要線索。"
+    },
+    "flower": {
+      "en": "Dahlia",
+      "zhHant": "大理花"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Mexico",
+        "url": "https://github.com/factbook/factbook.json/blob/master/north-america/mx.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://www.gob.mx/snics/articulos/dalia-flor-nacional-mexicana"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MC": {
+    "capital": {
+      "en": "Monaco",
+      "zhHant": "摩納哥"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of red (top) and white\n\nhistory: uses the colors of the ruling House of Grimaldi; colors have been in use since 1339, making it one of the world's oldest national flags",
+      "zhHant": "上紅、下白兩條等寬橫帶。紅白色源自格里馬爾迪家族；旗色與印尼相同，長寬比例不同。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Monaco",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/mn.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MA": {
+    "capital": {
+      "en": "Rabat",
+      "zhHant": "拉巴特"
+    },
+    "flagDescription": {
+      "en": "description: red with a green pentacle (five-pointed linear star) known as Sulayman's (Solomon's) seal in the center of the flag\n\nmeaning: red and green are traditional colors in Arab flags, although the use of red is more commonly associated with the Arab states of the Persian Gulf; the pentacle represents the five pillars of Islam and the association between God and the nation\n\nhistory: the design dates to 1912",
+      "zhHant": "紅底中央是一個綠色五芒星。綠星又稱所羅門之印，五個角與伊斯蘭教五功相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Morocco",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/mo.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "NR": {
+    "capital": {
+      "en": "no official capital; government offices in the Yaren District",
+      "zhHant": "無正式首都；政府機關位於亞倫區"
+    },
+    "flagDescription": {
+      "en": "description: blue with a narrow horizontal gold stripe across the center and a large white 12-pointed star below the stripe on the left side\n\nmeaning: blue stands for the Pacific Ocean; the star indicates the country's location in relation to the equator (the gold stripe), and the 12 points stand for the original tribes of Nauru; the star's white color represents phosphate, the basis of the island's wealth",
+      "zhHant": "藍底中央有黃色細橫線，左下方有白色十二角星。黃線代表赤道，星的位置顯示諾魯在赤道以南，十二角代表原有部族。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Nauru",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/nr.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "NZ": {
+    "capital": {
+      "en": "Wellington",
+      "zhHant": "威靈頓"
+    },
+    "flagDescription": {
+      "en": "description: blue with the UK flag in the upper-left quadrant, with four five-pointed red stars edged in white centered in the right half of the flag\n\nmeaning: the stars represent the Southern Cross constellation",
+      "zhHant": "藍底左上角為英國旗，右側四顆白邊紅星組成南十字星座。可用紅色星星與澳洲旗區別。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · New Zealand",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/nz.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "NG": {
+    "capital": {
+      "en": "Abuja",
+      "zhHant": "阿布賈"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of green (left side), white, and green\n\nmeaning: green stands for the country's forests and natural resources, and white for peace and unity",
+      "zhHant": "綠、白、綠三條等寬直帶。綠色代表森林與自然資源，白色代表和平與團結。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Nigeria",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ni.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "PK": {
+    "capital": {
+      "en": "Islamabad",
+      "zhHant": "伊斯蘭馬巴德"
+    },
+    "flagDescription": {
+      "en": "description: green with a vertical white band on the left side; a large white crescent and star are centered in the green field\n\nmeaning: the crescent, star, and color green are all traditional Islamic symbols; the white band symbolizes the role of religious minorities",
+      "zhHant": "綠底左側有白色直帶，中央是一彎白色新月和五角星。綠色、新月及星星與伊斯蘭教相連，白帶象徵宗教少數群體。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Pakistan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/pk.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "PG": {
+    "capital": {
+      "en": "Port Moresby",
+      "zhHant": "莫士比港"
+    },
+    "flagDescription": {
+      "en": "description: divided diagonally from upper-left corner; the upper triangle is red and has a soaring yellow bird of paradise in the center; the lower triangle is black with five five-pointed white stars of the Southern Cross constellation\n\nmeaning: red, black, and yellow are the country's traditional colors; the bird of paradise is an emblem of regional tribal culture and represents the emergence of Papua New Guinea as a nation; the Southern Cross symbolizes the country's connection with Australia and several other countries in the South Pacific",
+      "zhHant": "旗面斜分為紅、黑兩區，紅區有金色天堂鳥，黑區有白色南十字星。天堂鳥代表地方文化與國家誕生。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Papua New Guinea",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/pp.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "PH": {
+    "capital": {
+      "en": "Manila",
+      "zhHant": "馬尼拉"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of blue (top) and red; a white equilateral triangle is based on the left side; the center of the triangle has a yellow sun with eight rays, each split into smaller rays; the triangle's corners each have a small five-pointed yellow star\n\nmeaning: blue stands for peace and justice, red for courage, and the triangle for equality; the rays represent the first eight provinces that sought independence from Spain, and the stars represent the country's three parts: Luzon, Visayas, and Mindanao\n\nhistory: the design dates to 1897",
+      "zhHant": "上藍下紅，左側白色三角形內有金色太陽及三顆星。太陽八道主光芒對應起義省份，三星代表三大島群。"
+    },
+    "flower": {
+      "en": "Sampaguita (Jasminum sambac)",
+      "zhHant": "茉莉（Sampaguita）"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Philippines",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/rp.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://www.nationalmuseum.gov.ph/2021/11/10/philippine-national-flower-sampaguita/"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "QA": {
+    "capital": {
+      "en": "Doha",
+      "zhHant": "杜哈"
+    },
+    "flagDescription": {
+      "en": "description: maroon with a broad, serrated white band on the left side\n\nmeaning: maroon stands for the blood shed in Qatari wars, and white for peace; the nine-pointed serrated edge is a reference to Qatar's status as the ninth member of the \"reconciled emirates\" after the Qatari-British treaty of 1916 -- the other eight members are Bahrain and the seven that make up the UAE",
+      "zhHant": "深栗紅色旗面左側有白色帶，交界形成九個鋸齒尖角。可用九個角及深紅色，與巴林旗區別。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Qatar",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/qa.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "RW": {
+    "capital": {
+      "en": "Kigali",
+      "zhHant": "基加利"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands of sky blue (top, double-width), yellow, and green, with a golden sun with 24 rays on the right end of the blue band\n\nmeaning: blue stands for happiness and peace, yellow for economic development and mineral wealth, and green for hope for prosperity and natural resources; the sun symbolizes unity and enlightenment",
+      "zhHant": "上方寬藍帶右側有金色太陽，下方是黃、綠兩帶。藍色代表和平，黃色代表發展，綠色代表繁榮的希望。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Rwanda",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/rw.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "VC": {
+    "capital": {
+      "en": "Kingstown",
+      "zhHant": "金斯敦"
+    },
+    "flagDescription": {
+      "en": "description: three vertical bands of blue (left side), gold (double-width), and green; the gold band has three green diamonds arranged in a \"V\" pattern that stands for \"Vincent\" \n\nmeaning: the diamonds represent the islands as \"the Gems of the Antilles\" and are set slightly lowered in the gold band to reflect the country's position in the Antilles; blue stands for the tropical sky and sea, yellow for the sand, and green for vegetation",
+      "zhHant": "藍、黃、綠三條直帶，黃色較寬，中央三顆綠色菱形排成 V 字。V 呼應 Vincent，也把群島比作寶石。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Saint Vincent and the Grenadines",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/vc.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "ST": {
+    "capital": {
+      "en": "Sao Tome",
+      "zhHant": "聖多美市"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands of green (top), yellow (double-width), and green with two five-pointed black stars in the center of the yellow band and a red isosceles triangle based on the left side\n\nmeaning: green stands for the country's rich vegetation, red for the struggle for independence, and yellow for cocoa, one of the country's main agricultural products; the two stars symbolize the main islands\n\nhistory: uses the colors of the Pan-African movement",
+      "zhHant": "綠、黃、綠三條橫帶，左側紅三角形，黃色中央有兩顆黑星。雙星代表兩個主要島嶼。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · São Tomé and Príncipe",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/tp.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "RS": {
+    "capital": {
+      "en": "Belgrade (Beograd)",
+      "zhHant": "貝爾格勒"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal stripes of red (top), blue, and white; the national coat of arms is shifted to the left side; the principal field of the coat of arms displays a two-headed white eagle on a red shield; a smaller red shield on the eagle is divided into four quarters by a white cross; a royal crown is on top of the coat of arms\n\nmeaning: red, blue, and white are the pan-Slav colors that represent freedom and revolutionary ideals; the eagle on a red shield represents the government; the smaller shield represents the country; the meaning and origin of the curved white symbols in each quarter are not clear",
+      "zhHant": "紅、藍、白三條橫帶，靠左有帶王冠的雙頭鷹國徽。三色屬泛斯拉夫色彩。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Serbia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/ri.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SG": {
+    "capital": {
+      "en": "Singapore",
+      "zhHant": "新加坡"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of red (top) and white; a vertical white crescent is on the left side of the red band, with a circle of five five-pointed white stars to the right of the crescent\n\nmeaning: red stands for brotherhood and equality, and white for purity and virtue; the waxing crescent moon symbolizes a young nation on the ascendancy; the stars represent the national ideals of democracy, peace, progress, justice, and equality",
+      "zhHant": "上紅下白，左上有白色新月及五顆白星。新月代表新興國家，五星象徵民主、和平、進步、公正與平等。"
+    },
+    "flower": {
+      "en": "Vanda Miss Joaquim orchid",
+      "zhHant": "卓錦萬代蘭"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Singapore",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/sn.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://www.nhb.gov.sg/what-we-do/our-work/community-engagement/education/resources/national-symbols/national-flower"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SB": {
+    "capital": {
+      "en": "Honiara",
+      "zhHant": "荷尼阿拉"
+    },
+    "flagDescription": {
+      "en": "description: divided diagonally by a yellow stripe from the lower-left corner; the upper triangle (left side) is blue with five five-pointed white stars in an \"X\" pattern; the lower triangle is green\n\nmeaning: blue stands for the ocean, green for the land, and yellow for sunshine; the five stars stand for the main island groups",
+      "zhHant": "黃色斜帶分開左上藍區與右下綠區，藍區有五顆白星。藍色代表海洋，綠色代表土地，黃色代表陽光。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Solomon Islands",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/bp.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SS": {
+    "capital": {
+      "en": "Juba",
+      "zhHant": "朱巴"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of black (top), red, and green; the red band is edged in white; a five-pointed gold star is in the middle of a blue isosceles triangle based on the left side\n\nmeaning: black stands for the people, red for the blood shed in the struggle for freedom, green for the land, and blue for the Nile; the gold star represents the unity of the country's states",
+      "zhHant": "黑、紅、綠三條橫帶以白線分隔，左側藍三角形內有金星。藍色呼應尼羅河，金星象徵各州團結。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · South Sudan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/od.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SD": {
+    "capital": {
+      "en": "Khartoum",
+      "zhHant": "喀土穆"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), white, and black, with a green isosceles triangle based on the left side\n\nmeaning: red stands for the struggle for freedom; white for peace, light, and love, black for the people; green for Islam, agriculture, and prosperity\n\nhistory: colors and design are based on the Arab Revolt flag of World War I",
+      "zhHant": "紅、白、黑三條橫帶，左側綠色三角形。使用泛阿拉伯色彩，綠色也與農業及繁榮相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Sudan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/su.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CH": {
+    "capital": {
+      "en": "Bern (federal seat)",
+      "zhHant": "伯恩（聯邦政府所在地）"
+    },
+    "flagDescription": {
+      "en": "description: red square with an equal-armed white cross in the center that does not extend to the edges of the flag\n\nhistory: the origin of the flag is unclear, but a white cross was used to identify Swiss Confederation troops at the Battle of Laupen (1339)",
+      "zhHant": "正方形紅底中央有等臂白色十字，十字不延伸至旗邊。白十字曾是瑞士邦聯軍隊的辨識標記。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Switzerland",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/sz.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TZ": {
+    "capital": {
+      "en": "Dodoma",
+      "zhHant": "杜篤瑪"
+    },
+    "flagDescription": {
+      "en": "description: divided diagonally by a yellow-edged black band, from the lower left corner to the upper right corner; the upper triangle (left side) is green, and the lower is blue\n\nmeaning: colors come from the flags of Tanganyika and Zanzibar; green stands for natural vegetation, gold for rich mineral deposits, black for the Swahili people, and blue for lakes and rivers, as well as the Indian Ocean",
+      "zhHant": "黃邊黑色斜帶把左上綠區與右下藍區分開。綠色代表植被，藍色代表水域，黃色代表礦產，黑色代表人民。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Tanzania",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/tz.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TG": {
+    "capital": {
+      "en": "Lome",
+      "zhHant": "洛美"
+    },
+    "flagDescription": {
+      "en": "description: five equal horizontal bands of green (top and bottom) alternating with yellow; a five-pointed white star on a red square is in the upper-left corner\n\nmeaning: the five horizontal stripes stand for the country's regions; red stands for the people's loyalty and patriotism; green for hope, fertility, and agriculture; yellow for mineral wealth and faith that hard work and strength will bring prosperity; the star symbolizes life, purity, peace, dignity, and national independence\n\nhistory: uses the colors of the Pan-African movement",
+      "zhHant": "五條綠黃相間橫帶，左上紅方塊內有一顆白星。綠色呼應農業，黃色代表礦產，白星表達和平及獨立。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Togo",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/to.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TN": {
+    "capital": {
+      "en": "Tunis",
+      "zhHant": "突尼斯市"
+    },
+    "flagDescription": {
+      "en": "description: red with a white disk in the center that displays a red crescent around a five-pointed red star\n\nmeaning: red stands for martyrs' blood shed the fight against oppression, and white for peace; the crescent and star are traditional symbols of Islam\n\nhistory: resembles the Ottoman flag (red banner with white crescent and star), a reference to Tunisia's history as part of the Ottoman Empire",
+      "zhHant": "紅底中央白圓內有紅色新月及五角星。新月與星星連結伊斯蘭教，白色象徵和平。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Tunisia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ts.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TV": {
+    "capital": {
+      "en": "Funafuti",
+      "zhHant": "富納富提"
+    },
+    "flagDescription": {
+      "en": "description: light blue with the UK flag in the upper-left quadrant; the right half of the flag has nine five-pointed yellow stars  \n\nmeaning: the stars represent a map of the country, with each symbolizing an atoll in the ocean",
+      "zhHant": "淺藍底左上角為英國旗，右側九顆黃星排列成島嶼分布圖。每顆星對應一個島或環礁。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Tuvalu",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/tv.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "AE": {
+    "capital": {
+      "en": "Abu Dhabi",
+      "zhHant": "阿布達比"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of green (top), white, and black, with a wider vertical red band on the left side\n\nmeaning: the flag incorporates all four pan-Arab colors, which in this case represent fertility (green), neutrality (white), oil (black), and unity (red); red is a traditional color that was part of all the emirates' flags before their unification",
+      "zhHant": "左側紅色直帶，右側上綠、中白、下黑。四種顏色也是泛阿拉伯色彩，紅色與各酋長國的旗幟傳統相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · United Arab Emirates",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/ae.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "UY": {
+    "capital": {
+      "en": "Montevideo",
+      "zhHant": "蒙特維多"
+    },
+    "flagDescription": {
+      "en": "description: nine equal horizontal stripes of white (top and bottom) alternating with blue; a white square in the upper-left corner has a yellow sun with a human face (outlined in black) known as the Sun of May, with 16 rays that alternate between triangular and wavy\n\nmeaning: the stripes represent the country's nine original departments; the sun refers to the legend of the sun breaking through the clouds on 25 May 1810 as independence was declared from Spain; the sun is said to be Inti, the Inca god of the sun",
+      "zhHant": "九條藍白相間橫紋，左上白區有金色人面「五月太陽」。九條紋代表最初九個行政區。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Uruguay",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/uy.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "VE": {
+    "capital": {
+      "en": "Caracas",
+      "zhHant": "卡拉卡斯"
+    },
+    "flagDescription": {
+      "en": "Yellow, blue and red horizontal bands, with eight white stars in an arc on the blue band. This card shows the version without a coat of arms. The eighth star was added in 2006.",
+      "zhHant": "黃、藍、紅三條橫帶，藍帶中央有弧形排列的八顆白星。本卡顯示不帶國徽的版本；八星設計於二〇〇六年採用。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Venezuela",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/ve.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "ZM": {
+    "capital": {
+      "en": "Lusaka",
+      "zhHant": "路沙卡"
+    },
+    "flagDescription": {
+      "en": "description: green field with a soaring orange eagle in the upper-right corner; a panel of three vertical bands is under the eagle, in red (left side), black, and orange\n\nmeaning: green stands for the country's natural resources and vegetation, red for the struggle for freedom, black for the people, and orange for the country's mineral wealth; the eagle represents the people's ability to rise above the nation's problems",
+      "zhHant": "綠底右下有紅、黑、橙三條直帶，上方是展翅的橙色鷹。鷹象徵克服困難，綠色呼應自然資源。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Zambia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/za.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "DZ": {
+    "capital": {
+      "en": "Algiers",
+      "zhHant": "阿爾及爾"
+    },
+    "flagDescription": {
+      "en": "description: two equal vertical bands of green (left) and white; a red, five-pointed star inside a red crescent, centered over the two-color boundary \n\nmeaning: the colors represent Islam (green), purity and peace (white), and liberty (red); the crescent and star are also Islamic symbols, but the crescent is more closed than those of other Muslim countries because Algerians believe the long crescent horns bring happiness",
+      "zhHant": "左綠右白，中央有紅色新月及五角星。綠色、新月與星星連結伊斯蘭教，白色象徵和平與純潔。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Algeria",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ag.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "AG": {
+    "capital": {
+      "en": "Saint John's",
+      "zhHant": "聖約翰"
+    },
+    "flagDescription": {
+      "en": "description: red, with an inverted isosceles triangle in the center that spans the flag from top to bottom; the triangle contains three horizontal bands of black (top), light blue, and white, with a yellow rising sun in the black band\n\nmeaning: the sun stands for the dawn of a new era, black for the African heritage of most of the population, blue for hope, and red for the dynamism of the people; the \"V\" shape of the triangle stands for victory; the yellow, blue, and white colors are also meant to evoke the country's tourist attractions of sun, sea, and sand",
+      "zhHant": "紅色兩側包住中央倒三角區，內有黑、藍、白橫帶及金色旭日。旭日象徵新時代，V 形表達勝利。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Antigua and Barbuda",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/ac.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "AU": {
+    "capital": {
+      "en": "Canberra",
+      "zhHant": "坎培拉"
+    },
+    "flagDescription": {
+      "en": "description: blue, with the UK flag in the upper-left quadrant and a large seven-pointed star in the lower-left quadrant; on the right half is a representation of the Southern Cross constellation in white, with one small five-pointed star and four larger seven-pointed stars\n\nmeaning: the largest star is known as the Commonwealth or Federation Star and represents the federation of the Australian colonies in 1901; the star has one point for each of the six original states, plus one representing all of Australia's internal and external territories",
+      "zhHant": "藍底左上角有英國旗，下方大七角星象徵聯邦；右側白星組成南十字星座。大星七角對應六州及領地。"
+    },
+    "flower": {
+      "en": "Golden wattle (Acacia pycnantha)",
+      "zhHant": "金合歡（Acacia pycnantha）"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Australia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/as.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://www.pmc.gov.au/honours-and-symbols/australian-national-symbols/australian-floral-emblem"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BS": {
+    "capital": {
+      "en": "Nassau",
+      "zhHant": "拿索"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of aquamarine (top), gold, and aquamarine, with a black equilateral triangle based on the left side\n\nmeaning: the band colors represent the islands' golden beaches surrounded by the aquamarine sea; black stands for the vigor and force of a united people, and the triangle for the people's enterprise and determination",
+      "zhHant": "水藍、黃、水藍三條橫帶，左側黑色三角形。藍黃呼應海洋及沙灘，黑色代表人民的力量。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Bahamas",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/bf.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BB": {
+    "capital": {
+      "en": "Bridgetown",
+      "zhHant": "布里奇敦"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of ultramarine blue (left side), gold, and ultramarine blue with a black trident head centered on the gold band\n\nmeaning: blue stands for the sea and sky, and gold for the beaches; the trident head represents independence and a break with the past",
+      "zhHant": "藍、黃、藍三條直帶，中央是黑色三叉戟頭。藍色呼應海天，黃色呼應沙灘，斷開的戟柄表達獨立。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Barbados",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/bb.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BZ": {
+    "capital": {
+      "en": "Belmopan",
+      "zhHant": "貝爾莫潘"
+    },
+    "flagDescription": {
+      "en": "description: royal blue with a narrow red stripe along the top and the bottom edges; the coat of arms is on a large white disk at the center and shows a shield flanked by two workers in front of a mahogany tree, with the motto SUB UMBRA FLOREO (I Flourish in the Shade) on a scroll at the bottom; a green garland of 50 mahogany leaves rings the coat of arms\n\nmeaning: the figures, the mahogany tree, and the garland refer to the logging industry that led the British to settle Belize; blue and red are the colors of the two main political parties",
+      "zhHant": "藍底上下有細紅邊，中央白圓內有國徽。桃花心木、兩名工人與工具反映早期伐木產業。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Belize",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/bh.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BO": {
+    "capital": {
+      "en": "La Paz (administrative capital); Sucre (constitutional [legislative and judicial] capital)",
+      "zhHant": "拉巴斯（行政）；蘇克雷（憲定首都）"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), yellow, and green, with the coat of arms centered on the yellow band\n\nmeaning: red stands for bravery and the blood of national heroes, yellow for the nation's mineral resources, and green for the land's fertility\n\nhistory: in 2009, a presidential decree made it mandatory for a wiphala -- a square, multi-colored flag representing the country's ethnic groups -- to be used alongside the national flag",
+      "zhHant": "紅、黃、綠三條橫帶；本卡顯示有國徽的版本。紅色與勇氣及犧牲相連，黃色代表礦產，綠色代表土地肥沃。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Bolivia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/bl.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BR": {
+    "capital": {
+      "en": "Brasília",
+      "zhHant": "巴西利亞"
+    },
+    "flagDescription": {
+      "en": "description: green with a large yellow diamond in the center, showing a blue celestial globe with 27 five-pointed white stars; the globe has a white equatorial band with the motto ORDEM E PROGRESSO (Order and Progress)\n\nmeaning: green stands for the country's forests, and yellow for its mineral wealth, with the diamond representing the country's shape; the blue globe and stars depict the sky over Rio de Janeiro on the morning of 15 November 1889, the day the Republic of Brazil was declared; the number of stars has risen with the creation of new states, from 21 to 27 (one for each state and the Federal District)\n\nhistory: the flag was inspired by the former Empire of Brazil's flag (1822-1889)",
+      "zhHant": "綠底黃色菱形中有藍色星空球，白色飄帶寫著「秩序與進步」。二十七顆星對應各州及聯邦區。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Brazil",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/br.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "BF": {
+    "capital": {
+      "en": "Ouagadougou",
+      "zhHant": "瓦加杜古"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of red (top) and green, with a five-pointed yellow star in the center\n\nmeaning: red stands for the country's struggle for independence, green for hope and abundance, and yellow for the country's mineral wealth\n\nhistory: uses the colors of the Pan-African movement",
+      "zhHant": "上紅下綠，中央一顆黃星。紅色與獨立奮鬥相連，綠色代表希望與富饒，黃色呼應礦產。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Burkina Faso",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/uv.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "KH": {
+    "capital": {
+      "en": "Phnom Penh",
+      "zhHant": "金邊"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands of blue (top), red (double-width), and blue; a three-towered, stylized white temple outlined in black is in the center of the red band, representing Angkor Wat\n\nmeaning: red and blue are traditional Cambodian colors",
+      "zhHant": "藍、紅、藍三條橫帶，寬紅帶中央是白色吳哥窟。建築圖案是辨識柬埔寨旗的關鍵。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Cambodia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/cb.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CV": {
+    "capital": {
+      "en": "Praia",
+      "zhHant": "培亞"
+    },
+    "flagDescription": {
+      "en": "description: five unequal horizontal bands; the top band of blue is half the height of the flag; under it are three narrow bands of white, red, and white, and a bottom stripe of blue; a circle of 10 five-pointed yellow stars is centered on the red stripe and sits toward the left side of the flag\n\nmeaning: blue stands for the sea and sky; the stripes symbolize the country's formation through peace (white) and effort (red); the stars represent the 10 major islands",
+      "zhHant": "藍底下半部有白紅白細橫帶，靠左排列成圓圈的十顆黃星。十星代表主要島嶼，藍色呼應海洋與天空。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Cabo Verde",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/cv.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CL": {
+    "capital": {
+      "en": "Santiago; note - Valparaiso is the seat of the national legislature",
+      "zhHant": "聖地牙哥；瓦爾帕萊索為國會所在地"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of white (top) and red; a blue square sits in the top left corner of the flag, the same height as the white band; the square has a five-pointed white star in the center\n\nmeaning: the star represents a guide to progress and honor; blue stands for the sky, white for the Andes Mountains, and red for the blood spilled to achieve independence",
+      "zhHant": "上白下紅，左上藍色方塊中有一顆白星。藍色代表天空，白色呼應安地斯山雪，星星象徵引導前進。"
+    },
+    "flower": {
+      "en": "Copihue (Lapageria rosea)",
+      "zhHant": "智利鐘花（Copihue）"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Chile",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/ci.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://biblioredes.gob.cl/bibliotecas/panguipulli/contenidos-locales"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "KM": {
+    "capital": {
+      "en": "Moroni",
+      "zhHant": "莫洛尼"
+    },
+    "flagDescription": {
+      "en": "description: four equal horizontal bands of yellow (top), white, red, and blue, with a green isosceles triangle based on the left; a vertical white crescent moon is centered in the triangle, with four five-pointed white stars placed vertically in a line between the points of the crescent\n\nmeaning: the horizontal bands and the stars represent the four main islands of the archipelago -- Mwali, N'gazidja, Ndzuwani, and Mahore (Mayotte is a department of France, but claimed by Comoros)",
+      "zhHant": "黃、白、紅、藍四條橫帶，左側綠三角形內有白色新月及四顆星。四色與四星指向群島中的四個主要島嶼，包括法國管轄、葛摩主張的馬約特。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Comoros",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/cn.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CR": {
+    "capital": {
+      "en": "San José",
+      "zhHant": "聖荷西"
+    },
+    "flagDescription": {
+      "en": "Five horizontal bands of blue, white, red, white and blue, with a wider red band. This card shows the civil version without a coat of arms. White is associated with peace; blue with the sky and opportunity.",
+      "zhHant": "藍、白、紅、白、藍五條橫帶，中央紅帶較寬。本卡顯示不帶國徽的民用版本；白色與和平相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Costa Rica",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/cs.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "CU": {
+    "capital": {
+      "en": "Havana",
+      "zhHant": "哈瓦那"
+    },
+    "flagDescription": {
+      "en": "description: five equal horizontal bands of blue (top, center, and bottom) alternating with white; a red equilateral triangle based on the left side has a five-pointed white star in the center\n\nmeaning: the blue bands stand for the islands' three former departments: Central, Occidental, and Oriental; the white bands for the purity of the independence ideal; the triangle for liberty, equality, and fraternity; the red color for the blood shed in the independence struggle; the white star, called \"La Estrella Solitaria\" (the Lone Star), lights the way to freedom and was inspired by the state flag of Texas",
+      "zhHant": "五條藍白相間橫帶，左側紅三角形內有白色五角星。白星象徵自由，三角形與自由、平等、博愛相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Cuba",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/cu.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "DK": {
+    "capital": {
+      "en": "Copenhagen",
+      "zhHant": "哥本哈根"
+    },
+    "flagDescription": {
+      "en": "description: red field with a white cross that extends to the edges of the flag; the vertical part of the cross is shifted to the left\n\nhistory: referred to as the Dannebrog (Danish flag) and is one of the oldest national flags in the world; the origin of the design is unclear; one legend says that the banner fell from the sky during an early-13th-century battle and inspired the royal army to victory; in actuality, the flag may derive from a crusade banner",
+      "zhHant": "紅底白色北歐十字，直線偏向旗桿側。這面旗稱為 Dannebrog，是歷史悠久的國旗之一。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Denmark",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/da.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "DO": {
+    "capital": {
+      "en": "Santo Domingo",
+      "zhHant": "聖多明哥"
+    },
+    "flagDescription": {
+      "en": "description: a centered white cross extends to the edges and divides the flag into four rectangles; the top ones are ultramarine blue (left side) and vermilion red, and the bottom ones are vermilion red (left side) and ultramarine blue; a small coat of arms with a shield supported by a laurel branch and a palm branch is at the center of the cross; above the shield, a blue ribbon displays the motto DIOS, PATRIA, LIBERTAD (God, Fatherland, Liberty); below the shield, REPUBLICA DOMINICANA is on a red ribbon; on the shield, a Bible is opened to a verse that reads \"Y la verdad nos hara libre\" (And the truth shall set you free)\n\nmeaning: blue stands for liberty, white for salvation, and red for the blood of heroes",
+      "zhHant": "白色十字把旗面分成紅、藍交錯的四格，中央放置國徽。國徽包含聖經、盾牌與枝葉。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Dominican Republic",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/dr.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SV": {
+    "capital": {
+      "en": "San Salvador",
+      "zhHant": "聖薩爾瓦多"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of cobalt blue (top), white, and cobalt blue, with the national coat of arms centered in the white band; the coat of arms has a round emblem with the words REPUBLICA DE EL SALVADOR EN LA AMERICA CENTRAL around it\n\nmeaning: the blue bands stand for the Pacific Ocean and the Caribbean Sea, and the white for the land, as well as peace and prosperity\n\nhistory: the banner is based on the former blue-white-blue flag of the Federal Republic of Central America",
+      "zhHant": "藍、白、藍三條橫帶，中間有國徽。配色沿襲中美洲聯邦旗，藍色呼應兩側海域，白色代表和平。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · El Salvador",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/es.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "EE": {
+    "capital": {
+      "en": "Tallinn",
+      "zhHant": "塔林"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of blue (top), black, and white\n\nmeaning: blue stands for faith, loyalty, and devotion, and also the sky, sea, and lakes; black for the country's soil and the Estonian people's past suffering; white for striving for enlightenment and virtue and also for birch bark, snow, and summer nights illuminated by the midnight sun",
+      "zhHant": "藍、黑、白三條等寬橫帶。藍色呼應天空與水域，黑色呼應土地及歷史苦難，白色代表光明的期望。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Estonia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/en.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "FJ": {
+    "capital": {
+      "en": "Suva (on Viti Levu)",
+      "zhHant": "蘇瓦"
+    },
+    "flagDescription": {
+      "en": "description: light blue with the UK flag in the upper-left quadrant and the Fijian shield centered on the right half of the flag; the shield shows a yellow lion holding a coconut above a white field quartered by the cross of Saint George; the four quarters depict sugarcane, a palm tree, a banana bunch, and a white dove\n\nmeaning: blue symbolizes the Pacific Ocean",
+      "zhHant": "淺藍底左上角有英國旗，右側盾徽包含甘蔗、椰樹、香蕉及白鴿。淺藍色代表太平洋。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Fiji",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/fj.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GA": {
+    "capital": {
+      "en": "Libreville",
+      "zhHant": "自由市"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of green (top), yellow, and blue\n\nmeaning: green stands for the country's forests and natural resources, gold for the equator and the sun, and blue for the sea",
+      "zhHant": "綠、黃、藍三條等寬橫帶。綠色代表森林，黃色呼應赤道與陽光，藍色代表海洋。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Gabon",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/gb.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "DE": {
+    "capital": {
+      "en": "Berlin",
+      "zhHant": "柏林"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of black (top), red, and gold\n\nhistory: the colors can be traced back to the medieval banner of the Holy Roman Emperor -- a black eagle with red claws and beak on a gold field",
+      "zhHant": "黑、紅、金三條等寬橫帶。這組色彩與德國的歷史旗幟及民族運動相連，是主要辨識特徵。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Germany",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/gm.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GD": {
+    "capital": {
+      "en": "Saint George's",
+      "zhHant": "聖喬治"
+    },
+    "flagDescription": {
+      "en": "description: a rectangle divided diagonally into yellow triangles (top and bottom) and green triangles (left and right), with a wide red border around the flag; three five-pointed yellow stars are centered on the top and bottom of the red border, with one larger yellow star on a red disk at the center of the flag; a small yellow-and-red nutmeg pod is on the left triangle\n\nmeaning: the seven stars stand for the country's administrative divisions, with the central star symbolizing the capital, St. George's; yellow stands for the sun and the warmth of the people, green for vegetation and agriculture, and red for harmony, unity, and courage",
+      "zhHant": "紅邊包住黃綠三角形，中央及邊緣共有七顆黃星，左側有肉豆蔻圖案。肉豆蔻呼應重要農產，星星代表行政區。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Grenada",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/gj.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GW": {
+    "capital": {
+      "en": "Bissau",
+      "zhHant": "比索"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of yellow (top) and green, with a vertical red band on the left side; a five-pointed black star is centered in the red band\n\nmeaning: yellow stands for the sun, green for hope, red for blood shed during the struggle for independence; the black star stands for African unity\n\nhistory: uses the colors of the Pan-African movement; the Ghanaian flag heavily influenced the design",
+      "zhHant": "左側紅色直帶內有黑星，右側上黃下綠。黑星象徵非洲團結，黃色代表陽光，綠色代表希望。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Guinea-Bissau",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/pu.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "VA": {
+    "capital": {
+      "en": "Vatican City",
+      "zhHant": "梵蒂岡城"
+    },
+    "flagDescription": {
+      "en": "description: two vertical bands of yellow (left side) and white, with the arms of the Holy See centered in the white band; the arms show the crossed keys of Saint Peter under the three-tiered papal tiara \n\nmeaning: yellow stands for the pope's spiritual power, and white for his worldly power",
+      "zhHant": "黃白兩條直帶，白帶上有交叉鑰匙與教宗三重冠。鑰匙是聖座的重要象徵。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Vatican City",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/vt.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "IS": {
+    "capital": {
+      "en": "Reykjavik",
+      "zhHant": "雷克雅維克"
+    },
+    "flagDescription": {
+      "en": "description: blue with a red cross outlined in white extending to the edges of the flag; the cross is shifted to the left in the style of the Dannebrog (Danish flag)\n\nmeaning: red stands for the island's volcanic fires, white for the snow and ice fields, and blue for the ocean",
+      "zhHant": "藍底紅色十字鑲白邊，十字偏向旗桿側。紅色呼應火山，白色呼應冰雪，藍色呼應海洋。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Iceland",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/ic.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "IR": {
+    "capital": {
+      "en": "Tehran",
+      "zhHant": "德黑蘭"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of green (top), white, and red; centered in the white band is the red national emblem, a stylization of the word Allah in the shape of a tulip (a symbol of martyrdom); ALLAH AKBAR (God is Great) in white Arabic script is repeated 11 times along the bottom edge of the green band and 11 times along the top edge of the red band\n\nmeaning: green is the color of Islam and also represents growth, white stands for honesty and peace, and red for bravery and martyrdom",
+      "zhHant": "綠、白、紅三條橫帶，中央有紅色國徽，色帶交界處重複排列白色文字。綠色與伊斯蘭教相連，白色代表和平，紅色代表勇氣及犧牲。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Iran",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/ir.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "IL": {
+    "capital": {
+      "en": "Jerusalem (internationally disputed status)",
+      "zhHant": "耶路撒冷（地位存在國際爭議）"
+    },
+    "flagDescription": {
+      "en": "description: white with a blue hexagram (six-pointed linear star) known as the Magen David (Star of David or Shield of David) centered between two equal horizontal blue bands near the top and bottom edges of the flag\n\nhistory: the design resembles a traditional Jewish prayer shawl (tallit), which is white with blue stripes; the hexagram as a Jewish symbol dates back to medieval times",
+      "zhHant": "白底上下各有一條藍帶，中央是藍色大衛之星。藍白條紋與猶太祈禱披巾的樣式有關。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Israel",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/is.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "JP": {
+    "capital": {
+      "en": "Tokyo",
+      "zhHant": "東京"
+    },
+    "flagDescription": {
+      "en": "description: white with a large red disk that symbolizes the sun without rays, in the center\n\nhistory: the current flag was adopted in 1854, but a sun flag has been in use in Japan since at least 1184; the sun has long been a national symbol: according to tradition, the sun goddess Amaterasu founded the country in the 7th century B.C.",
+      "zhHant": "白底中央是一個紅色圓盤，代表太陽。這面旗常稱為「日之丸」，太陽是日本歷史悠久的象徵。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Japan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/ja.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "KE": {
+    "capital": {
+      "en": "Nairobi",
+      "zhHant": "奈洛比"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of black (top), red, and green; the red band is edged in white; a large Maasai warrior's shield covering crossed spears is at the center\n\nmeaning: black stands for the majority population, red for the blood shed in the struggle for freedom, green for natural wealth, and white for peace; the shield and crossed spears symbolize the defense of freedom",
+      "zhHant": "黑、紅、綠三條橫帶以白線分隔，中央有馬賽盾牌及交叉長矛。盾矛代表守護自由，綠色呼應自然資源。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Kenya",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ke.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "KR": {
+    "capital": {
+      "en": "Seoul",
+      "zhHant": "首爾"
+    },
+    "flagDescription": {
+      "en": "description: white with a red-and-blue yin-yang symbol in the center; a black trigram (kwae) from the ancient I Ching (Book of Changes) is in each corner of the white field\n\nmeaning: the flag is called Taegukki; white is a traditional Korean color and represents peace and purity; blue stands for the negative cosmic forces of the yin, and red for the opposite positive forces of the yang; each trigram represents one of the universal elements, which together express the principle of movement and harmony",
+      "zhHant": "白底中央有紅藍太極，四角各有黑色卦象。太極及四卦表達陰陽、自然元素與和諧，白色象徵和平及純潔。"
+    },
+    "flower": {
+      "en": "Mugunghwa / rose of Sharon",
+      "zhHant": "木槿（無窮花）"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · South Korea",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/ks.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://www.mois.go.kr/eng/sub/a03/nationalSymbol_3/screen.do"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "KG": {
+    "capital": {
+      "en": "Bishkek",
+      "zhHant": "比什凱克"
+    },
+    "flagDescription": {
+      "en": "A yellow sun with 40 rays on a red field. Inside the sun is the roof opening of a traditional Kyrgyz yurt, known as a tunduk. The rays represent the Kyrgyz tribes; red is associated with bravery.",
+      "zhHant": "紅底中央有四十道光芒的金色太陽，內部圖案是傳統氈房的頂部天窗。光芒與吉爾吉斯部族相連，紅色代表勇氣。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Kyrgyzstan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/kg.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "LB": {
+    "capital": {
+      "en": "Beirut",
+      "zhHant": "貝魯特"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands consisting of red (top), white (middle, double-width), and red (bottom), with a green cedar tree centered on the white band\n\nmeaning: red stands for blood shed for liberation, and white for peace, the snow of the mountains, and purity; the green cedar tree is the national symbol and represents eternity, steadiness, happiness, and prosperity",
+      "zhHant": "紅、白、紅三條橫帶，中間白帶較寬，中央有綠色雪松。雪松是國家象徵，代表恆久與堅定。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Lebanon",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/le.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "LY": {
+    "capital": {
+      "en": "Tripoli (Tarabulus)",
+      "zhHant": "的黎波里"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands of red (top), black (double-width), and green, with a white crescent and star centered on the black stripe\n\nmeaning: the colors represent the three major regions of the country: red stands for Fezzan, black for Cyrenaica, and green for Tripolitania; the crescent and star represent Islam\n\nhistory: the National Transitional Council reintroduced this flag design from the former Kingdom of Libya (1951-69) in 2011 to replace the all-green banner of the QADHAFI regime",
+      "zhHant": "紅、黑、綠三條橫帶，中間黑帶較寬並有白色新月和星星。三色與歷史地區相連，新月和星星代表伊斯蘭教。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Libya",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ly.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "LU": {
+    "capital": {
+      "en": "Luxembourg",
+      "zhHant": "盧森堡市"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), white, and light blue\n\nhistory: the colors are derived from the Grand Duke's coat of arms",
+      "zhHant": "紅、白、淺藍三條等寬橫帶。旗色來自大公的紋章，可用較淺的藍色與荷蘭旗區別。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Luxembourg",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/lu.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MW": {
+    "capital": {
+      "en": "Lilongwe",
+      "zhHant": "里朗威"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of black (top), red, and green, with a rising red sun centered on the black band\n\nmeaning: black stands for ethnic groups, red for the blood shed in the struggle for freedom, and green for nature; the sun represents the hope of freedom for the continent of Africa",
+      "zhHant": "黑、紅、綠三條橫帶，黑帶上有紅色旭日。太陽象徵非洲自由的希望，綠色呼應自然環境。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Malawi",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/mi.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "ML": {
+    "capital": {
+      "en": "Bamako",
+      "zhHant": "巴馬科"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of green (left side), yellow, and red\n\nhistory: uses the colors of the Pan-African movement",
+      "zhHant": "綠、黃、紅三條等寬直帶。這組顏色屬於泛非色彩，旗面沒有中央徽章。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Mali",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ml.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MR": {
+    "capital": {
+      "en": "Nouakchott",
+      "zhHant": "諾克少"
+    },
+    "flagDescription": {
+      "en": "description: green with red stripes along the top and bottom edges; on the green field, a five-pointed yellow star is centered over a yellow, upward-pointing crescent moon\n\nmeaning: the crescent, star, and color green are traditional symbols of Islam; green also represents hope for a bright future; yellow stands for the sands of the Sahara, and red for blood shed in the fight for independence",
+      "zhHant": "綠底上下有紅帶，中間是金色向上的新月與五角星。綠色、新月及星星連結伊斯蘭教，黃色呼應撒哈拉沙漠。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Mauritania",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/mr.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "FM": {
+    "capital": {
+      "en": "Palikir",
+      "zhHant": "帕利基爾"
+    },
+    "flagDescription": {
+      "en": "description: light blue with four five-pointed white stars centered and arranged in a diamond pattern\n\nmeaning: blue stands for the Pacific Ocean, and the stars for the four island groups of Chuuk, Kosrae, Pohnpei, and Yap",
+      "zhHant": "淺藍底中央四顆白星排成菱形。藍色代表太平洋，四星對應楚克、科斯雷、波納佩及雅浦四州。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Micronesia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/fm.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MN": {
+    "capital": {
+      "en": "Ulaanbaatar",
+      "zhHant": "烏蘭巴托"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of red (left side), blue, and red; centered on the left-side red band is the national emblem in yellow, the soyombo, which is an abstract representation of fire, sun, moon, earth, water, and the yin-yang symbol\n\nmeaning: blue stands for the sky, and red for progress and prosperity",
+      "zhHant": "紅、藍、紅三條直帶，左側紅帶內有金色索永布符號。符號結合火、日、月等圖形，藍色代表天空。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Mongolia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/mg.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "MZ": {
+    "capital": {
+      "en": "Maputo",
+      "zhHant": "馬布托"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of green (top), black, and yellow, with a red isosceles triangle based on the left side; the black band is edged in white; centered in the triangle is a five-pointed yellow star with a crossed black-and-white rifle and hoe, on top of an open white book\n\nmeaning: green stands for the riches of the land, white for peace, black for the African continent, yellow for the country's minerals, and red for the fight for independence; the rifle stands for defense and vigilance, the hoe for agriculture, the open book for the importance of education, and the star for Marxism and internationalism",
+      "zhHant": "綠、黑、黃三條橫帶以白線分隔，左側紅三角形內有黃星、書本、鋤頭及步槍。書本代表教育，鋤頭代表農業，步槍代表防衛。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Mozambique",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/mz.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "NP": {
+    "capital": {
+      "en": "Kathmandu",
+      "zhHant": "加德滿都"
+    },
+    "flagDescription": {
+      "en": "description: crimson red with a blue border, in the shape of two overlapping right triangles; the smaller upper triangle has a stylized white moon, and the larger lower triangle has a 12-pointed white sun\n\nmeaning: red stands for the rhododendron (the national flower) and victory and bravery, and the blue border for peace and harmony; the two triangles are a combination of two pennants that originally symbolized the Himalaya Mountains, but today they refer to Hinduism and Buddhism, the country's two main religions; the moon stands for the serenity of the people, as well as Himalayan shade and cool weather, and the sun for the heat and higher temperatures in the rest of the country",
+      "zhHant": "旗形由上下兩個三角形組成，紅底鑲藍邊，上方月亮、下方太陽均為白色。它是少見的非四邊形國旗，藍邊象徵和平。"
+    },
+    "flower": {
+      "en": "Rhododendron arboreum",
+      "zhHant": "樹形杜鵑（Rhododendron arboreum）"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Nepal",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/np.json"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://giwmscdnone.gov.np/media/pdf_upload/Plant%20Fact%20Sheet%20%202025_kupfs7p.pdf"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "NI": {
+    "capital": {
+      "en": "Managua",
+      "zhHant": "馬納瓜"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of blue (top), white, and blue, with the national coat of arms centered in the white band; the coat of arms has a triangle with the words REPUBLICA DE NICARAGUA in an arc over it and AMERICA CENTRAL in an arc underneath\n\nmeaning: blue stands for the Pacific Ocean and the Caribbean Sea, and white for the land between the two bodies of water\n\nhistory: the banner is based on the former blue-white-blue flag of the Federal Republic of Central America",
+      "zhHant": "藍、白、藍三條橫帶，中間有三角形國徽。配色承襲中美洲聯邦旗，藍色呼應太平洋與加勒比海。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Nicaragua",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/nu.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "NO": {
+    "capital": {
+      "en": "Oslo",
+      "zhHant": "奧斯陸"
+    },
+    "flagDescription": {
+      "en": "description: red with a blue cross outlined in white that extends to the edges of the flag; the the cross is shifted to the left side in the style of the Dannebrog (Danish flag)\n\nmeaning: the colors represent Norway's past political unions with Denmark (red and white) and Sweden (blue)",
+      "zhHant": "紅底藍色北歐十字鑲白邊。紅白色連結與丹麥的歷史，藍色連結與瑞典的歷史。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Norway",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/no.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "PW": {
+    "capital": {
+      "en": "Ngerulmud",
+      "zhHant": "恩吉魯穆德"
+    },
+    "flagDescription": {
+      "en": "description: light blue with a large yellow disk to the left side\n\nmeaning: blue stands for the ocean, and the disk for the moon, which is considered a symbol of peace, love, and tranquility",
+      "zhHant": "淺藍底上有偏向旗桿側的黃色圓盤。藍色代表海洋，圓盤代表月亮，與和平及安寧相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Palau",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/ps.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "PY": {
+    "capital": {
+      "en": "Asunción",
+      "zhHant": "亞松森"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of red (top), white, and blue, with an emblem centered on the white band; the emblem on one side of the flag is the national coat of arms, which has a five-pointed yellow star in a green wreath with the words REPUBLICA DEL PARAGUAY around it, all inside two circles; the other side of the flag has a circular treasury seal (a yellow lion below a red Cap of Liberty and the words PAZ Y JUSTICIA)\n\nmeaning: red stands for bravery and patriotism, white for integrity and peace, and blue for liberty and generosity",
+      "zhHant": "紅、白、藍三條橫帶，中央有圓形徽記。這面旗正反面的徽記不同：正面是國徽，背面是帶獅子的國庫印章。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Paraguay",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/pa.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "PL": {
+    "capital": {
+      "en": "Warsaw",
+      "zhHant": "華沙"
+    },
+    "flagDescription": {
+      "en": "description: two equal horizontal bands of white (top) and red\n\nmeaning: colors derive from the Polish emblem, a white eagle on a red field",
+      "zhHant": "上白、下紅兩條等寬橫帶。配色源自紅底白鷹紋章，與印尼旗的上下順序相反。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Poland",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/pl.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "RO": {
+    "capital": {
+      "en": "Bucharest",
+      "zhHant": "布加勒斯特"
+    },
+    "flagDescription": {
+      "en": "description: three equal vertical bands of blue (left side), yellow, and red\n\nmeaning: the colors come from the principalities of Walachia (red and yellow) and Moldavia (red and blue), which united in 1862 to form Romania\n\nhistory: modeled on the French flag; the national coat of arms that used to be centered on the yellow band has been removed",
+      "zhHant": "藍、黃、紅三條等寬直帶，中央沒有國徽。可用這一點與摩爾多瓦旗區別。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Romania",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/ro.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "KN": {
+    "capital": {
+      "en": "Basseterre",
+      "zhHant": "巴士地"
+    },
+    "flagDescription": {
+      "en": "description: divided diagonally from the lower left side by a broad black band with two five-pointed white stars; the black band is edged in yellow; the upper triangle is green, and the lower is red\n\nmeaning: green stands for the island's fertility, red for the struggles of the people from slavery, yellow for year-round sunshine, and black for the people's African heritage; the white stars stand for the islands of Saint Kitts and Nevis but can also express hope and liberty, or independence and optimism",
+      "zhHant": "黃邊黑色斜帶把綠、紅兩區分開，黑帶上有兩顆白星。雙星代表兩個主要島嶼，也與希望及自由相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Saint Kitts and Nevis",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/sc.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "WS": {
+    "capital": {
+      "en": "Apia",
+      "zhHant": "阿皮亞"
+    },
+    "flagDescription": {
+      "en": "description: red with a blue rectangle in the upper-left quadrant; on the rectangle are five five-pointed white stars that represent the Southern Cross constellation\n\nmeaning: red stands for courage, blue for freedom, and white for purity",
+      "zhHant": "紅底左上方藍色矩形內有五顆白星，組成南十字星座。紅色代表勇氣，藍色代表自由，白色代表純潔。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Samoa",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/ws.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SA": {
+    "capital": {
+      "en": "Riyadh",
+      "zhHant": "利雅德"
+    },
+    "flagDescription": {
+      "en": "description: green (traditional Islamic color) with the Shahada, or Muslim creed, in large white Arabic script that translates as, \"There is no god but God; Muhammad is the messenger of God;\" the text is above a white horizontal saber pointing to the left \n\nhistory: design dates to the early 20th century and is closely associated with the Al Saud family that established the kingdom in 1932; the flag has different sides so that the text reads correctly from right to left and the saber points in the same direction on both sides",
+      "zhHant": "綠底上有白色阿拉伯文信仰宣言，下方是一把白色橫劍。旗幟正反面另作安排，使文字都能正確閱讀。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Saudi Arabia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/sa.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SC": {
+    "capital": {
+      "en": "Victoria",
+      "zhHant": "維多利亞"
+    },
+    "flagDescription": {
+      "en": "description: five expanding bands of blue, yellow, red, white, and green, radiating from the bottom left corner\n\nmeaning: the bands symbolize a dynamic new country moving into the future; blue stands for the sky and sea, yellow for the sun giving light and life, red for the people's determination to work for the future in unity and love, white for social justice and harmony, and green for the land and natural environment",
+      "zhHant": "藍、黃、紅、白、綠五個色帶由左下角向外展開。展開的構圖象徵前進，藍色代表海天，綠色代表自然環境。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Seychelles",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/se.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SK": {
+    "capital": {
+      "en": "Bratislava",
+      "zhHant": "布拉提斯拉瓦"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of white (top), blue, and red; the national coat of arms (a red shield bordered in white, with a white double-barred cross of St. Cyril and St. Methodius on top of three blue hills) is centered over the bands but offset to the left\n\nmeaning: white, blue, and red are the pan-Slav colors",
+      "zhHant": "白、藍、紅三條橫帶，靠左紅色盾徽內有白色雙十字與藍色三山。旗色屬泛斯拉夫色彩。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Slovakia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/lo.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SO": {
+    "capital": {
+      "en": "Mogadishu",
+      "zhHant": "摩加迪休"
+    },
+    "flagDescription": {
+      "en": "description: light blue with a large white five-pointed star in the center\n\nmeaning: the blue field was originally influenced by the UN flag but today is said to represent the sky and the Indian Ocean; the five points of the star represent the regions in the horn of Africa where Somali people live: the former British Somaliland and Italian Somaliland (which together make up Somalia), Djibouti, Ogaden (Ethiopia), and the Northeast Province (Kenya)",
+      "zhHant": "淺藍底中央有一顆大白色五角星。五個角與索馬利亞族群歷史分布的五個地區相連。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Somalia",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/so.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "ES": {
+    "capital": {
+      "en": "Madrid",
+      "zhHant": "馬德里"
+    },
+    "flagDescription": {
+      "en": "description: three horizontal bands of red (top), yellow (double-width), and red, with the national coat of arms on the left side of the yellow band; the coat of arms shows the emblems of the area's former kingdoms (clockwise from upper left: Castile, Leon, Navarre, and Aragon), which also used red and yellow as their colors; the stylized pomegranate at the bottom of the shield represents Granada; the two columns represent the Pillars of Hercules, which are promontories (Gibraltar and Ceuta) on the Strait of Gibraltar; a red scroll bears the imperial motto of \"Plus Ultra\" (further beyond), referring to Spanish lands outside Europe",
+      "zhHant": "紅、黃、紅三條橫帶，黃色較寬，靠左有國徽。徽章結合歷史王國紋章，兩側柱子呼應直布羅陀海峽。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Spain",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/sp.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SR": {
+    "capital": {
+      "en": "Paramaribo",
+      "zhHant": "巴拉馬利波"
+    },
+    "flagDescription": {
+      "en": "description: five horizontal bands of green (top, double-width), white, red (quadruple-width), white, and green (double-width); a five-pointed yellow star is centered on the red band\n\nmeaning: red stands for progress and love, green for hope and fertility, and white for peace, justice, and freedom; the star represents the unity of ethnic groups",
+      "zhHant": "綠、白、紅、白、綠五條橫帶，中間紅帶較寬並有黃星。星星象徵族群團結，白色代表和平與正義。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Suriname",
+        "url": "https://github.com/factbook/factbook.json/blob/master/south-america/ns.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "SY": {
+    "capital": {
+      "en": "Damascus",
+      "zhHant": "大馬士革"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of green (top), white, and black; three five-pointed red stars in a horizontal line, centered on the white band\n\nmeaning: the design is the same as a previous Syrian national flag (in use 1932-58 and 1961-63), but it is still unclear if the elements will retain the same meanings; the bands formerly represented Syria’s past rulers: white (Umayyad Caliphate), black (Abbasid Caliphate), and green (Rashidun Caliphate); the first star represented Damascus, Aleppo, and Deir ez-Zor, the three administrative subdivisions in Syria in the 1930s; the second star stood for Jabal Druze (the Mountain of the Druze), and the third star for the Alawite Mountains \n\nhistory: in 2011, opponents to the Asad regime adopted the flag; in 2025, it became the new national flag, replacing the two-star design",
+      "zhHant": "綠、白、黑三條橫帶，白帶上有三顆紅色五角星。這個設計曾於較早時期使用，並於二〇二五年成為新國旗。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Syria",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/sy.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TH": {
+    "capital": {
+      "en": "Bangkok",
+      "zhHant": "曼谷"
+    },
+    "flagDescription": {
+      "en": "description: five horizontal bands of red (top), white, blue (double-width), white, and red\n\nmeaning: red stands for the nation and the blood of life, white for religion and the purity of Buddhism, and blue for the monarchy",
+      "zhHant": "紅、白、藍、白、紅五條橫帶，中央藍帶較寬。紅色代表國家，白色與宗教相連，藍色代表王室。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Thailand",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/th.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TO": {
+    "capital": {
+      "en": "Nuku'alofa",
+      "zhHant": "努瓜婁發"
+    },
+    "flagDescription": {
+      "en": "description: red with a red cross on a white rectangle in the upper-left corner\n\nmeaning: the cross stands for Christianity in Tonga, red for Christ's blood and sacrifice, and white for purity",
+      "zhHant": "紅底左上方有白色矩形，內含紅色十字。十字與基督教相連，白色象徵純潔。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Tonga",
+        "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/tn.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TR": {
+    "capital": {
+      "en": "Ankara",
+      "zhHant": "安卡拉"
+    },
+    "flagDescription": {
+      "en": "description: red with a vertical white crescent moon and five-pointed white star centered just outside the crescent's opening\n\nmeaning: the flag colors and designs closely resemble the Ottoman Empire's flag; the crescent moon and star serve as insignia for Turkic peoples; according to one interpretation, the flag represents the reflection of the moon and a star in a pool of blood of Turkish warriors",
+      "zhHant": "紅底中央偏左有白色新月，開口旁是一顆白色五角星。配色與圖案承襲鄂圖曼時期的旗幟傳統。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Türkiye",
+        "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/tu.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "UG": {
+    "capital": {
+      "en": "Kampala",
+      "zhHant": "坎帕拉"
+    },
+    "flagDescription": {
+      "en": "description: six equal horizontal bands of black (top), yellow, red, black, yellow, and red; a white disk is at the center and shows a grey crowned crane (the national symbol)\n\nmeaning: black stands for the African people, yellow for sunshine and vitality, and red for African brotherhood",
+      "zhHant": "黑、黃、紅三色重複成六條橫帶，中央白圓內有灰冠鶴。黑色代表人民，黃色代表陽光，紅色代表非洲友愛。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Uganda",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/ug.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "GB": {
+    "capital": {
+      "en": "London",
+      "zhHant": "倫敦"
+    },
+    "flagDescription": {
+      "en": "description: blue field with the red cross of Saint George (patron saint of England) edged in white on top of the diagonal red cross of Saint Patrick (patron saint of Ireland), which is on top of the diagonal white cross of Saint Andrew (patron saint of Scotland)\n\nhistory: the official name is the Union Flag, but commonly called the Union Jack; the design and colors have been the basis for a number of other flags",
+      "zhHant": "藍底上的紅白十字與斜十字互相疊合。設計結合聖喬治、聖安德烈及聖派翠克十字，通稱 Union Jack。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · United Kingdom",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/uk.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "UZ": {
+    "capital": {
+      "en": "Tashkent (Toshkent)",
+      "zhHant": "塔什干"
+    },
+    "flagDescription": {
+      "en": "description: three equal horizontal bands of blue (top), white, and green separated by narrow red stripes with a vertical white crescent moon and 12 five-pointed white stars in the left corner of the top band\n\nmeaning: blue stands for the Turkic peoples and the sky, white for peace and the striving for purity in thoughts and deeds, and green for nature and Islam; the red stripes represent the vital force of all living organisms; the crescent stands for Islam, and the 12 stars for the months and constellations of the Uzbek calendar",
+      "zhHant": "藍、白、綠三條橫帶以細紅線分隔，左上有白色新月與十二顆星。藍色呼應天空，白色代表和平，綠色呼應自然。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Uzbekistan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/uz.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "VN": {
+    "capital": {
+      "en": "Hanoi (Ha Noi)",
+      "zhHant": "河內"
+    },
+    "flagDescription": {
+      "en": "description: red field with a five-pointed yellow star in the center\n\nmeaning: red stands for revolution and blood, and the five-pointed star for the five elements of the populace -- peasants, workers, intellectuals, traders, and soldiers -- that unite to build socialism",
+      "zhHant": "紅底中央有一顆黃色五角星。紅色與革命相連，五角星代表共同建設國家的不同社會群體。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Vietnam",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/vm.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "ZW": {
+    "capital": {
+      "en": "Harare",
+      "zhHant": "哈拉雷"
+    },
+    "flagDescription": {
+      "en": "description: seven equal horizontal bands of green (top), yellow, red, black, red, yellow, and green, with a white isosceles triangle edged in black based on the left side; in the middle of the triangle, a yellow bird is on top of a five-pointed red star\n\nmeaning: the bird represents the long history of the country; white stands for peace, green for agriculture, yellow for mineral wealth, red for the blood shed to achieve independence, and black for the people",
+      "zhHant": "綠、黃、紅、黑、紅、黃、綠七條橫帶，左側白三角形內有紅星與金色辛巴威鳥。鳥圖案反映國家歷史。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "World Factbook · Zimbabwe",
+        "url": "https://github.com/factbook/factbook.json/blob/master/africa/zi.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "TW": {
+    "capital": {
+      "en": "Taipei",
+      "zhHant": "臺北市"
+    },
+    "flagDescription": {
+      "en": "A red field with a white sun on a blue canton. The sun’s twelve rays represent the traditional twelve two-hour periods of a day and continuing progress. Blue, white and red also express liberty, equality and fraternity.",
+      "zhHant": "紅底左上角為青天白日。白日十二道光芒象徵一天十二個時辰與持續進步；藍、白、紅也分別表達自由、平等、博愛。"
+    },
+    "flower": {
+      "en": "Plum blossom",
+      "zhHant": "梅花"
+    },
+    "flowerStatus": "documented",
+    "sources": [
+      {
+        "title": "World Factbook · Taiwan",
+        "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/tw.json"
+      },
+      {
+        "title": "Country / flag reference",
+        "url": "https://english.president.gov.tw/page/96"
+      },
+      {
+        "title": "National flower reference",
+        "url": "https://www.president.gov.tw/Page/98"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "PS": {
+    "capital": {
+      "en": "East Jerusalem (claimed capital); Ramallah (administrative centre)",
+      "zhHant": "東耶路撒冷（主張首都）；拉馬拉（行政中心）"
+    },
+    "flagDescription": {
+      "en": "Black, white and green horizontal bands, with a red triangle at the hoist. The colours come from Arab flag traditions. The Palestine Liberation Organization adopted this flag in 1964.",
+      "zhHant": "黑、白、綠三條橫帶，左側紅色三角形。配色源自阿拉伯旗幟傳統；巴勒斯坦解放組織於一九六四年採用此旗。"
+    },
+    "flower": null,
+    "flowerStatus": "notCollected",
+    "sources": [
+      {
+        "title": "Capital reference",
+        "url": "https://www.mofa.pna.ps/en-us/mn/our-position"
+      },
+      {
+        "title": "Country / flag reference",
+        "url": "https://www.mfae.gov.ps/en-us/palestine/thepalestinianflag"
+      },
+      {
+        "title": "Country / flag reference",
+        "url": "https://en.wikipedia.org/wiki/Outline_of_Palestine"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  },
+  "EU": {
+    "capital": {
+      "en": "No single capital; institutions in Brussels, Strasbourg, Luxembourg and Frankfurt",
+      "zhHant": "無單一首都；主要機構分布於布魯塞爾等城市"
+    },
+    "flagDescription": {
+      "en": "Twelve gold stars form a circle on a blue field, expressing unity and harmony. The number of stars is fixed and does not count member states. The European Union is a union, not a country.",
+      "zhHant": "藍底中央十二顆金色五角星排列成圓圈。星圈象徵團結與和諧，星星數量固定，並不代表成員國數目；歐盟是聯盟，不是國家。"
+    },
+    "flower": null,
+    "flowerStatus": "notApplicable",
+    "sources": [
+      {
+        "title": "World Factbook · European Union",
+        "url": "https://github.com/factbook/factbook.json/blob/master/europe/ee.json"
+      }
+    ],
+    "collectedOn": "2026-11-08",
+    "historicalFlag": false
+  }
+}

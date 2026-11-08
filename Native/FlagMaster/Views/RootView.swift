@@ -133,6 +133,7 @@ struct RootView: View {
 }
 
 private struct LaunchExperienceView: View {
+    @EnvironmentObject private var settings: AppSettings
     let reduceMotion: Bool
     @State private var revealed = false
     @State private var orbit = false
@@ -167,7 +168,7 @@ private struct LaunchExperienceView: View {
             VStack(spacing: 8) {
                 Spacer()
                 Text("FLAGMASTER").font(.system(size: 29, weight: .black, design: .rounded)).tracking(5)
-                Text("THE WORLD IS YOUR ARENA").font(.system(size: 10, weight: .black, design: .rounded)).tracking(2).foregroundStyle(Atlas.gold)
+                Text(settings.language.text("THE WORLD IS YOUR ARENA", "世界就是你的挑戰場", ja: "世界が君の舞台だ", ko: "세계가 당신의 무대")).font(.system(size: 10, weight: .black, design: .rounded)).tracking(2).foregroundStyle(Atlas.gold)
                 HStack(spacing: 5) {
                     ForEach(0..<7) { index in
                         Capsule().fill(Atlas.gold.opacity(revealed ? 1 : 0.15)).frame(width: 19, height: 5)
@@ -247,6 +248,7 @@ extension EnvironmentValues {
 }
 
 struct GameScreen: ViewModifier {
+    @EnvironmentObject private var settings: AppSettings
     @Environment(\.dismiss) private var dismiss
     @Environment(\.gameDismiss) private var gameDismiss
     let title: String
@@ -264,7 +266,7 @@ struct GameScreen: ViewModifier {
                         Image(systemName: "xmark").font(.headline.bold()).frame(width: 44, height: 44)
                             .modifier(GamePanel(tint: Atlas.muted, radius: 14))
                     }.buttonStyle(AtlasPressStyle(sound: nil))
-                        .accessibilityLabel(Text("Close", comment: "Close game panel"))
+                        .accessibilityLabel(settings.language.text("Close", "關閉", ja: "閉じる", ko: "닫기"))
                 }.foregroundStyle(.white).padding(.horizontal, 20).padding(.vertical, 10)
                     .background(Atlas.ink.opacity(0.65))
             }
@@ -303,6 +305,61 @@ struct AtlasButtonStyle: ButtonStyle {
     }
 }
 
+struct ActionHint: ViewModifier {
+    @EnvironmentObject private var settings: AppSettings
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.isEnabled) private var isEnabled
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var glowing = false
+    @State private var didHint = false
+    var repeats = false
+
+    private var active: Bool {
+        settings.animatedEffects && !reduceMotion && isEnabled && scenePhase == .active
+    }
+
+    func body(content: Content) -> some View {
+        content.overlay {
+            Group {
+                if repeats {
+                    RoundedRectangle(cornerRadius: 18)
+                        .fill(LinearGradient(
+                            colors: [.white.opacity(0.20), .white.opacity(0.75), .white.opacity(0.20)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ))
+                        .blendMode(.screen)
+                } else {
+                    RoundedRectangle(cornerRadius: 18)
+                        .strokeBorder(.white, lineWidth: 2)
+                        .shadow(color: Atlas.gold, radius: 8)
+                }
+            }
+            .opacity(active && glowing ? 0.85 : 0)
+            .allowsHitTesting(false)
+            .accessibilityHidden(true)
+        }
+        .task(id: active) {
+            glowing = false
+            guard active, repeats || !didHint else { return }
+            let clock = ContinuousClock()
+            var next = clock.now + (repeats ? .seconds(5) : .milliseconds(850))
+            do {
+                repeat {
+                    try await clock.sleep(until: next)
+                    didHint = true
+                    withAnimation(.easeOut(duration: 0.15)) { glowing = true }
+                    try await clock.sleep(for: .milliseconds(150))
+                    withAnimation(.easeOut(duration: 0.45)) { glowing = false }
+                    next = clock.now + .milliseconds(4850)
+                } while repeats
+            } catch {
+                // A new task resets the glow when hints are disabled or resumed.
+            }
+        }
+    }
+}
+
 struct Eyebrow: View {
     let text: String
     var color: Color = Atlas.mint
@@ -334,13 +391,12 @@ extension GameMode {
         }
     }
     func detail(_ language: AppLanguage) -> String {
-        let en = language == .english
         switch self {
-        case .endless: return en ? "No timer. A world to discover." : "沒有倒數，按自己的節奏探索"
-        case .timedChallenge: return en ? "60 seconds. How far can you go?" : "60 秒倒數，挑戰你的辨識力"
-        case .speedRound: return en ? "20 flags · 5 seconds each" : "20 道題目，每題 5 秒快問快答"
-        case .twoLives: return en ? "Two hearts. Make them count." : "兩顆愛心，每一次選擇都重要"
-        case .review: return en ? "Revisit flags when they are due." : "在適合的時間回想，讓記憶更深刻"
+        case .endless: return language.text("No timer. A world to discover.", "沒有倒數，按自己的節奏探索", ja: "時間制限なし。自分のペースで探検しよう。", ko: "시간 제한 없이 내 속도로 탐험해 보세요.")
+        case .timedChallenge: return language.text("60 seconds. How far can you go?", "60 秒倒數，挑戰你的辨識力", ja: "60 秒で何問答えられるかな？", ko: "60초 동안 몇 문제를 맞힐 수 있을까요?")
+        case .speedRound: return language.text("20 flags · 5 seconds each", "20 道題目，每題 5 秒快問快答", ja: "20 問、各 5 秒で回答", ko: "20문제, 문제당 5초")
+        case .twoLives: return language.text("Two hearts. Make them count.", "兩顆愛心，每一次選擇都重要", ja: "ライフは 2 つ。慎重に選ぼう。", ko: "기회는 두 번. 신중히 선택하세요.")
+        case .review: return language.text("Revisit flags when they are due.", "在適合的時間回想，讓記憶更深刻", ja: "復習の時期が来た国旗を思い出そう。", ko: "복습할 때가 된 국기를 떠올려 보세요.")
         }
     }
 }
