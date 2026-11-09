@@ -6,6 +6,8 @@ struct HomeView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.scenePhase) private var scenePhase
     @State private var orbit = false
+    @State private var showingFlashcards = false
+    private let studyCountries = ((try? CountryRepository.load()) ?? []).sorted { $0.en < $1.en }
     let start: (GameMode) -> Void
     var open: (Sheet) -> Void = { _ in }
     enum Sheet: Identifiable { case settings, records, journeys, comparisons, flags; var id: Self { self } }
@@ -33,6 +35,7 @@ struct HomeView: View {
                 }
                 .frame(maxHeight: .infinity, alignment: .bottom)
                 HStack(spacing: 8) {
+                    dock(settings.language.text("Study cards", "圖卡學習", ja: "学習カード", ko: "학습 카드"), icon: "rectangle.on.rectangle.angled", tint: Atlas.mint) { showingFlashcards = true }
                     dock(settings.language.text("Collection", "國旗圖鑑", ja: "国旗図鑑", ko: "국기 도감"), icon: "square.stack.3d.up.fill", tint: Atlas.blue) { open(.flags) }
                     dock(settings.language.text("Training", "辨識特訓", ja: "見分ける練習", ko: "구별 훈련"), icon: "scope", tint: Atlas.coral) { open(.comparisons) }
                     dock(settings.language.text("Review", "複習挑戰", ja: "復習", ko: "복습"), icon: "arrow.clockwise", tint: Atlas.mint) { start(.review) }
@@ -43,6 +46,9 @@ struct HomeView: View {
             .frame(maxWidth: 700, maxHeight: .infinity).frame(maxWidth: .infinity)
         }
         .foregroundStyle(.white)
+        .fullScreenCover(isPresented: $showingFlashcards) {
+            FlagFlashcardsView(countries: studyCountries)
+        }
         .background {
             if animated {
                 HomeMotionBackground()

@@ -43,16 +43,17 @@ struct GameView: View {
         .foregroundStyle(.white)
         .animation(animate ? .spring(response: 0.4, dampingFraction: 0.8) : nil, value: model.selectedCode)
         .animation(animate ? .easeInOut(duration: 0.2) : nil, value: model.phase)
-        .onChange(of: model.selectedCode) { _, code in
-            guard let code else { return }
-            AudioManager.shared.play(code == model.question?.abb2 ? .correct : .wrong)
+        .onAppear { updateGameMusic() }
+        .onChange(of: model.isLearning) { _, _ in updateGameMusic() }
+        .onChange(of: model.soundEvent) { _, event in
+            if let event { AudioManager.shared.play(event.effect) }
         }
         .onChange(of: model.phase) { _, phase in
             AudioManager.shared.setDucked(phase != .playing)
-            if phase == .finished, model.errorMessage == nil { AudioManager.shared.play(.complete) }
+            if phase == .paused || phase == .playing { AudioManager.shared.stopEffects() }
         }
         .onChange(of: scenePhase) { _, phase in if phase != .active { model.pause() } }
-        .onDisappear { model.stop(); AudioManager.shared.setDucked(false) }
+        .onDisappear { model.stop(); AudioManager.shared.stopEffects(); AudioManager.shared.setDucked(false) }
         #if DEBUG
         .onAppear {
             let args = ProcessInfo.processInfo.arguments
@@ -65,6 +66,11 @@ struct GameView: View {
             }
         }
         #endif
+    }
+
+    private func updateGameMusic() {
+        AudioManager.shared.playMusic(model.isLearning ? .learning : .game)
+        AudioManager.shared.setDucked(model.phase != .playing)
     }
 
     private var header: some View {

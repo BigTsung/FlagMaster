@@ -3,13 +3,7 @@ import AVFoundation
 enum AudioTrack: String, Sendable {
     case home = "music_home"
     case game = "music_game"
-}
-
-enum SoundEffect: String, Sendable {
-    case tap = "sfx_tap"
-    case correct = "sfx_correct"
-    case wrong = "sfx_wrong"
-    case complete = "sfx_complete"
+    case learning = "music_learning"
 }
 
 @MainActor
@@ -18,6 +12,7 @@ final class AudioManager {
 
     private var musicPlayer: AVAudioPlayer?
     private var fadingPlayer: AVAudioPlayer?
+    private var fadeCleanup: Task<Void, Never>?
     private var effectPlayers: [SoundEffect: AVAudioPlayer] = [:]
     private var currentTrack: AudioTrack?
     private var musicVolume: VolumeLevel = .medium
@@ -54,9 +49,15 @@ final class AudioManager {
         guard let url = localURL ?? resourceURL(named: track.rawValue, extension: "m4a"),
               let next = try? AVAudioPlayer(contentsOf: url) else { return }
 
+        fadeCleanup?.cancel()
         fadingPlayer?.stop()
         fadingPlayer = musicPlayer
         fadingPlayer?.setVolume(0, fadeDuration: 0.8)
+        fadeCleanup = Task { @MainActor [weak self] in
+            do { try await Task.sleep(for: .milliseconds(850)) } catch { return }
+            self?.fadingPlayer?.stop()
+            self?.fadingPlayer = nil
+        }
 
         currentTrack = track
         musicPlayer = next
@@ -69,12 +70,19 @@ final class AudioManager {
     }
 
     func play(_ effect: SoundEffect) {
-        guard soundVolume != .off else { return }
+        guard isAppActive, soundVolume != .off else { return }
+        // Important feedback interrupts incidental sounds, never the reverse.
+        guard !effectPlayers.contains(where: { $0.value.isPlaying && $0.key.priority > effect.priority }) else { return }
+        for (_, player) in effectPlayers where player.isPlaying { player.stop() }
         if effectPlayers[effect] == nil { effectPlayers[effect] = makeEffectPlayer(effect) }
         guard let player = effectPlayers[effect] else { return }
         player.currentTime = 0
         player.volume = targetEffectVolume(effect)
         player.play()
+    }
+
+    func stopEffects() {
+        for player in effectPlayers.values { player.stop(); player.currentTime = 0 }
     }
 
     func setDucked(_ ducked: Bool) {
@@ -91,22 +99,32 @@ final class AudioManager {
         } else {
             musicPlayer?.pause()
             fadingPlayer?.stop()
+            stopEffects()
         }
     }
 
     private var targetMusicVolume: Float {
-        musicVolume.value * (isDucked ? 0.12 : 0.34)
+        musicVolume.value * (isDucked ? 0.10 : (currentTrack == .learning ? 0.24 : 0.34))
     }
 
     private func targetEffectVolume(_ effect: SoundEffect) -> Float {
-        let gain: Float = effect == .wrong ? 0.55 : effect == .tap ? 0.5 : 0.72
+        let gain: Float
+        switch effect {
+        case .tap: gain = 0.42
+        case .countdown: gain = 0.36
+        case .wrong, .timeout: gain = 0.55
+        case .end, .gameOver: gain = 0.60
+        case .correct, .complete: gain = 0.72
+        }
         return soundVolume.value * gain
     }
 
     private func updateVolumes() {
         musicPlayer?.setVolume(targetMusicVolume, fadeDuration: 0.25)
         for (effect, player) in effectPlayers { player.volume = targetEffectVolume(effect) }
+        if soundVolume == .off { stopEffects() }
         if musicVolume == .off {
+            fadingPlayer?.stop()
             musicPlayer?.pause()
         } else if isAppActive, currentTrack != nil, musicPlayer?.isPlaying == false {
             musicPlayer?.play()
@@ -121,7 +139,7 @@ final class AudioManager {
 
     private func preloadEffects() {
         guard effectPlayers.isEmpty else { return }
-        for effect in [SoundEffect.tap, .correct, .wrong, .complete] {
+        for effect in SoundEffect.allCases {
             effectPlayers[effect] = makeEffectPlayer(effect)
         }
     }

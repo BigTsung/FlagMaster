@@ -59,7 +59,7 @@ struct RootView: View {
         }
         .onChange(of: activeMode) { _, mode in
             AudioManager.shared.setDucked(false)
-            AudioManager.shared.playMusic(mode == nil ? .home : .game)
+            if mode == nil { AudioManager.shared.playMusic(.home) }
         }
         .onChange(of: settings.musicVolume) { _, level in AudioManager.shared.updateMusicVolume(level) }
         .onChange(of: settings.soundVolume) { _, level in AudioManager.shared.updateSoundVolume(level) }

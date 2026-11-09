@@ -61,3 +61,28 @@ enum VolumeLevel: String, CaseIterable, Identifiable, Sendable {
         switch self { case .high: 1; case .medium: 0.6; case .low: 0.25; case .off: 0 }
     }
 }
+
+// Semantic cues are emitted by game rules; playback stays in the UI/audio layer.
+enum SoundEffect: String, CaseIterable, Sendable {
+    case tap = "sfx_tap"
+    case correct = "sfx_correct"
+    case wrong = "sfx_wrong"
+    case timeout = "sfx_timeout"
+    case countdown = "sfx_countdown"
+    case complete = "sfx_complete"
+    case end = "sfx_end"
+    case gameOver = "sfx_game_over"
+
+    var priority: Int {
+        switch self {
+        case .tap, .countdown: 0
+        case .correct, .wrong, .timeout: 1
+        case .complete, .end, .gameOver: 2
+        }
+    }
+}
+
+struct GameSoundEvent: Equatable {
+    let id: Int
+    let effect: SoundEffect
+}

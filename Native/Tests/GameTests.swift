@@ -12,6 +12,88 @@ struct GameTests {
         return (GameViewModel(mode: mode, stats: stats, settings: settings, countries: countries, automaticTimer: false), stats, settings)
     }
 
+    @Test func audioDistinguishesTimeoutFromWrongAnswerAndRepeatedAnswers() {
+        let (game, _, _) = fixture(.speedRound)
+        game.select(game.choices.first { $0 != game.question }!)
+        #expect(game.soundEvent?.effect == .wrong)
+        let first = game.soundEvent
+        game.select(game.question!)
+        #expect(game.soundEvent == first)
+        game.advance(by: 1.5)
+        game.advance(by: 5)
+        #expect(game.soundEvent?.effect == .timeout)
+        #expect(game.soundEvent != first)
+        game.advance(by: 1.5)
+        game.select(game.question!)
+        let correct = game.soundEvent
+        game.advance(by: 1.5)
+        game.select(game.question!)
+        #expect(game.soundEvent?.effect == .correct)
+        #expect(game.soundEvent != correct)
+    }
+
+    @Test func countdownOnlySoundsAtBoundariesAndStopsWhenPausedOrAnswered() {
+        let (game, _, _) = fixture(.timedChallenge)
+        game.advance(by: 56)
+        #expect(game.soundEvent == nil)
+        game.advance(by: 1)
+        #expect(game.soundEvent?.effect == .countdown)
+        let warning = game.soundEvent
+        game.advance(by: 0.1)
+        #expect(game.soundEvent == warning)
+        game.pause()
+        game.advance(by: 10)
+        #expect(game.soundEvent == warning)
+        game.togglePause()
+        game.select(game.question!)
+        let answer = game.soundEvent
+        game.advance(by: 1)
+        #expect(game.soundEvent == answer)
+        game.advance(by: 2)
+        #expect(game.soundEvent?.effect == .end)
+        let end = game.soundEvent
+        game.finish()
+        game.advance(by: 10)
+        #expect(game.soundEvent == end)
+    }
+
+    @Test func speedRoundWarnsOnlyInLastSecondAndRestartClearsCue() {
+        let (game, _, _) = fixture(.speedRound)
+        game.advance(by: 3)
+        #expect(game.soundEvent == nil)
+        game.advance(by: 1)
+        #expect(game.soundEvent?.effect == .countdown)
+        game.restart()
+        #expect(game.soundEvent == nil)
+        #expect(game.secondsRemaining == 5)
+    }
+
+    @Test func endingsUseTheirActualOutcomeAndRetryReturnsToLearning() {
+        let (manual, _, _) = fixture(.endless)
+        manual.finish()
+        #expect(manual.soundEvent?.effect == .end)
+        let (lives, _, _) = fixture(.twoLives)
+        for _ in 0..<2 {
+            lives.select(lives.choices.first { $0 != lives.question }!)
+            lives.advance(by: 1.5)
+        }
+        #expect(lives.soundEvent?.effect == .gameOver)
+        lives.retryMistakes()
+        #expect(lives.isLearning)
+        #expect(lives.soundEvent == nil)
+        while lives.phase == .playing {
+            lives.select(lives.question!)
+            lives.continueLearning()
+        }
+        #expect(lives.soundEvent?.effect == .complete)
+        let (speed, _, _) = fixture(.speedRound)
+        for _ in 0..<20 {
+            speed.select(speed.question!)
+            speed.advance(by: 1.5)
+        }
+        #expect(speed.soundEvent?.effect == .complete)
+    }
+
     @Test func choicesAreUniqueAndContainAnswer() {
         let (game, _, _) = fixture(.endless)
         #expect(game.choices.count == 4)

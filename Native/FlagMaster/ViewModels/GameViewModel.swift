@@ -7,6 +7,10 @@ import UIKit
 @MainActor
 final class GameViewModel: ObservableObject {
     enum Phase: Equatable { case playing, paused, finished }
+    enum FinishReason { case manual, completed, timeExpired, livesExhausted }
+
+    @Published private(set) var soundEvent: GameSoundEvent?
+    private var soundSequence = 0
 
     @Published private(set) var question: Country?
     @Published private(set) var choices: [Country] = []
@@ -86,6 +90,7 @@ final class GameViewModel: ObservableObject {
             wrongAnswers.append(WrongAnswer(country: question, selected: selected))
             if mode == .twoLives && !isRetryingMistakes { lives -= 1 }
         }
+        emitSound(selected == nil ? .timeout : (correct ? .correct : .wrong))
         stats.record(question, correct: correct)
         feedback(success: correct)
         shouldFinish = (mode == .twoLives && !isRetryingMistakes && lives == 0)
@@ -96,7 +101,7 @@ final class GameViewModel: ObservableObject {
 
     func continueLearning() {
         guard isLearning, phase == .playing, selectedCode != nil else { return }
-        if shouldFinish { finish() } else { makeQuestion() }
+        if shouldFinish { finish(reason: naturalFinishReason) } else { makeQuestion() }
     }
 
     func pause() {
@@ -139,6 +144,7 @@ final class GameViewModel: ObservableObject {
 
     private func beginRound() {
         stop()
+        soundEvent = nil
         usedCodes = []
         wrongAnswers = []
         question = nil
@@ -176,9 +182,25 @@ final class GameViewModel: ObservableObject {
         transitionRemaining = nil
     }
 
-    func finish() {
+    func finish(reason: FinishReason = .manual) {
+        guard phase != .finished else { return }
         stop()
         phase = .finished
+        guard errorMessage == nil else { return }
+        switch reason {
+        case .manual, .timeExpired: emitSound(.end)
+        case .completed: emitSound(.complete)
+        case .livesExhausted: emitSound(.gameOver)
+        }
+    }
+
+    private var naturalFinishReason: FinishReason {
+        mode == .twoLives && !isRetryingMistakes && lives == 0 ? .livesExhausted : .completed
+    }
+
+    private func emitSound(_ effect: SoundEffect) {
+        soundSequence += 1
+        soundEvent = GameSoundEvent(id: soundSequence, effect: effect)
     }
 
     func colorState(for country: Country) -> AnswerState {
@@ -192,7 +214,7 @@ final class GameViewModel: ObservableObject {
         guard phase == .playing else { return }
         var unused = roundPool.filter { !usedCodes.contains($0.abb2) }
         if unused.isEmpty {
-            if mode == .review || isRetryingMistakes || practice != nil { finish(); return }
+            if mode == .review || isRetryingMistakes || practice != nil { finish(reason: .completed); return }
             usedCodes = []
             unused = roundPool
         }
@@ -219,20 +241,25 @@ final class GameViewModel: ObservableObject {
     func advance(by elapsed: TimeInterval) {
         guard phase == .playing, elapsed > 0 else { return }
         if !isLearning && (mode == .timedChallenge || (mode == .speedRound && selectedCode == nil)) {
+            let previousSeconds = secondsRemaining
             remaining = max(0, remaining - elapsed)
             secondsRemaining = Int(ceil(remaining))
             if remaining == 0 {
-                if mode == .timedChallenge { finish(); return }
+                if mode == .timedChallenge { finish(reason: .timeExpired); return }
                 selectedCode = ""
                 registerAnswer(correct: false, selected: nil)
                 return
+            }
+            let warningWindow = mode == .timedChallenge ? 3 : 1
+            if selectedCode == nil, secondsRemaining <= warningWindow, secondsRemaining < previousSeconds {
+                emitSound(.countdown)
             }
         }
         if let delay = transitionRemaining {
             transitionRemaining = delay - elapsed
             if delay <= elapsed {
                 transitionRemaining = nil
-                if shouldFinish { finish() } else { makeQuestion() }
+                if shouldFinish { finish(reason: naturalFinishReason) } else { makeQuestion() }
             }
         }
     }

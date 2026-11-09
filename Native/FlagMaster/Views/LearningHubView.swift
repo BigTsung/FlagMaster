@@ -648,8 +648,7 @@ struct FlagFlashcardsView: View {
             RoundedRectangle(cornerRadius: 26).fill(paper.opacity(0.7))
                 .rotationEffect(.degrees(2)).offset(y: 5)
             card(countries[index])
-                .rotation3DEffect(.degrees(angle), axis: (x: 0, y: 1, z: 0), perspective: 0.65)
-                .shadow(color: .black.opacity(0.35), radius: 20, y: 14)
+                .modifier(StudyCardFlip(angle: angle))
         }
         .frame(height: height)
         .contentShape(Rectangle())
@@ -710,7 +709,7 @@ struct FlagFlashcardsView: View {
         turning = true
         // Change the printed face only while the card is edge-on. The incoming
         // half starts on the opposite edge so text is never rendered mirrored.
-        withAnimation(.easeIn(duration: 0.18), completionCriteria: .removed) {
+        withAnimation(.easeIn(duration: 0.30), completionCriteria: .removed) {
             angle = Double(direction) * -90
         } completion: {
             var transaction = Transaction(animation: nil)
@@ -719,12 +718,39 @@ struct FlagFlashcardsView: View {
                 index = next
                 angle = Double(direction) * 90
             }
-            withAnimation(.easeOut(duration: 0.22), completionCriteria: .removed) {
+            withAnimation(.easeOut(duration: 0.42), completionCriteria: .removed) {
                 angle = 0
             } completion: {
                 turning = false
             }
         }
+    }
+}
+
+/// Interpolate lighting and lift with the rendered angle throughout each half-turn.
+private struct StudyCardFlip: AnimatableModifier {
+    nonisolated var angle: Double
+    nonisolated var animatableData: Double {
+        get { angle }
+        set { angle = newValue }
+    }
+
+    func body(content: Content) -> some View {
+        let lift = sin(abs(angle) * .pi / 180)
+        content
+            .overlay {
+                RoundedRectangle(cornerRadius: 26)
+                    .fill(LinearGradient(
+                        colors: [.black.opacity(0.28 * lift), .white.opacity(0.18 * lift)],
+                        startPoint: angle < 0 ? .leading : .trailing,
+                        endPoint: angle < 0 ? .trailing : .leading
+                    ))
+                    .allowsHitTesting(false)
+            }
+            .rotation3DEffect(.degrees(angle), axis: (x: 0, y: 1, z: 0), perspective: 0.85)
+            .scaleEffect(1 + 0.045 * lift)
+            .offset(y: -18 * lift)
+            .shadow(color: .black.opacity(0.35 + 0.15 * lift), radius: 20 + 16 * lift, y: 14 + 14 * lift)
     }
 }
 
