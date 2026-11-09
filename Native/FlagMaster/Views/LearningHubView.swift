@@ -736,7 +736,6 @@ private struct CountryInformationPanel: View {
     let close: () -> Void
     private var information: CountryInformation? { CountryInformationRepository.all[country.abb2] }
     private var language: AppLanguage { settings.language }
-    private var paper: Color { Color(red: 0.99, green: 0.97, blue: 0.88) }
     private var title: String {
         country.abb2 == "TW"
             ? language.text("Republic of China (Taiwan)", "中華民國（臺灣）", ja: "中華民国（台湾）", ko: "중화민국(대만)")
@@ -746,24 +745,25 @@ private struct CountryInformationPanel: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
-                Image(systemName: "info.circle.fill").foregroundStyle(Atlas.ink.opacity(0.65))
+                Image(systemName: "info.circle.fill").foregroundStyle(Atlas.blue)
                 Text(title).font(.title3.bold()).lineLimit(2).minimumScaleFactor(0.75)
                     .accessibilityAddTraits(.isHeader).accessibilityFocused($headingFocused)
                 Spacer(minLength: 0)
                 Button(action: close) {
                     Label(language.text("Back to card", "返回圖卡", ja: "カードに戻る", ko: "카드로 돌아가기"), systemImage: "xmark")
                         .font(.subheadline.bold()).padding(.horizontal, 12).frame(minHeight: 44)
-                        .background(Atlas.ink.opacity(0.08), in: Capsule())
+                        .foregroundStyle(Atlas.mint)
+                        .modifier(GamePanel(tint: Atlas.mint, radius: 22))
                 }.buttonStyle(.plain)
             }.padding(.horizontal, 20).padding(.vertical, 4)
-            Divider().overlay(Atlas.ink.opacity(0.1))
+            Rectangle().fill(Atlas.violet.opacity(0.25)).frame(height: 1)
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     HStack(alignment: .top, spacing: 20) {
                         VStack(alignment: .leading, spacing: 10) {
                             if language != .english {
                                 Text(country.abb2 == "TW" ? "Republic of China (Taiwan)" : country.en)
-                                    .font(.subheadline).foregroundStyle(Atlas.ink.opacity(0.7))
+                                    .font(.subheadline).foregroundStyle(Atlas.muted)
                             }
                             fact(language.text("Region", "地區", ja: "地域", ko: "지역"), value: region)
                             if let information {
@@ -775,24 +775,24 @@ private struct CountryInformationPanel: View {
                             CountryLocationMap(country: country)
                                 .aspectRatio(2.35, contentMode: .fit)
                             Text(language.text("Location on the world map", "在世界地圖上的位置", ja: "世界地図上の位置", ko: "세계 지도에서의 위치"))
-                                .font(.caption2).foregroundStyle(Atlas.ink.opacity(0.65))
+                                .font(.caption2).foregroundStyle(Atlas.muted)
                         }.frame(width: 200)
                     }
                     if let information {
                         VStack(alignment: .leading, spacing: 8) {
                             Label(language.text("Flag design & meaning", "國旗設計與含義", ja: "国旗のデザインと意味", ko: "국기의 디자인과 의미"), systemImage: "flag.fill")
-                                .font(.headline)
+                                .font(.headline).foregroundStyle(Atlas.blue)
                             if information.historicalFlag {
                                 Text(language.text("Historical flag shown", "本卡展示歷史旗幟", ja: "このカードは歴史的な旗を表示", ko: "이 카드는 역사적 국기를 표시합니다"))
-                                    .font(.caption.bold()).foregroundStyle(.brown)
+                                    .font(.caption.bold()).foregroundStyle(Atlas.gold)
                             }
                             Text(information.flagDescription.localized(language))
                                 .font(.body).lineSpacing(5).fixedSize(horizontal: false, vertical: true)
                         }.padding(16).frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color.yellow.opacity(0.18), in: RoundedRectangle(cornerRadius: 16))
+                            .modifier(GamePanel(tint: Atlas.blue, radius: 16))
                         if language == .japanese || language == .korean {
                             Text(language.text("Reference text is currently available in English and Traditional Chinese.", "目前提供英文與繁體中文資料。", ja: "参考本文は現在、英語と繁体字中国語で提供しています。", ko: "참고 본문은 현재 영어와 번체 중국어로 제공됩니다."))
-                                .font(.caption).foregroundStyle(Atlas.ink.opacity(0.65))
+                                .font(.caption).foregroundStyle(Atlas.muted)
                         }
                         DisclosureGroup {
                             VStack(alignment: .leading, spacing: 8) {
@@ -804,23 +804,22 @@ private struct CountryInformationPanel: View {
                                     }
                                 }
                                 Text(language.text("Collected: ", "收錄日期：", ja: "収録日：", ko: "수록일: ") + information.collectedOn)
-                                    .font(.caption2)
+                                    .font(.caption2).foregroundStyle(Atlas.muted)
                             }.padding(.top, 8)
                         } label: {
                             Text(language.text("Sources", "資料來源", ja: "出典", ko: "출처")).font(.caption.bold())
-                        }.tint(Atlas.ink)
+                        }.tint(Atlas.mint)
                     } else {
                         Text(language.text("Information is unavailable for this card.", "這張圖卡的資訊暫時無法讀取。", ja: "このカードの情報を読み込めません。", ko: "이 카드의 정보를 불러올 수 없습니다."))
                     }
                 }.padding(20)
             }
         }
-        .foregroundStyle(Atlas.ink)
+        .foregroundStyle(.white)
         .frame(maxWidth: 900, maxHeight: .infinity)
-        .background(paper, in: RoundedRectangle(cornerRadius: 24))
-        .overlay(RoundedRectangle(cornerRadius: 24).strokeBorder(Color.yellow.opacity(0.6), lineWidth: 3))
+        .modifier(GamePanel(tint: Atlas.violet, radius: 24))
         .shadow(color: .black.opacity(0.4), radius: 24, y: 10)
-        .environment(\.colorScheme, .light)
+        .environment(\.colorScheme, .dark)
         .accessibilityAddTraits(.isModal)
         .accessibilityAction(.escape, close)
         .onAppear { headingFocused = true }
@@ -833,7 +832,7 @@ private struct CountryInformationPanel: View {
 
     private func fact(_ label: String, value: String) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 6) {
-            Text("•").foregroundStyle(Color(red: 0.68, green: 0.48, blue: 0.03))
+            Text("•").foregroundStyle(Atlas.mint)
             Text(label + "：").fontWeight(.semibold) + Text(value)
         }.font(.subheadline).fixedSize(horizontal: false, vertical: true)
     }
