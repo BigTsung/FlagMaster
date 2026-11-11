@@ -28,7 +28,7 @@ struct JourneyPickerView: View {
                                     Text("\(explored)/\(members.count)").font(.caption2.monospacedDigit()).foregroundStyle(Atlas.muted)
                                     if selected == region { Image(systemName: "checkmark.circle.fill").foregroundStyle(Atlas.mint) }
                                 }.padding(12).frame(maxWidth: .infinity, minHeight: 46, alignment: .leading)
-                                    .modifier(GamePanel(tint: selected == region ? Atlas.mint : Atlas.violet, radius: 16))
+                                    .modifier(GamePanel(tint: selected == region ? Atlas.mint : Atlas.accent, radius: 16))
                             }.buttonStyle(AtlasPressStyle(sound: nil)).accessibilityAddTraits(selected == region ? .isSelected : [])
                         }
                     }
@@ -46,7 +46,7 @@ struct JourneyPickerView: View {
                     }.modifier(AtlasCard(tint: Atlas.mint))
                 }.padding(.horizontal, 20).padding(.vertical, 10).frame(maxWidth: 760, maxHeight: .infinity).frame(maxWidth: .infinity)
             }
-        }.foregroundStyle(.white)
+        }.foregroundStyle(Atlas.text)
         .navigationTitle(settings.language.text("Regional journeys", "地圖分區旅程", ja: "地域別の旅", ko: "지역별 탐험")).navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .confirmationAction) { Button(settings.language.text("Done", "完成", ja: "完了", ko: "완료")) { dismiss() } } }
         .tint(Atlas.mint)
@@ -85,7 +85,7 @@ private struct RegionMap: View {
                             )
                             context.stroke(
                                 path,
-                                with: .color(isSelected ? Atlas.mint.opacity(0.8) : Color.white.opacity(0.22)),
+                                with: .color(isSelected ? Atlas.mint.opacity(0.8) : Atlas.text.opacity(0.22)),
                                 lineWidth: isSelected ? 0.65 : 0.35
                             )
                         }
@@ -101,7 +101,7 @@ private struct RegionMap: View {
                                 }
                             }
                                 .font(.system(size: 9, weight: .bold))
-                                .foregroundStyle(selected == region ? Atlas.ink : .white)
+                                .foregroundStyle(selected == region ? Atlas.ink : Atlas.text)
                                 .padding(.horizontal, 6).padding(.vertical, 4)
                                 .background(selected == region ? Atlas.mint : Atlas.ink.opacity(0.88), in: Capsule())
                                 .overlay(Capsule().stroke(.white.opacity(selected == region ? 0 : 0.18)))
@@ -160,7 +160,7 @@ private struct RegionMap: View {
     }
 
     private func drawGraticule(in context: inout GraphicsContext, size: CGSize) {
-        let color = Color.white.opacity(0.07)
+        let color = Atlas.text.opacity(0.07)
         for longitude in stride(from: -120.0, through: 120.0, by: 60) {
             var path = Path()
             path.move(to: project(.init(longitude: longitude, latitude: 83), size: size))
@@ -182,8 +182,8 @@ private struct RegionMap: View {
         case .africa: return Color.orange.opacity(0.18)
         case .northAmerica: return Color.cyan.opacity(0.18)
         case .southAmerica: return Color.pink.opacity(0.16)
-        case .oceania: return Color.purple.opacity(0.18)
-        case nil: return Color.white.opacity(0.08)
+        case .oceania: return Atlas.mint.opacity(0.22)
+        case nil: return Atlas.text.opacity(0.08)
         }
     }
 }
@@ -268,7 +268,7 @@ struct FlagLibraryView: View {
                     }.padding(.horizontal, 8).background(Atlas.panel, in: Capsule())
                     if filteredCountries.isEmpty {
                         ContentUnavailableView.search(text: query)
-                            .foregroundStyle(.white)
+                            .foregroundStyle(Atlas.text)
                             .frame(maxWidth: .infinity)
                     }
                 }.padding(.horizontal, 20).padding(.vertical, 10).frame(maxWidth: 760, maxHeight: .infinity).frame(maxWidth: .infinity)
@@ -278,11 +278,14 @@ struct FlagLibraryView: View {
                     }
             }
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(Atlas.text)
         .navigationTitle(settings.language.text("All flags", "所有國旗", ja: "すべての国旗", ko: "모든 국기")).navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .confirmationAction) { Button(settings.language.text("Done", "完成", ja: "完了", ko: "완료")) { dismiss() } } }
-        .fullScreenCover(isPresented: $showingFlashcards) {
+        .fullScreenCover(isPresented: $showingFlashcards, onDismiss: {
+            AudioManager.shared.playMusic(.home)
+        }) {
             FlagFlashcardsView(countries: filteredCountries)
+                .onAppear { AudioManager.shared.playMusic(.cards) }
         }
         .fullScreenCover(item: $selectedCountry) { country in
             FlagDetailView(country: country).environment(\.gameDismiss, nil)
@@ -292,16 +295,17 @@ struct FlagLibraryView: View {
             guard ProcessInfo.processInfo.arguments.contains("--preview-card-lifecycle") else { return }
             do {
                 try await Task.sleep(for: .seconds(1))
+                let scene = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.first
+                let originalOrientation = scene?.interfaceOrientation
                 showingFlashcards = true
                 try await Task.sleep(for: .seconds(3))
-                let scene = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.first
                 assert(scene?.interfaceOrientation.isLandscape == true)
                 FileHandle.standardError.write(Data("PASS: study cards entered landscape\n".utf8))
                 showingFlashcards = false
                 try await Task.sleep(for: .seconds(3))
+                assert(scene?.interfaceOrientation == originalOrientation)
                 assert(FlagMasterAppDelegate.landscapeScenes.isEmpty)
-                assert(scene?.interfaceOrientation == .portrait)
-                FileHandle.standardError.write(Data("PASS: closing study cards restored portrait\n".utf8))
+                FileHandle.standardError.write(Data("PASS: closing study cards restored orientation\n".utf8))
             } catch { return }
         }
         #endif
@@ -378,7 +382,7 @@ private struct FlagDetailView: View {
                     Spacer()
                 }.padding(24)
             }
-            .foregroundStyle(.white).navigationTitle(settings.language.text("Flag details", "國旗資訊", ja: "国旗の詳細", ko: "국기 정보")).navigationBarTitleDisplayMode(.inline)
+            .foregroundStyle(Atlas.text).navigationTitle(settings.language.text("Flag details", "國旗資訊", ja: "国旗の詳細", ko: "국기 정보")).navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button(settings.language.text("Done", "完成", ja: "完了", ko: "완료")) { dismiss() } } }
             .modifier(GameScreen(title: settings.language.text("FLAG DISCOVERY", "國旗探索", ja: "国旗を探そう", ko: "국기 탐험"), symbol: "mappin.and.ellipse", tint: Atlas.blue))
         }.tint(Atlas.mint)
@@ -397,8 +401,8 @@ private struct CountryLocationMap: View {
             for mapCountry in WorldMapData.countries {
                 let path = path(for: mapCountry, size: size)
                 let highlighted = selected.map { $0.name == mapCountry.name } ?? false
-                context.fill(path, with: .color(highlighted ? Atlas.mint.opacity(0.9) : Color.white.opacity(0.10)), style: FillStyle(eoFill: true))
-                context.stroke(path, with: .color(highlighted ? Atlas.mint : Color.white.opacity(0.18)), lineWidth: highlighted ? 0.8 : 0.3)
+                context.fill(path, with: .color(highlighted ? Atlas.mint.opacity(0.9) : Atlas.text.opacity(0.10)), style: FillStyle(eoFill: true))
+                context.stroke(path, with: .color(highlighted ? Atlas.mint : Atlas.text.opacity(0.18)), lineWidth: highlighted ? 0.8 : 0.3)
             }
             let marker = project(WorldMapData.marker(for: country), size: size)
             let radius: CGFloat = compact ? 5 : 8
@@ -471,7 +475,7 @@ struct ComparisonLibraryView: View {
                     if countries.isEmpty { Text(settings.language.text("Flag data could not be loaded.", "無法載入國旗資料。", ja: "国旗データを読み込めませんでした。", ko: "국기 데이터를 불러오지 못했어요.")) }
                 }.padding(20).frame(maxWidth: 760, maxHeight: .infinity).frame(maxWidth: .infinity)
             }
-        }.foregroundStyle(.white)
+        }.foregroundStyle(Atlas.text)
         .navigationTitle(settings.language.text("Flag comparisons", "相似國旗對照", ja: "似ている国旗の比較", ko: "비슷한 국기 비교")).navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .confirmationAction) { Button(settings.language.text("Done", "完成", ja: "完了", ko: "완료")) { dismiss() } } }.tint(Atlas.mint)
         .modifier(GameScreen(title: settings.language.text("TRAINING ARENA", "辨識特訓場", ja: "国旗トレーニング", ko: "국기 훈련장"), symbol: "scope", tint: Atlas.coral))
@@ -523,10 +527,19 @@ struct FlagFlashcardsView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let countries: [Country]
     @State private var index = 0
-    @State private var angle = 0.0
-    @State private var turning = false
+    @State private var turn: CardTurn?
+    @State private var waitingForLandscape = true
     @State private var informationCountry: Country?
-    private let paper = Color(red: 0.98, green: 0.96, blue: 0.90)
+    private let paper = Atlas.panel
+
+    private struct CardTurn {
+        static let duration = 0.28
+        let previousIndex: Int
+        let direction: Double
+        let started: Date
+    }
+
+    private var turning: Bool { turn != nil }
 
     private var previousTitle: String { settings.language.text("Previous", "上一張", ja: "前へ", ko: "이전") }
     private var nextTitle: String { settings.language.text("Next", "下一張", ja: "次へ", ko: "다음") }
@@ -535,8 +548,6 @@ struct FlagFlashcardsView: View {
         ZStack {
             AppBackground()
             GeometryReader { geometry in
-                // Windowed iPad scenes may refuse physical scene rotation. Keep
-                // the study surface landscape even in a portrait-shaped window.
                 let portraitWindow = geometry.size.height > geometry.size.width
                 let canvasWidth = max(geometry.size.width, geometry.size.height)
                 let canvasHeight = min(geometry.size.width, geometry.size.height)
@@ -583,16 +594,29 @@ struct FlagFlashcardsView: View {
                             Color.black.opacity(0.6).contentShape(Rectangle())
                                 .onTapGesture { informationCountry = nil }
                                 .accessibilityHidden(true)
-                            CountryInformationPanel(country: country) { informationCountry = nil }
-                                .padding(.horizontal, 28).padding(.vertical, 8)
+                            CountryInformationPanel(country: country, compact: canvasWidth < 560) { informationCountry = nil }
+                                .padding(.horizontal, canvasWidth < 560 ? 12 : 28).padding(.vertical, 8)
                         }
                     }
                 }
                 .rotationEffect(.degrees(portraitWindow ? 90 : 0))
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                .opacity(portraitWindow && waitingForLandscape ? 0 : 1)
+                .allowsHitTesting(!portraitWindow || !waitingForLandscape)
+                .accessibilityHidden(portraitWindow && waitingForLandscape)
             }
         }
         .background(FlashcardOrientation().frame(width: 0, height: 0))
+        .task {
+            // A windowed scene can decline rotation. Reveal its landscape canvas as a fallback.
+            do { try await Task.sleep(for: .milliseconds(750)) } catch { return }
+            waitingForLandscape = false
+        }
+        .task(id: turn?.started) {
+            guard turn != nil else { return }
+            do { try await Task.sleep(for: .seconds(CardTurn.duration)) } catch { return }
+            turn = nil
+        }
         .toolbar(.hidden, for: .navigationBar)
         .statusBarHidden()
         .tint(Atlas.mint)
@@ -647,8 +671,30 @@ struct FlagFlashcardsView: View {
                 .rotationEffect(.degrees(-3)).offset(y: 9)
             RoundedRectangle(cornerRadius: 26).fill(paper.opacity(0.7))
                 .rotationEffect(.degrees(2)).offset(y: 5)
-            card(countries[index])
-                .modifier(StudyCardFlip(angle: angle))
+            if let turn {
+                TimelineView(.animation) { timeline in
+                    let elapsed = timeline.date.timeIntervalSince(turn.started)
+                    let fraction = min(1, max(0, elapsed / CardTurn.duration))
+                    let progress = 1 - pow(1 - fraction, 3)
+                    let distance = turn.direction * min(76, height * 0.35)
+                    ZStack {
+                        card(countries[turn.previousIndex])
+                            .rotation3DEffect(.degrees(-12 * turn.direction * progress), axis: (0, 1, 0))
+                            .scaleEffect(1 - 0.04 * progress)
+                            .opacity(1 - progress)
+                            .offset(x: -distance * progress)
+                        card(countries[index])
+                            .rotation3DEffect(.degrees(12 * turn.direction * (1 - progress)), axis: (0, 1, 0))
+                            .scaleEffect(0.96 + 0.04 * progress)
+                            .opacity(progress)
+                            .offset(x: distance * (1 - progress))
+                            .shadow(color: .black.opacity(0.35), radius: 20, y: 14)
+                    }
+                }
+            } else {
+                card(countries[index])
+                    .shadow(color: .black.opacity(0.35), radius: 20, y: 14)
+            }
         }
         .frame(height: height)
         .contentShape(Rectangle())
@@ -678,7 +724,7 @@ struct FlagFlashcardsView: View {
             FlagImage(code: country.abb2)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .layoutPriority(-1)
-            Rectangle().fill(Atlas.ink.opacity(0.12)).frame(height: 1)
+            Rectangle().fill(Atlas.line).frame(height: 1)
             HStack(alignment: .center, spacing: 12) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(country.name(for: settings.language))
@@ -695,7 +741,7 @@ struct FlagFlashcardsView: View {
                         Text(region.title(settings.language)).font(.caption2).lineLimit(1).minimumScaleFactor(0.65)
                     }
                 }
-            }.foregroundStyle(Atlas.ink)
+            }.foregroundStyle(Atlas.text)
         }
         .padding(16)
         .background(paper, in: RoundedRectangle(cornerRadius: 26))
@@ -705,60 +751,18 @@ struct FlagFlashcardsView: View {
     private func move(_ direction: Int) {
         let next = index + direction
         guard !turning, informationCountry == nil, countries.indices.contains(next) else { return }
-        guard settings.animatedEffects && !reduceMotion else { index = next; return }
-        turning = true
-        // Change the printed face only while the card is edge-on. The incoming
-        // half starts on the opposite edge so text is never rendered mirrored.
-        withAnimation(.easeIn(duration: 0.30), completionCriteria: .removed) {
-            angle = Double(direction) * -90
-        } completion: {
-            var transaction = Transaction(animation: nil)
-            transaction.disablesAnimations = true
-            withTransaction(transaction) {
-                index = next
-                angle = Double(direction) * 90
-            }
-            withAnimation(.easeOut(duration: 0.42), completionCriteria: .removed) {
-                angle = 0
-            } completion: {
-                turning = false
-            }
+        if settings.animatedEffects && !reduceMotion {
+            turn = CardTurn(previousIndex: index, direction: Double(direction), started: .now)
         }
+        index = next
     }
 }
 
-/// Interpolate lighting and lift with the rendered angle throughout each half-turn.
-private struct StudyCardFlip: AnimatableModifier {
-    nonisolated var angle: Double
-    nonisolated var animatableData: Double {
-        get { angle }
-        set { angle = newValue }
-    }
-
-    func body(content: Content) -> some View {
-        let lift = sin(abs(angle) * .pi / 180)
-        content
-            .overlay {
-                RoundedRectangle(cornerRadius: 26)
-                    .fill(LinearGradient(
-                        colors: [.black.opacity(0.28 * lift), .white.opacity(0.18 * lift)],
-                        startPoint: angle < 0 ? .leading : .trailing,
-                        endPoint: angle < 0 ? .trailing : .leading
-                    ))
-                    .allowsHitTesting(false)
-            }
-            .rotation3DEffect(.degrees(angle), axis: (x: 0, y: 1, z: 0), perspective: 0.85)
-            .scaleEffect(1 + 0.045 * lift)
-            .offset(y: -18 * lift)
-            .shadow(color: .black.opacity(0.35 + 0.15 * lift), radius: 20 + 16 * lift, y: 14 + 14 * lift)
-    }
-}
-
-/// Kept inside the landscape study surface so opening information never changes orientation.
 private struct CountryInformationPanel: View {
     @EnvironmentObject private var settings: AppSettings
     @AccessibilityFocusState private var headingFocused: Bool
     let country: Country
+    let compact: Bool
     let close: () -> Void
     private var information: CountryInformation? { CountryInformationRepository.all[country.abb2] }
     private var language: AppLanguage { settings.language }
@@ -782,10 +786,12 @@ private struct CountryInformationPanel: View {
                         .modifier(GamePanel(tint: Atlas.mint, radius: 22))
                 }.buttonStyle(.plain)
             }.padding(.horizontal, 20).padding(.vertical, 4)
-            Rectangle().fill(Atlas.violet.opacity(0.25)).frame(height: 1)
+            Rectangle().fill(Atlas.accent.opacity(0.25)).frame(height: 1)
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    HStack(alignment: .top, spacing: 20) {
+                    let layout = compact ? AnyLayout(VStackLayout(alignment: .leading, spacing: 16))
+                        : AnyLayout(HStackLayout(alignment: .top, spacing: 20))
+                    layout {
                         VStack(alignment: .leading, spacing: 10) {
                             if language != .english {
                                 Text(country.abb2 == "TW" ? "Republic of China (Taiwan)" : country.en)
@@ -802,7 +808,7 @@ private struct CountryInformationPanel: View {
                                 .aspectRatio(2.35, contentMode: .fit)
                             Text(language.text("Location on the world map", "在世界地圖上的位置", ja: "世界地図上の位置", ko: "세계 지도에서의 위치"))
                                 .font(.caption2).foregroundStyle(Atlas.muted)
-                        }.frame(width: 200)
+                        }.frame(width: compact ? nil : 200)
                     }
                     if let information {
                         VStack(alignment: .leading, spacing: 8) {
@@ -841,11 +847,10 @@ private struct CountryInformationPanel: View {
                 }.padding(20)
             }
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(Atlas.text)
         .frame(maxWidth: 900, maxHeight: .infinity)
-        .modifier(GamePanel(tint: Atlas.violet, radius: 24))
+        .modifier(GamePanel(tint: Atlas.accent, radius: 24))
         .shadow(color: .black.opacity(0.4), radius: 24, y: 10)
-        .environment(\.colorScheme, .dark)
         .accessibilityAddTraits(.isModal)
         .accessibilityAction(.escape, close)
         .onAppear { headingFocused = true }

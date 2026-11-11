@@ -1,227 +1,311 @@
 import SwiftUI
 
+/// A fixed-page entrance organized around intent, not a catalogue of game modes.
 struct HomeView: View {
     @EnvironmentObject private var settings: AppSettings
-    @EnvironmentObject private var stats: StatsStore
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.scenePhase) private var scenePhase
-    @State private var orbit = false
+    @State private var intent: Intent = .teach
     @State private var showingFlashcards = false
     private let studyCountries = ((try? CountryRepository.load()) ?? []).sorted { $0.en < $1.en }
     let start: (GameMode) -> Void
     var open: (Sheet) -> Void = { _ in }
+    var isVisible = true
     enum Sheet: Identifiable { case settings, records, journeys, comparisons, flags; var id: Self { self } }
-    private var animated: Bool { settings.animatedEffects && !reduceMotion && scenePhase == .active }
+    private enum Intent: CaseIterable { case teach, practice, play }
+
+    private var animated: Bool {
+        isVisible && settings.animatedEffects && !reduceMotion && scenePhase == .active && !showingFlashcards
+    }
+
+    private let ink = Atlas.text
+    private let red = Atlas.gold
+
+    private func text(_ en: String, _ zh: String, _ ja: String, _ ko: String) -> String {
+        settings.language.text(en, zh, ja: ja, ko: ko)
+    }
 
     var body: some View {
         GeometryReader { geometry in
-            let compact = geometry.size.height < 730
-            VStack(spacing: compact ? 12 : 18) {
-                playerBar
-                hero(compact: compact, tiny: geometry.size.height < 650)
-                VStack(spacing: compact ? 12 : 18) {
-                    HStack {
-                        Label(settings.language.text("CHOOSE YOUR CHALLENGE", "選擇你的挑戰", ja: "チャレンジを選ぼう", ko: "도전을 선택하세요"), systemImage: "bolt.shield.fill")
-                            .font(.system(size: 11, weight: .black, design: .rounded)).tracking(1)
-                        Spacer()
-                        Text(settings.language.text("4 MODES", "4 種挑戰", ja: "4 つのモード", ko: "4가지 모드")).font(.system(size: 9, weight: .bold, design: .monospaced)).foregroundStyle(Atlas.muted)
-                    }
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-                        mode(title: settings.language.text("Time attack", "極限倒數", ja: "タイムアタック", ko: "타임 어택"), detail: settings.language.text("60 SECOND RUSH", "60 秒 · 挑戰極限", ja: "60 秒で限界に挑戦", ko: "60초 동안 한계에 도전"), icon: "timer", tint: Atlas.gold, compact: compact) { start(.timedChallenge) }
-                        mode(title: settings.language.text("Speed run", "閃電快答", ja: "スピードラン", ko: "스피드런"), detail: settings.language.text("20 FLAGS · 5s EACH", "20 題 · 每題 5 秒", ja: "20 問・各 5 秒", ko: "20문제 · 문제당 5초"), icon: "bolt.fill", tint: Atlas.blue, compact: compact) { start(.speedRound) }
-                        mode(title: settings.language.text("Survival", "雙心生存", ja: "サバイバル", ko: "서바이벌"), detail: settings.language.text("ONLY TWO LIVES", "兩顆心 · 撐到最後", ja: "ライフは 2 つ", ko: "기회는 단 두 번"), icon: "heart.fill", tint: Atlas.coral, compact: compact) { start(.twoLives) }
-                        mode(title: settings.language.text("World tour", "世界闖關", ja: "世界ツアー", ko: "세계 투어"), detail: settings.language.text("CONQUER 6 REGIONS", "六大洲 · 逐區挑戰", ja: "6 地域に挑戦", ko: "6개 지역에 도전"), icon: "globe.asia.australia.fill", tint: Atlas.mint, compact: compact) { open(.journeys) }
+            let compact = geometry.size.height < 700
+            VStack(alignment: .leading, spacing: compact ? 16 : 24) {
+                masthead
+                intentPicker
+                if let heading {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(heading.title).font(.system(size: compact ? 29 : 35, weight: .bold, design: .rounded))
+                            .lineLimit(2).minimumScaleFactor(0.75)
+                        Text(heading.subtitle).font(.system(size: 14)).foregroundStyle(ink.opacity(0.75))
+                            .lineLimit(2).minimumScaleFactor(0.85)
                     }
                 }
-                .frame(maxHeight: .infinity, alignment: .bottom)
-                HStack(spacing: 8) {
-                    dock(settings.language.text("Study cards", "圖卡學習", ja: "学習カード", ko: "학습 카드"), icon: "rectangle.on.rectangle.angled", tint: Atlas.mint) { showingFlashcards = true }
-                    dock(settings.language.text("Collection", "國旗圖鑑", ja: "国旗図鑑", ko: "국기 도감"), icon: "square.stack.3d.up.fill", tint: Atlas.blue) { open(.flags) }
-                    dock(settings.language.text("Training", "辨識特訓", ja: "見分ける練習", ko: "구별 훈련"), icon: "scope", tint: Atlas.coral) { open(.comparisons) }
-                    dock(settings.language.text("Review", "複習挑戰", ja: "復習", ko: "복습"), icon: "arrow.clockwise", tint: Atlas.mint) { start(.review) }
-                    dock(settings.language.text("Records", "戰績", ja: "記録", ko: "기록"), icon: "trophy.fill", tint: Atlas.gold) { open(.records) }
-                }.padding(10).modifier(GamePanel(tint: Atlas.violet, radius: 24))
+                Group {
+                    switch intent {
+                    case .teach: teaching(compact: compact)
+                    case .practice: practice
+                    case .play: challenges
+                    }
+                }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                footer
             }
-            .padding(.horizontal, 20).padding(.vertical, 10)
-            .frame(maxWidth: 700, maxHeight: .infinity).frame(maxWidth: .infinity)
+            .padding(.horizontal, 24).padding(.vertical, compact ? 12 : 20)
+            .frame(maxWidth: 650, maxHeight: .infinity).frame(maxWidth: .infinity)
         }
-        .foregroundStyle(.white)
-        .fullScreenCover(isPresented: $showingFlashcards) {
+        .foregroundStyle(ink)
+        #if DEBUG
+        .onAppear {
+            let args = ProcessInfo.processInfo.arguments
+            guard args.contains("--preview-screen") else { return }
+            if args.contains("--preview-home-practice") { intent = .practice }
+            if args.contains("--preview-home-play") { intent = .play }
+        }
+        #endif
+        .fullScreenCover(isPresented: $showingFlashcards, onDismiss: {
+            AudioManager.shared.playMusic(.home)
+        }) {
             FlagFlashcardsView(countries: studyCountries)
+                .onAppear { AudioManager.shared.playMusic(.cards) }
         }
-        .background {
-            if animated {
-                HomeMotionBackground()
-                    .ignoresSafeArea()
-                    .allowsHitTesting(false)
-                    .accessibilityHidden(true)
+    }
+
+    private var masthead: some View {
+        HStack(alignment: .center) {
+            HStack(spacing: 10) {
+                Image(systemName: "flag.fill").font(.system(size: 19))
+                    .foregroundStyle(Atlas.onAccent).frame(width: 42, height: 42)
+                    .background(Atlas.yellow, in: RoundedRectangle(cornerRadius: 15))
+                    .rotationEffect(.degrees(-8))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(settings.language.appName)
+                        .font(.system(size: 20, weight: .heavy, design: .rounded))
+                        .lineLimit(1).minimumScaleFactor(0.75)
+                    Text(text("Little flags. Big world.", "小小國旗，大大世界", "小さな国旗、大きな世界", "작은 국기, 커다란 세상"))
+                        .font(.system(size: 11)).foregroundStyle(Atlas.muted)
+                }
+            }
+            Spacer(minLength: 0)
+            Button { open(.settings) } label: {
+                Image(systemName: "slider.horizontal.3").font(.system(size: 18)).frame(width: 44, height: 44)
+                    .background(Atlas.panel, in: Circle())
+            }.buttonStyle(.plain).accessibilityLabel(text("Settings", "設定", "設定", "설정"))
+        }
+    }
+
+    private var intentPicker: some View {
+        HStack(spacing: 6) {
+            ForEach(Intent.allCases, id: \.self) { choice in
+                Button { intent = choice } label: {
+                    Text(intentTitle(choice)).font(.system(size: 13, weight: intent == choice ? .bold : .medium, design: .rounded))
+                        .lineLimit(1).minimumScaleFactor(0.75)
+                        .foregroundStyle(intent == choice ? Atlas.onAccent : Atlas.muted)
+                        .frame(maxWidth: .infinity, minHeight: 46)
+                        .background(intent == choice ? Atlas.yellow : Atlas.panel.opacity(0.85), in: RoundedRectangle(cornerRadius: 17))
+                        .shadow(color: Atlas.yellow.opacity(intent == choice ? 0.45 : 0), radius: 12, y: 4)
+                }.buttonStyle(.plain)
+                    .accessibilityAddTraits(intent == choice ? .isSelected : [])
             }
         }
     }
 
-    private var playerBar: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "flag.checkered").font(.title3.bold()).foregroundStyle(Atlas.gold)
-                .frame(width: 42, height: 42).modifier(GamePanel(tint: Atlas.gold, radius: 14))
-            VStack(alignment: .leading, spacing: 3) {
-                Text(settings.language.text("FLAG CHALLENGER", "國旗挑戰者", ja: "国旗チャレンジャー", ko: "국기 도전자")).font(.system(size: 12, weight: .black, design: .rounded))
-                Text(settings.language.text("\(stats.stats.count) flags discovered", "已探索 \(stats.stats.count) 面國旗", ja: "\(stats.stats.count) 面の国旗を発見", ko: "국기 \(stats.stats.count)개 발견"))
-                    .font(.system(size: 10, weight: .semibold)).foregroundStyle(Atlas.muted)
+    private func intentTitle(_ choice: Intent) -> String {
+        switch choice {
+        case .teach: text("Teach with cards", "圖卡教孩子", "カードで教える", "카드로 가르치기")
+        case .practice: text("Practice", "自己練習", "自分で練習", "혼자 연습하기")
+        case .play: text("Play a quiz", "挑戰遊戲", "クイズに挑戦", "퀴즈 도전")
+        }
+    }
+
+    private var heading: (title: String, subtitle: String)? {
+        switch intent {
+        case .teach: return nil
+        case .practice:
+            return (text("Take your time.\nGet to know the world.", "慢慢認識，\n把世界記在心裡。", "自分のペースで、\n世界を覚えよう。", "천천히 배우며,\n세계를 기억해요."),
+                    text("Untimed practice, with room to learn after each answer.", "沒有時間壓力，每答一題都能停下來學。", "時間制限なし。一問ずつじっくり学べます。", "시간 제한 없이 한 문제씩 천천히 배워요."))
+        case .play:
+            return (text("Know your flags?\nPut it to the test.", "認得多少面？\n來一場小挑戰。", "いくつ分かるかな？\nクイズに挑戦。", "얼마나 알고 있나요?\n퀴즈에 도전해요."),
+                    text("Pick a rule. Your round starts when you tap.", "選一種規則，點一下就開始。", "ルールを選んでタップするとスタート。", "규칙을 고르고 누르면 바로 시작해요."))
+        }
+    }
+
+    private func teaching(compact: Bool) -> some View {
+        VStack(spacing: compact ? 12 : 20) {
+            GeometryReader { proxy in
+                let diameter = max(0, min(proxy.size.width - 28, proxy.size.height - 16, 268))
+                HomeGlobe(diameter: diameter, animated: animated)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }.accessibilityHidden(true)
+            Text(text("Large flags · Country names · Swipe to the next card", "大幅國旗  ·  中英文國名  ·  左右翻卡", "大きな国旗  ·  国名  ·  スワイプで次へ", "큰 국기  ·  나라 이름  ·  옆으로 넘기기"))
+                .font(.system(size: 11)).foregroundStyle(Atlas.muted).lineLimit(1).minimumScaleFactor(0.75)
+            Button { showingFlashcards = true } label: {
+                HStack {
+                    Image(systemName: "rectangle.on.rectangle.angled")
+                    Text(text("Open teaching cards", "圖卡教學", "学習カードを開く", "학습 카드 열기"))
+                    Spacer(minLength: 0)
+                    Image(systemName: "arrow.up.right").font(.system(size: 18, weight: .bold))
+                }.font(.system(size: 16, weight: .bold, design: .rounded)).lineLimit(1).minimumScaleFactor(0.75)
+                    .padding(.horizontal, 20).frame(height: 58)
+                    .foregroundStyle(Atlas.onAccent)
+                    .background {
+                        RoundedRectangle(cornerRadius: 22)
+                            .fill(LinearGradient(colors: [Color(red: 1, green: 0.96, blue: 0.47), Atlas.yellow],
+                                                 startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .overlay {
+                                if animated {
+                                    TeachingButtonReflection()
+                                        .clipShape(RoundedRectangle(cornerRadius: 22))
+                                }
+                            }
+                    }
+                    .overlay(RoundedRectangle(cornerRadius: 22).stroke(.white.opacity(0.45), lineWidth: 1))
+                    .shadow(color: Atlas.yellow.opacity(0.3), radius: 18, y: 7)
+            }.buttonStyle(.plain)
+        }
+    }
+
+    private var practice: some View {
+        VStack(spacing: 10) {
+            route("01", text("Guess the country", "看國旗猜國家", "国名を当てよう", "나라 이름 맞히기"), text("Untimed · Continue when you are ready", "不限時，答完再繼續", "時間制限なし・自分のペースで", "시간 제한 없이 한 문제씩")) { start(.endless) }
+            route("02", text("Explore by region", "選一洲慢慢學", "地域ごとに学ぶ", "지역별로 배우기"), text("Short rounds from six regions", "六大洲，每次一小回合", "6 地域の短い練習", "6개 지역의 짧은 연습")) { open(.journeys) }
+            route("03", text("Compare similar flags", "分清楚相似國旗", "似た国旗を見分ける", "비슷한 국기 구별하기"), text("Compare them side by side", "並排看，找出不一樣的地方", "並べて違いを見つけよう", "나란히 놓고 차이 찾기")) { open(.comparisons) }
+            route("04", text("Review learned flags", "複習學過的國旗", "学んだ国旗を復習", "배운 국기 복습하기"), text("Revisit flags when they are due", "依照練習紀錄，回顧到期國旗", "復習の時期に振り返ろう", "복습할 때가 된 국기를 다시 보기")) { start(.review) }
+        }
+    }
+
+    private var challenges: some View {
+        VStack(spacing: 10) {
+            route("01", text("Time attack", "極限倒數", "タイムアタック", "타임 어택"), text("60 seconds to get as many right as you can", "60 秒內，看看能答對幾題", "60 秒で何問正解できるかな", "60초 동안 최대한 많이 맞히기")) { start(.timedChallenge) }
+            route("02", text("Speed round", "閃電快答", "スピードラウンド", "스피드 라운드"), text("20 flags · 5 seconds each", "20 題，每題只有 5 秒", "20 問・一問につき 5 秒", "20문제 · 문제당 5초")) { start(.speedRound) }
+            route("03", text("Two lives", "雙心生存", "ライフ 2 つ", "기회 두 번"), text("Your second mistake ends the round", "答錯兩次就結束，你能撐多久？", "2 回間違えると終了", "두 번 틀리면 종료")) { start(.twoLives) }
+        }
+    }
+
+    private func route(_ number: String, _ title: String, _ detail: String, action: @escaping () -> Void) -> some View {
+        let badge = number == "01" ? Atlas.yellow : number == "02" ? Atlas.cardMint : Atlas.cardBlue
+        return Button(action: action) {
+            HStack(spacing: 14) {
+                Text(number).font(.system(size: 13, weight: .bold, design: .rounded))
+                    .foregroundStyle(Atlas.onAccent).frame(width: 38, height: 38)
+                    .background(badge, in: RoundedRectangle(cornerRadius: 13))
+                    .shadow(color: badge.opacity(0.7), radius: 8)
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(title).font(.system(size: 17, weight: .bold))
+                    Text(detail).font(.system(size: 12)).foregroundStyle(ink.opacity(0.65))
+                }.lineLimit(1).minimumScaleFactor(0.75)
+                Spacer(minLength: 0)
+                Image(systemName: "arrow.up.right").font(.system(size: 16)).foregroundStyle(red)
+            }.padding(.horizontal, 16).frame(maxWidth: .infinity, minHeight: 56, maxHeight: .infinity, alignment: .leading)
+                .background(Atlas.panel.opacity(0.9), in: RoundedRectangle(cornerRadius: 24))
+                .overlay(RoundedRectangle(cornerRadius: 24).stroke(
+                    LinearGradient(colors: [badge.opacity(0.9), Atlas.line.opacity(0.3)], startPoint: .leading, endPoint: .trailing), lineWidth: 1.2))
+                .shadow(color: badge.opacity(0.22), radius: 14, y: 6)
+                .contentShape(RoundedRectangle(cornerRadius: 24))
+        }.buttonStyle(.plain)
+    }
+
+    private var footer: some View {
+        HStack {
+            Button { open(.flags) } label: {
+                Label(text("Flag collection", "查國旗圖鑑", "国旗図鑑", "국기 도감"), systemImage: "book.closed")
             }
             Spacer()
-            Button { open(.settings) } label: {
-                Image(systemName: "gearshape.fill").font(.title3).frame(width: 44, height: 44)
-                    .modifier(GamePanel(tint: Atlas.violet, radius: 14))
-            }.buttonStyle(AtlasPressStyle(sound: nil)).accessibilityLabel(settings.language.text("Settings", "設定", ja: "設定", ko: "설정"))
-        }
-    }
-
-    private func hero(compact: Bool, tiny: Bool) -> some View {
-        VStack(spacing: compact ? 8 : 12) {
-            ZStack {
-                Circle().fill(RadialGradient(colors: [Atlas.violet.opacity(0.7), .clear], center: .center, startRadius: 10, endRadius: 115))
-                    .frame(width: 230, height: 230)
-                Circle().stroke(Atlas.blue.opacity(0.35), style: StrokeStyle(lineWidth: 1.5, dash: [6, 8]))
-                    .frame(width: 155, height: 155).rotationEffect(.degrees(orbit && animated ? 360 : 0))
-                Image(systemName: "globe.asia.australia.fill")
-                    .font(.system(size: tiny ? 70 : compact ? 100 : 122, weight: .light))
-                    .foregroundStyle(LinearGradient(colors: [Atlas.blue, Atlas.violet], startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .shadow(color: Atlas.blue.opacity(0.5), radius: 18)
-                HomeFlagOrbit(animated: animated)
-                Image(systemName: "sparkle").foregroundStyle(Atlas.gold).offset(x: 82, y: -58)
-                Image(systemName: "sparkle").font(.caption).foregroundStyle(Atlas.mint).offset(x: -71, y: 55)
-            }.scaleEffect(tiny ? 0.8 : 1).frame(height: tiny ? 75 : compact ? 132 : 166).accessibilityHidden(true)
-                .onAppear { orbit = true }
-                .animation(animated ? .linear(duration: 36).repeatForever(autoreverses: false) : nil, value: orbit && animated)
-            VStack(spacing: 3) {
-                Text(settings.language.text("FLAGMASTER", "我要成為國旗王", ja: "国旗チャレンジ", ko: "국기 챌린지")).font(.system(size: compact ? 31 : 36, weight: .black, design: .rounded)).tracking(1)
-                    .lineLimit(1).minimumScaleFactor(0.65)
-                    .shadow(color: Atlas.violet, radius: 14, y: 3)
-                Text(settings.language.text("ONE WORLD. EVERY FLAG. YOUR CHALLENGE.", "看懂每面旗，挑戰全世界。", ja: "国旗を見分けて、世界に挑もう。", ko: "국기를 알아보고 세계에 도전하세요."))
-                    .font(.system(size: 11, weight: .bold)).foregroundStyle(Atlas.muted).tracking(1.5)
+            Button { open(.records) } label: {
+                Label(text("My progress", "學習紀錄", "学習記録", "학습 기록"), systemImage: "chart.bar.xaxis")
             }
-            Button { start(.endless) } label: {
-                HStack(spacing: 12) {
-                    Image(systemName: "play.fill")
-                    Text(settings.language.text("PLAY NOW", "開始挑戰", ja: "チャレンジ開始", ko: "도전 시작")).font(.system(size: 22, weight: .black, design: .rounded))
-                    Image(systemName: "chevron.right.2").font(.subheadline.bold())
-                }
-            }.buttonStyle(AtlasButtonStyle(filled: true, tint: Atlas.gold))
-                .modifier(ActionHint(repeats: true))
-                .padding(.top, 4)
-        }
-    }
-
-    private func mode(title: String, detail: String, icon: String, tint: Color, compact: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            HStack(spacing: 10) {
-                Image(systemName: icon).font(.system(size: 25, weight: .bold)).foregroundStyle(tint)
-                    .shadow(color: tint.opacity(0.4), radius: 8).frame(width: 30)
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(title).font(.system(size: 16, weight: .black, design: .rounded)).lineLimit(1).minimumScaleFactor(0.7)
-                    Text(detail).font(.system(size: 8, weight: .bold)).foregroundStyle(tint.opacity(0.85)).lineLimit(1).minimumScaleFactor(0.7)
-                }
-                Spacer(minLength: 0)
-            }.padding(12).frame(maxWidth: .infinity, minHeight: compact ? 67 : 80)
-                .modifier(GamePanel(tint: tint, radius: 20))
-        }.buttonStyle(GameNavigationButtonStyle(tint: tint))
-    }
-
-    private func dock(_ title: String, icon: String, tint: Color, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            VStack(spacing: 7) {
-                Image(systemName: icon).font(.system(size: 22, weight: .semibold)).foregroundStyle(tint)
-                Text(title).font(.system(size: 10, weight: .bold)).lineLimit(1).minimumScaleFactor(0.7)
-            }.frame(maxWidth: .infinity).frame(height: 54)
-        }.buttonStyle(GameNavigationButtonStyle(tint: tint))
+        }.font(.system(size: 12, weight: .medium)).buttonStyle(.plain)
+            .frame(height: 44).padding(.top, 6)
+            .foregroundStyle(Atlas.muted)
     }
 }
 
-private struct HomeFlagOrbit: View {
-    let animated: Bool
-    @State private var batch = 0
+private struct TeachingButtonReflection: View {
+    @State private var swept = false
 
-    private static let batches = [
-        ["JP", "BR", "CA", "ZA", "NZ", "SE"],
-        ["KR", "AR", "MX", "KE", "AU", "FR"],
-        ["TW", "CL", "JM", "MA", "FJ", "PT"]
+    var body: some View {
+        GeometryReader { geometry in
+            let width = geometry.size.width
+            LinearGradient(colors: [.clear, .white.opacity(0.78), .clear],
+                           startPoint: .leading, endPoint: .trailing)
+                .frame(width: 68, height: geometry.size.height * 2)
+                .rotationEffect(.degrees(24))
+                .position(x: swept ? width + 64 : -64, y: geometry.size.height / 2)
+        }
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+        .task {
+            do {
+                try await Task.sleep(for: .seconds(5))
+                while !Task.isCancelled {
+                    withAnimation(.easeInOut(duration: 0.55)) { swept = true }
+                    try await Task.sleep(for: .milliseconds(550))
+                    swept = false
+                    try await Task.sleep(for: .milliseconds(4450))
+                }
+            } catch { return }
+        }
+    }
+}
+
+private struct HomeGlobe: View {
+    let diameter: CGFloat
+    let animated: Bool
+    @State private var flagBatch = 0
+
+    private static let flagBatches = [
+        ["TW", "BR", "CA", "KR", "FR", "AU"],
+        ["JP", "AR", "SE", "ZA", "MX", "NZ"],
+        ["KE", "PT", "CL", "IN", "JM", "FJ"]
     ]
-    private static let positions: [CGPoint] = [
-        .init(x: -108, y: -31), .init(x: 109, y: 24),
-        .init(x: 113, y: -37), .init(x: -111, y: 30),
-        .init(x: 40, y: -62), .init(x: -39, y: 61)
+    private static let flagPositions: [CGPoint] = [
+        .init(x: -0.36, y: -0.33), .init(x: 0.39, y: -0.29),
+        .init(x: -0.47, y: -0.01), .init(x: 0.47, y: 0.04),
+        .init(x: -0.35, y: 0.31), .init(x: 0.34, y: 0.35)
     ]
 
     var body: some View {
-        ZStack {
-            ForEach(Self.positions.indices, id: \.self) { index in
-                let position = Self.positions[index]
-                let code = Self.batches[batch][index]
-                FlagImage(code: code)
-                    .frame(width: 28, height: 19)
-                    .rotationEffect(.degrees(Double(position.x) / 9))
-                    .id(code)
-                    .transition(.opacity)
-                    .offset(x: position.x, y: position.y)
-                    .phaseAnimator(animated ? [false, true] : [false]) { flag, floating in
-                        flag.offset(y: floating ? (index.isMultiple(of: 2) ? -7 : 7) : 0)
-                    } animation: { _ in
-                        .easeInOut(duration: 1.6 + Double(index % 3) * 0.35)
-                    }
+        TimelineView(.animation(minimumInterval: 1.0 / 30, paused: !animated)) { timeline in
+            let time = animated ? timeline.date.timeIntervalSinceReferenceDate : 0
+            ZStack {
+                Circle()
+                    .fill(RadialGradient(colors: [Atlas.blue.opacity(0.32), Atlas.mint.opacity(0.12), .clear],
+                                         center: .center, startRadius: diameter * 0.12, endRadius: diameter * 0.5))
+                Circle()
+                    .stroke(Atlas.blue.opacity(0.4), style: StrokeStyle(lineWidth: 1.5, dash: [6, 8]))
+                    .frame(width: diameter * 0.82, height: diameter * 0.82)
+                    .rotationEffect(.degrees(time.truncatingRemainder(dividingBy: 36) * 10))
+                Image(systemName: "globe.asia.australia.fill")
+                    .font(.system(size: diameter * 0.66, weight: .light))
+                    .foregroundStyle(LinearGradient(colors: [Atlas.mint, Atlas.blue],
+                                                    startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .shadow(color: Atlas.blue.opacity(0.5), radius: 18)
+                ForEach(Self.flagPositions.indices, id: \.self) { index in
+                    let position = Self.flagPositions[index]
+                    let code = Self.flagBatches[flagBatch][index]
+                    let phase = time * 0.5 + Double(index) * 1.7
+                    FlagImage(code: code)
+                        .frame(width: diameter * 0.13, height: diameter * 0.09)
+                        .padding(diameter * 0.02)
+                        .background(Atlas.panel, in: RoundedRectangle(cornerRadius: diameter * 0.032))
+                        .shadow(color: Atlas.mint.opacity(0.35), radius: 8)
+                        .id(code)
+                        .transition(.scale(scale: 0.55).combined(with: .opacity))
+                        .rotationEffect(.degrees(Double(index % 3 - 1) * 12 + sin(phase) * 4))
+                        .offset(x: position.x * diameter, y: (position.y + sin(phase) * 0.02) * diameter)
+                }
             }
+            .frame(width: diameter, height: diameter)
         }
         .task(id: animated) {
             guard animated else { return }
             while !Task.isCancelled {
-                do {
-                    try await Task.sleep(for: .seconds(4))
-                } catch {
-                    return
-                }
-                withAnimation(.easeInOut(duration: 0.45)) {
-                    batch = (batch + 1) % Self.batches.count
+                do { try await Task.sleep(for: .seconds(3.5)) } catch { return }
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    flagBatch = (flagBatch + 1) % Self.flagBatches.count
                 }
             }
         }
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
     }
 }
 
-private struct HomeMotionBackground: View {
-    var body: some View {
-        TimelineView(.animation(minimumInterval: 1.0 / 30)) { timeline in
-            let time = timeline.date.timeIntervalSinceReferenceDate
-            Canvas { context, size in
-                let center = CGPoint(x: size.width * 0.5, y: size.height * 0.26)
-                let scale = min(size.width, size.height)
-                for index in 0..<3 {
-                    let turn = time / (9 + Double(index) * 4) + Double(index) / 3
-                    let angle = turn.truncatingRemainder(dividingBy: 1) * 360
-                    let tint = [Atlas.blue, Atlas.violet, Atlas.mint][index]
-                    let radius = scale * (0.31 + CGFloat(index) * 0.13)
-                    var arc = Path()
-                    arc.addArc(center: center, radius: radius, startAngle: .degrees(angle),
-                               endAngle: .degrees(angle + 95), clockwise: false)
-                    context.stroke(arc, with: .color(tint.opacity(0.18)),
-                                   style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: [9, 5]))
-                }
-
-                for index in 0..<32 {
-                    let speed = 0.055 + Double(index % 5) * 0.012
-                    let phase = (time * speed + Double(index) * 0.618).truncatingRemainder(dividingBy: 1)
-                    let lane = Double((index * 37) % 101) / 101
-                    let x = (lane + 0.035 * sin(phase * 2 * .pi + Double(index))) * size.width
-                    let y = (1 - phase) * size.height
-                    let brightness = sin(phase * .pi) * (index.isMultiple(of: 4) ? 0.54 : 0.27)
-                    let length: CGFloat = index.isMultiple(of: 4) ? 11 : 4
-                    var trail = Path()
-                    trail.move(to: CGPoint(x: x, y: y))
-                    trail.addLine(to: CGPoint(x: x + length * 0.3, y: y + length))
-                    context.stroke(trail, with: .color(Atlas.blue.opacity(brightness)),
-                                   style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
-                }
-            }
-        }
-    }
-}
-
-#Preview { ZStack { AppBackground(); HomeView { _ in } }.environmentObject(AppSettings()).environmentObject(StatsStore()) }
+#Preview { AppPreview { ZStack { AppBackground(style: .home); HomeView { _ in } } } }

@@ -1,14 +1,18 @@
 from __future__ import annotations
 
+from functools import lru_cache
+from math import sin, tau
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "AppStore" / "zh-Hant"
-BACKGROUND = ROOT / "Brand" / "store-night-background-v2.png"
 PREVIEWS = ROOT / "Previews" / "iPhone17Pro"
-WORDMARK = ROOT / "Brand" / "FlagMaster-Wordmark.png"
+TITLE_GOLD = "#FFE278"
+SUBTITLE_MINT = "#D7F3E5"
+TEXT_OUTLINE = "#0B2324"
+BADGE_GREEN = "#173C36"
 
 FONT_DIR = Path.home() / "Library" / "Fonts"
 FONT_BLACK = FONT_DIR / "ChironGoRoundTC-Black.ttf"
@@ -20,15 +24,81 @@ def font(path: Path, size: int) -> ImageFont.FreeTypeFont:
     return ImageFont.truetype(str(path), size)
 
 
-def cover(image: Image.Image, size: tuple[int, int]) -> Image.Image:
-    scale = max(size[0] / image.width, size[1] / image.height)
-    resized = image.resize(
-        (round(image.width * scale), round(image.height * scale)),
-        Image.Resampling.LANCZOS,
-    )
-    left = (resized.width - size[0]) // 2
-    top = (resized.height - size[1]) // 2
-    return resized.crop((left, top, left + size[0], top + size[1]))
+def explorer_stamp(symbol: str, tint: str, side: int, angle: float) -> Image.Image:
+    tile = Image.new("RGBA", (side, side))
+    draw = ImageDraw.Draw(tile)
+    draw.rounded_rectangle((1, 1, side - 2, side - 2), side // 5, fill=BADGE_GREEN,
+                           outline=tint, width=max(2, side // 36))
+
+    def points(*coordinates: tuple[int, int]) -> list[tuple[int, int]]:
+        return [(round(x * side / 100), round(y * side / 100)) for x, y in coordinates]
+
+    stroke = max(2, side // 20)
+    if symbol == "plane":
+        draw.polygon(points((20, 48), (76, 24), (66, 76), (50, 58), (42, 70), (40, 54)), fill=tint)
+        draw.line(points((40, 54), (68, 32)), fill=BADGE_GREEN, width=stroke)
+    elif symbol == "compass":
+        draw.ellipse(points((23, 23), (77, 77)), outline=tint, width=stroke)
+        draw.polygon(points((62, 35), (54, 56), (36, 65), (45, 44)), fill=tint)
+    elif symbol == "flag":
+        draw.line(points((33, 78), (33, 24)), fill=tint, width=stroke)
+        draw.polygon(points((36, 26), (72, 30), (63, 43), (72, 54), (36, 51)), fill=tint)
+    else:
+        draw.line(points((20, 69), (41, 35), (53, 53), (65, 42), (82, 69), (20, 69)),
+                  fill=tint, width=stroke, joint="curve")
+    return tile.rotate(angle, expand=True, resample=Image.Resampling.BICUBIC)
+
+
+@lru_cache(maxsize=4)
+def explorer_background(size: tuple[int, int]) -> Image.Image:
+    width, height = size
+    gradient = Image.new("RGB", (96, 96))
+    pixels = []
+    for y in range(96):
+        for x in range(96):
+            across, down = x / 95, y / 95
+            glow = max(0, 1 - ((across - 0.27) ** 2 + (down - 0.62) ** 2) * 4)
+            pixels.append((round(15 + 9 * glow), round(38 + 30 * glow - 8 * across),
+                           round(35 + 12 * glow + 15 * across)))
+    gradient.putdata(pixels)
+    canvas = gradient.resize(size, Image.Resampling.BICUBIC).convert("RGBA")
+    overlay = Image.new("RGBA", size)
+    draw = ImageDraw.Draw(overlay)
+    scale = min(size) / 1200
+    step = round(39 * scale)
+    dot = max(1, round(1.5 * scale))
+    for x in range(step // 2, width, step):
+        for y in range(step // 2, height, step):
+            draw.ellipse((x - dot, y - dot, x + dot, y + dot), fill=(160, 230, 208, 55))
+
+    for cx, cy in ((0, 0), (width, height)):
+        for ring in range(1, 8):
+            radius = (52 + ring * 41) * scale
+            draw.ellipse((cx - radius * 1.65, cy - radius, cx + radius * 1.65, cy + radius),
+                         outline=(154, 225, 219, 65), width=max(1, round(2 * scale)))
+
+    wide = width > height
+    edges = (0.54, 0.93) if wide else (0.08, 0.92)
+    stamps = [("compass", "#FFE278", -14), ("plane", "#A7E9FF", -12),
+              ("mountain", "#FFAA88", 11), ("flag", "#AFEBC9", 12)]
+    for lane, center in enumerate(edges):
+        route = [(round(width * (center + 0.035 * sin(tau * sample / 120 + lane))),
+                  round(height * (0.18 + sample * 0.72 / 120))) for sample in range(121)]
+        for start in range(0, 120, 4):
+            draw.line(route[start:start + 3], fill=(147, 229, 204, 139), width=max(2, round(4 * scale)))
+        for stop, (symbol, tint, angle) in zip((24, 94), stamps[lane::2]):
+            x, y = route[stop]
+            tile = explorer_stamp(symbol, tint, round(86 * scale), angle)
+            overlay.alpha_composite(tile, (x - tile.width // 2, y - tile.height // 2))
+            for distance, radius in ((52, 7), (75, 4)):
+                fx, fy = x + (distance * scale if lane == 0 else -distance * scale), y - distance * scale
+                r = radius * scale
+                draw.polygon([(fx, fy - r), (fx + r * 0.3, fy - r * 0.3), (fx + r, fy),
+                              (fx + r * 0.3, fy + r * 0.3), (fx, fy + r),
+                              (fx - r * 0.3, fy + r * 0.3), (fx - r, fy), (fx - r * 0.3, fy - r * 0.3)],
+                             fill=tint)
+    canvas.alpha_composite(overlay)
+    return canvas
 
 
 def rounded_mask(size: tuple[int, int], radius: int) -> Image.Image:
@@ -37,23 +107,6 @@ def rounded_mask(size: tuple[int, int], radius: int) -> Image.Image:
         (0, 0, size[0] - 1, size[1] - 1), radius, fill=255
     )
     return result
-
-
-def remove_white_background(image: Image.Image) -> Image.Image:
-    rgba = image.convert("RGBA")
-    pixels = []
-    for red, green, blue, _ in rgba.getdata():
-        distance = max(255 - red, 255 - green, 255 - blue)
-        alpha = max(0, min(255, (distance - 8) * 8))
-        pixels.append((red, green, blue, alpha))
-    rgba.putdata(pixels)
-    return rgba
-
-
-def wordmark(width: int) -> Image.Image:
-    mark = remove_white_background(Image.open(WORDMARK))
-    mark.thumbnail((width, width), Image.Resampling.LANCZOS)
-    return mark
 
 
 def phone_card(
@@ -106,7 +159,7 @@ def pill(
     draw.rounded_rectangle(
         (0, 0, width - 1, height - 1),
         height // 3,
-        fill="#25164D" if dark else "white",
+        fill=BADGE_GREEN if dark else "white",
         outline="#6EF2D4" if dark else None,
         width=max(2, size // 24),
     )
@@ -137,16 +190,16 @@ def add_copy(
     draw.text(
         (x, y + round(145 * scale)), line_one,
         font=font(FONT_BLACK, round(214 * scale)), fill="#FFFFFF",
-        stroke_width=max(2, round(3 * scale)), stroke_fill="#080414",
+        stroke_width=max(2, round(3 * scale)), stroke_fill=TEXT_OUTLINE,
     )
     draw.text(
         (x, y + round(375 * scale)), line_two,
-        font=font(FONT_BLACK, round(214 * scale)), fill="#C4B5FD",
-        stroke_width=max(2, round(3 * scale)), stroke_fill="#080414",
+        font=font(FONT_BLACK, round(214 * scale)), fill=TITLE_GOLD,
+        stroke_width=max(2, round(3 * scale)), stroke_fill=TEXT_OUTLINE,
     )
     draw.text(
         (x, y + round(655 * scale)), subtitle,
-        font=font(FONT_MEDIUM, round(76 * scale)), fill="#E7E4F4",
+        font=font(FONT_MEDIUM, round(76 * scale)), fill=SUBTITLE_MINT,
     )
 
 
@@ -154,7 +207,7 @@ def render_wide_assets() -> None:
     destination = OUTPUT / "Creative"
     destination.mkdir(parents=True, exist_ok=True)
     size = (5244, 2950)
-    background = cover(Image.open(BACKGROUND).convert("RGB"), size).convert("RGBA")
+    background = explorer_background(size)
 
     title = background.copy()
     add_copy(
@@ -162,12 +215,10 @@ def render_wide_assets() -> None:
         "世界國旗挑戰",
         "玩著認識世界",
         "一面旗，開啟旅程",
-        "挑戰、探索、複習，把世界裝進你的國旗圖鑑。",
+        "用圖卡一起學，按自己的步調練習，或來一場國旗挑戰。",
         (300, 470),
         1.0,
     )
-    mark = wordmark(710)
-    title.alpha_composite(mark, (380, 1720))
     home = phone_card(Image.open(PREVIEWS / "home.png").convert("RGB"), 1130, -9)
     game = phone_card(Image.open(PREVIEWS / "game.png").convert("RGB"), 1030, 10)
     paste_shadow(title, game, (3920, 280), 55)
@@ -195,7 +246,7 @@ def render_wide_assets() -> None:
 
 
 SCREEN_DATA = [
-    ("home", "認識世界", "從一面旗開始", "選擇玩法，開始你的國旗挑戰。", "#F5F5F3"),
+    ("home", "認識世界", "從一面旗開始", "一起看圖卡、自己練習，或挑戰國旗問答。", "#F5F5F3"),
     ("game", "這面旗幟", "是哪一國？", "從四個選項找出正確答案。", "#EDF4EF"),
     ("answer", "答完一題", "認識一個國家", "看答案與小知識，再挑戰下一題。", "#FBF1E5"),
     ("journeys", "挑一個地區", "開始國旗探險", "六大地區，各有不同的國旗等你辨認。", "#F3F5F3"),
@@ -211,23 +262,17 @@ def render_duo_previews() -> None:
     destination.mkdir(parents=True, exist_ok=True)
     width, height = 1398, 2034
     for index, (source, line_one, line_two, subtitle, color) in enumerate(SCREEN_DATA, 1):
-        canvas = cover(Image.open(BACKGROUND).convert("RGB"), (width, height)).convert("RGBA")
-        canvas.alpha_composite(Image.new("RGBA", canvas.size, (5, 2, 18, 76)))
+        canvas = explorer_background((width, height)).copy()
         draw = ImageDraw.Draw(canvas)
-        draw.ellipse((-420, 650, 1780, 2390), fill=(76, 42, 154, 62))
-        draw.arc((-360, 690, 1700, 2280), 194, 338, fill="#5CECCB", width=4)
         draw.text(
             (70, 52), line_one, font=font(FONT_BLACK, 126), fill="#FFFFFF",
-            stroke_width=2, stroke_fill="#080414",
+            stroke_width=2, stroke_fill=TEXT_OUTLINE,
         )
         draw.text(
-            (70, 185), line_two, font=font(FONT_BLACK, 132), fill="#C4B5FD",
-            stroke_width=2, stroke_fill="#080414",
+            (70, 185), line_two, font=font(FONT_BLACK, 132), fill=TITLE_GOLD,
+            stroke_width=2, stroke_fill=TEXT_OUTLINE,
         )
-        draw.text((76, 365), subtitle, font=font(FONT_MEDIUM, 48), fill="#ECE9F8")
-        mark = wordmark(190)
-        canvas.alpha_composite(mark, (width - mark.width - 54, 34))
-
+        draw.text((76, 365), subtitle, font=font(FONT_MEDIUM, 48), fill=SUBTITLE_MINT)
         shot_path = native_screenshots / f"{index:02d}-{source}-1398x2034.jpg"
         if not shot_path.exists():
             raise SystemExit(f"Missing native iPhone Duo screenshot: {shot_path}")
@@ -256,45 +301,30 @@ def render_standard_iphone_previews() -> None:
         destination.mkdir(parents=True, exist_ok=True)
         scale = width / 1320
         for index, (source, line_one, line_two, subtitle, _) in enumerate(SCREEN_DATA, 1):
-            canvas = cover(Image.open(BACKGROUND).convert("RGB"), (width, height)).convert("RGBA")
-            canvas.alpha_composite(Image.new("RGBA", canvas.size, (5, 2, 18, 82)))
+            canvas = explorer_background((width, height)).copy()
             draw = ImageDraw.Draw(canvas)
-            draw.ellipse(
-                tuple(round(value * scale) for value in (-480, 740, 1800, 3060)),
-                fill=(76, 42, 154, 60),
-            )
-            draw.arc(
-                tuple(round(value * scale) for value in (-420, 790, 1740, 2980)),
-                194,
-                338,
-                fill="#5CECCB",
-                width=max(3, round(4 * scale)),
-            )
             draw.text(
                 (round(64 * scale), round(58 * scale)),
                 line_one,
                 font=font(FONT_BLACK, round(126 * scale)),
                 fill="#FFFFFF",
                 stroke_width=max(2, round(2 * scale)),
-                stroke_fill="#080414",
+                stroke_fill=TEXT_OUTLINE,
             )
             draw.text(
                 (round(64 * scale), round(190 * scale)),
                 line_two,
                 font=font(FONT_BLACK, round(132 * scale)),
-                fill="#C4B5FD",
+                fill=TITLE_GOLD,
                 stroke_width=max(2, round(2 * scale)),
-                stroke_fill="#080414",
+                stroke_fill=TEXT_OUTLINE,
             )
             draw.text(
                 (round(70 * scale), round(370 * scale)),
                 subtitle,
                 font=font(FONT_MEDIUM, round(46 * scale)),
-                fill="#ECE9F8",
+                fill=SUBTITLE_MINT,
             )
-            mark = wordmark(round(185 * scale))
-            canvas.alpha_composite(mark, (width - mark.width - round(50 * scale), round(34 * scale)))
-
             shot_path = PREVIEWS / f"{source}.png"
             shot = Image.open(shot_path).convert("RGB")
             if shot.size != (1206, 2622):
@@ -317,23 +347,17 @@ def render_ipad_previews() -> None:
     destination.mkdir(parents=True, exist_ok=True)
     width, height = 2064, 2752
     for index, (source, line_one, line_two, subtitle, _) in enumerate(SCREEN_DATA, 1):
-        canvas = cover(Image.open(BACKGROUND).convert("RGB"), (width, height)).convert("RGBA")
-        canvas.alpha_composite(Image.new("RGBA", canvas.size, (5, 2, 18, 82)))
+        canvas = explorer_background((width, height)).copy()
         draw = ImageDraw.Draw(canvas)
-        draw.ellipse((-620, 730, 2700, 3200), fill=(76, 42, 154, 62))
-        draw.arc((-560, 790, 2600, 3120), 194, 338, fill="#5CECCB", width=6)
         draw.text(
             (86, 66), line_one, font=font(FONT_BLACK, 160), fill="#FFFFFF",
-            stroke_width=3, stroke_fill="#080414",
+            stroke_width=3, stroke_fill=TEXT_OUTLINE,
         )
         draw.text(
-            (86, 232), line_two, font=font(FONT_BLACK, 170), fill="#C4B5FD",
-            stroke_width=3, stroke_fill="#080414",
+            (86, 232), line_two, font=font(FONT_BLACK, 170), fill=TITLE_GOLD,
+            stroke_width=3, stroke_fill=TEXT_OUTLINE,
         )
-        draw.text((94, 462), subtitle, font=font(FONT_MEDIUM, 62), fill="#ECE9F8")
-        mark = wordmark(255)
-        canvas.alpha_composite(mark, (width - mark.width - 72, 46))
-
+        draw.text((94, 462), subtitle, font=font(FONT_MEDIUM, 62), fill=SUBTITLE_MINT)
         shot_path = raw_screenshots / f"{index:02d}-{source}-2064x2752.jpg"
         if not shot_path.exists():
             raise SystemExit(f"Missing native iPad screenshot: {shot_path}")
@@ -353,8 +377,6 @@ def render_ipad_previews() -> None:
 
 
 if __name__ == "__main__":
-    if not BACKGROUND.exists():
-        raise SystemExit(f"Missing generated background: {BACKGROUND}")
     render_wide_assets()
     # These previews use only screenshots captured from the real Duo simulator display.
     render_duo_previews()

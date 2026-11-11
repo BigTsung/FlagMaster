@@ -4,6 +4,12 @@ enum AudioTrack: String, Sendable {
     case home = "music_home"
     case game = "music_game"
     case learning = "music_learning"
+    case speedRound = "music_speed_round"
+    case twoLives = "music_two_lives"
+    case review = "music_review"
+    case region = "music_region"
+    case comparison = "music_comparison"
+    case cards = "music_cards"
 }
 
 @MainActor
@@ -11,13 +17,14 @@ final class AudioManager {
     static let shared = AudioManager()
 
     private var musicPlayer: AVAudioPlayer?
-    private var fadingPlayer: AVAudioPlayer?
+    private static let crossfadeDuration = 0.8
+
+    private var fadingPlayers: [AudioTrack: AVAudioPlayer] = [:]
     private var fadeCleanup: Task<Void, Never>?
     private var effectPlayers: [SoundEffect: AVAudioPlayer] = [:]
     private var currentTrack: AudioTrack?
     private var musicVolume: VolumeLevel = .medium
     private var soundVolume: VolumeLevel = .high
-    private var isDucked = false
     private var isAppActive = true
 
     private init() {}
@@ -41,32 +48,49 @@ final class AudioManager {
     }
 
     func playMusic(_ track: AudioTrack) {
-        guard currentTrack != track else {
-            updateVolumes()
-            return
-        }
-        let localURL = Bundle.main.url(forResource: track.rawValue, withExtension: "m4a", subdirectory: "Audio/LocalMusic")
-        guard let url = localURL ?? resourceURL(named: track.rawValue, extension: "m4a"),
-              let next = try? AVAudioPlayer(contentsOf: url) else { return }
+        guard currentTrack != track else { return }
 
-        fadeCleanup?.cancel()
-        fadingPlayer?.stop()
-        fadingPlayer = musicPlayer
-        fadingPlayer?.setVolume(0, fadeDuration: 0.8)
-        fadeCleanup = Task { @MainActor [weak self] in
-            do { try await Task.sleep(for: .milliseconds(850)) } catch { return }
-            self?.fadingPlayer?.stop()
-            self?.fadingPlayer = nil
+        let next: AVAudioPlayer
+        if let fading = fadingPlayers[track] {
+            next = fading
+        } else {
+            let localURL = Bundle.main.url(forResource: track.rawValue, withExtension: "m4a", subdirectory: "Audio/LocalMusic")
+            guard let url = localURL ?? resourceURL(named: track.rawValue, extension: "m4a"),
+                  let player = try? AVAudioPlayer(contentsOf: url) else { return }
+            player.numberOfLoops = -1
+            player.volume = 0
+            player.prepareToPlay()
+            next = player
         }
 
+        let shouldPlay = isAppActive && musicVolume != .off
+        if shouldPlay, !next.isPlaying, !next.play() { return }
+
+        fadingPlayers.removeValue(forKey: track)
+        if let currentTrack, let musicPlayer, musicPlayer.isPlaying {
+            fadingPlayers[currentTrack] = musicPlayer
+        }
         currentTrack = track
         musicPlayer = next
-        next.numberOfLoops = -1
-        next.volume = 0
-        next.prepareToPlay()
-        guard isAppActive, musicVolume != .off else { return }
-        next.play()
-        next.setVolume(targetMusicVolume, fadeDuration: 0.8)
+        guard shouldPlay else { return }
+
+        next.setVolume(targetMusicVolume, fadeDuration: Self.crossfadeDuration)
+        fadeCleanup?.cancel()
+        guard !fadingPlayers.isEmpty else { return }
+        for player in fadingPlayers.values {
+            player.setVolume(0, fadeDuration: Self.crossfadeDuration)
+        }
+        fadeCleanup = Task { [weak self] in
+            do { try await Task.sleep(for: .seconds(Self.crossfadeDuration + 0.05)) } catch { return }
+            self?.stopFadingMusic()
+        }
+    }
+
+    private func stopFadingMusic() {
+        fadeCleanup?.cancel()
+        fadeCleanup = nil
+        for player in fadingPlayers.values { player.stop() }
+        fadingPlayers.removeAll()
     }
 
     func play(_ effect: SoundEffect) {
@@ -85,11 +109,6 @@ final class AudioManager {
         for player in effectPlayers.values { player.stop(); player.currentTime = 0 }
     }
 
-    func setDucked(_ ducked: Bool) {
-        isDucked = ducked
-        musicPlayer?.setVolume(targetMusicVolume, fadeDuration: 0.35)
-    }
-
     func setAppActive(_ active: Bool) {
         isAppActive = active
         if active {
@@ -98,13 +117,13 @@ final class AudioManager {
             musicPlayer?.setVolume(targetMusicVolume, fadeDuration: 0.35)
         } else {
             musicPlayer?.pause()
-            fadingPlayer?.stop()
+            stopFadingMusic()
             stopEffects()
         }
     }
 
     private var targetMusicVolume: Float {
-        musicVolume.value * (isDucked ? 0.10 : (currentTrack == .learning ? 0.24 : 0.34))
+        musicVolume.value * 0.34
     }
 
     private func targetEffectVolume(_ effect: SoundEffect) -> Float {
@@ -124,7 +143,7 @@ final class AudioManager {
         for (effect, player) in effectPlayers { player.volume = targetEffectVolume(effect) }
         if soundVolume == .off { stopEffects() }
         if musicVolume == .off {
-            fadingPlayer?.stop()
+            stopFadingMusic()
             musicPlayer?.pause()
         } else if isAppActive, currentTrack != nil, musicPlayer?.isPlaying == false {
             musicPlayer?.play()

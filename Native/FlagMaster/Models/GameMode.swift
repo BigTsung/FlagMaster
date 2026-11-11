@@ -39,6 +39,10 @@ enum AppLanguage: String, CaseIterable, Identifiable, Sendable {
     var id: String { rawValue }
     var locale: Locale { Locale(identifier: rawValue) }
 
+    var appName: String {
+        text("Flag Voyage", "國旗旅人", ja: "国旗クイズ", ko: "국기 여행자")
+    }
+
     var displayName: String {
         text("English", "繁體中文", ja: "日本語", ko: "한국어")
     }

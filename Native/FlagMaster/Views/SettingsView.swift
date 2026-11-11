@@ -18,7 +18,7 @@ struct SettingsView: View {
             AppBackground()
             GeometryReader { geometry in
                 VStack(alignment: .leading, spacing: 16) {
-                    Eyebrow(text: settings.language.text("GAME OPTIONS", "遊戲選項", ja: "ゲームオプション", ko: "게임 옵션"), color: Atlas.violet)
+                    Eyebrow(text: settings.language.text("GAME OPTIONS", "遊戲選項", ja: "ゲームオプション", ko: "게임 옵션"), color: Atlas.accent)
                     Text(settings.language.text("Make it your game", "打造你的遊戲體驗", ja: "自分好みにカスタマイズ", ko: "나에게 맞게 설정하기")).font(.system(.title2, design: .rounded).weight(.black))
                     sectionPicker
                     Group {
@@ -33,7 +33,7 @@ struct SettingsView: View {
                         .font(.system(.caption2, design: .monospaced)).tracking(2).foregroundStyle(Atlas.muted).frame(maxWidth: .infinity)
                 }.padding(20).frame(maxWidth: 700, maxHeight: .infinity).frame(maxWidth: .infinity)
             }
-        }.foregroundStyle(.white)
+        }.foregroundStyle(Atlas.text)
         .navigationTitle(settings.language.text("Settings", "旅程設定", ja: "設定", ko: "설정")).navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .confirmationAction) { Button(settings.language.text("Done", "完成", ja: "完了", ko: "완료")) { dismiss() }.tint(Atlas.mint) } }
         .toolbarBackground(Atlas.ink, for: .navigationBar)
@@ -42,10 +42,10 @@ struct SettingsView: View {
             Button(settings.language.text("Done", "完成", ja: "完了", ko: "완료"), role: .cancel) {}
         } message: {
             Text(settings.language.text(
-                "FlagMaster stores your answer history, review progress, and settings on your device. The app does not send this data to us or use it for advertising or tracking. To delete your answer history and review progress, choose Clear all answer history.",
-                "FlagMaster 將答題紀錄、複習進度和設定儲存在你的裝置上。App 不會將這些資料傳給我們，也不會用於廣告或追蹤。若要刪除答題紀錄及複習進度，請選擇「清除所有答題紀錄」。",
-                ja: "FlagMaster は回答履歴、復習の進み具合、設定を端末に保存します。アプリはこれらのデータを送信せず、広告や追跡にも使用しません。回答履歴と復習の進み具合を削除するには「回答履歴をすべて削除」を選んでください。",
-                ko: "FlagMaster는 응답 기록, 복습 진행 상황 및 설정을 기기에 저장합니다. 앱은 이 데이터를 당사에 전송하거나 광고 또는 추적에 사용하지 않습니다. 응답 기록과 복습 진행 상황을 삭제하려면 ‘모든 응답 기록 삭제’를 선택하세요."
+                "\(settings.language.appName) stores your answer history, review progress, and settings on your device. The app does not send this data to us or use it for advertising or tracking. To delete your answer history and review progress, choose Clear all answer history.",
+                "\(settings.language.appName) 將答題紀錄、複習進度和設定儲存在你的裝置上。App 不會將這些資料傳給我們，也不會用於廣告或追蹤。若要刪除答題紀錄及複習進度，請選擇「清除所有答題紀錄」。",
+                ja: "\(settings.language.appName) は回答履歴、復習の進み具合、設定を端末に保存します。アプリはこれらのデータを送信せず、広告や追跡にも使用しません。回答履歴と復習の進み具合を削除するには「回答履歴をすべて削除」を選んでください。",
+                ko: "\(settings.language.appName)는 응답 기록, 복습 진행 상황 및 설정을 기기에 저장합니다. 앱은 이 데이터를 당사에 전송하거나 광고 또는 추적에 사용하지 않습니다. 응답 기록과 복습 진행 상황을 삭제하려면 ‘모든 응답 기록 삭제’를 선택하세요."
             ))
         }
         .confirmationDialog(settings.language.text("Clear all answer history?", "要清除所有答題紀錄嗎？", ja: "回答履歴をすべて削除しますか？", ko: "모든 응답 기록을 삭제할까요?"), isPresented: $confirmClear, titleVisibility: .visible) {
@@ -70,7 +70,7 @@ struct SettingsView: View {
                 Text(title).font(.system(size: 11, weight: .bold))
             }.foregroundStyle(section == value ? Atlas.gold : Atlas.muted)
                 .frame(maxWidth: .infinity).padding(.vertical, 14)
-                .modifier(GamePanel(tint: section == value ? Atlas.gold : Atlas.violet, radius: 16))
+                .modifier(GamePanel(tint: section == value ? Atlas.gold : Atlas.accent, radius: 16))
         }.buttonStyle(GameNavigationButtonStyle(tint: Atlas.gold)).accessibilityAddTraits(section == value ? .isSelected : [])
     }
 
@@ -82,7 +82,7 @@ struct SettingsView: View {
                     Text(language.displayName).tag(language)
                 }
             }.pickerStyle(.segmented)
-            Divider().overlay(.white.opacity(0.08))
+            Divider().overlay(Atlas.text.opacity(0.08))
             Toggle(settings.language.text("Animated effects", "動態視覺效果", ja: "アニメーション効果", ko: "애니메이션 효과"), isOn: $settings.animatedEffects).tint(Atlas.mint)
             Toggle(settings.language.text("Haptic feedback", "答題觸覺回饋", ja: "触覚フィードバック", ko: "햅틱 피드백"), isOn: $settings.hapticsEnabled).tint(Atlas.mint)
         }
@@ -94,7 +94,7 @@ struct SettingsView: View {
             volumePicker(selection: $settings.musicVolume, label: settings.language.text("Music volume", "背景音樂音量", ja: "BGM の音量", ko: "배경 음악 볼륨"))
             Text(settings.language.text("Exploration ambience on the home screen; a stronger pulse during challenges.", "首頁使用探索氛圍；進入挑戰後切換成更有推進感的節奏。", ja: "ホームでは落ち着いた曲、チャレンジ中はテンポの速い曲が流れます。", ko: "홈에서는 잔잔한 음악, 도전 중에는 박진감 있는 음악이 재생됩니다."))
                 .font(.caption).foregroundStyle(Atlas.muted)
-            Divider().overlay(.white.opacity(0.08))
+            Divider().overlay(Atlas.text.opacity(0.08))
             Text(settings.language.text("Sound effects", "互動音效", ja: "効果音", ko: "효과음")).font(.headline)
             volumePicker(selection: $settings.soundVolume, label: settings.language.text("Sound volume", "互動音效音量", ja: "効果音の音量", ko: "효과음 볼륨"))
             Text(settings.language.text("Browsing and paging stay silent; answers and game actions keep their cues.", "瀏覽與翻頁保持安靜；答題與遊戲操作仍保留提示音。", ja: "閲覧やページ切り替えは無音です。回答やゲーム操作には効果音が鳴ります。", ko: "둘러보거나 페이지를 넘길 때는 소리가 나지 않으며, 답변과 게임 조작에는 효과음이 재생됩니다."))
@@ -107,7 +107,7 @@ struct SettingsView: View {
             Label(settings.language.text("Learn at your pace", "按照自己的節奏", ja: "自分のペースで学ぼう", ko: "내 속도로 학습하기"), systemImage: "leaf").font(.headline)
             Text(settings.language.text("Study the flag and both country names before continuing. Timed modes advance automatically.", "看清國旗與中英名稱後再繼續；限時模式則會自動前進。", ja: "国旗と国名を確認してから次に進みます。時間制限のあるモードでは自動で進みます。", ko: "국기와 나라 이름을 확인한 뒤 다음으로 넘어갑니다. 시간 제한 모드에서는 자동으로 넘어갑니다."))
                 .font(.subheadline).foregroundStyle(Atlas.muted)
-            Divider().overlay(.white.opacity(0.08))
+            Divider().overlay(Atlas.text.opacity(0.08))
             Label(settings.language.text("Spaced review", "間隔複習", ja: "間隔復習", ko: "간격 복습"), systemImage: "calendar.badge.clock").font(.headline)
             Text(settings.language.text("Due intervals: 1 → 3 → 7 → 14 → 30 days. A mistake returns in 10 minutes.", "到期答對後：1 → 3 → 7 → 14 → 30 天；答錯則在 10 分鐘後再次複習。", ja: "正解後の復習間隔は 1 → 3 → 7 → 14 → 30 日です。不正解なら 10 分後に復習します。", ko: "정답 후 복습 간격은 1 → 3 → 7 → 14 → 30일입니다. 오답은 10분 후에 복습합니다."))
                 .font(.subheadline).foregroundStyle(Atlas.muted)
@@ -155,4 +155,4 @@ struct SettingsView: View {
     }
 }
 
-#Preview { NavigationStack { SettingsView() }.environmentObject(AppSettings()).environmentObject(StatsStore()) }
+#Preview { AppPreview { NavigationStack { SettingsView() } } }

@@ -16,6 +16,22 @@ struct GameView: View {
     private var answered: Bool { model.selectedCode != nil }
     private var correct: Bool { model.selectedCode == model.question?.abb2 }
 
+    private var musicTrack: AudioTrack {
+        if model.isRetryingMistakes { return .review }
+        switch model.practice {
+        case .region: return .region
+        case .comparison: return .comparison
+        case nil: break
+        }
+        switch model.mode {
+        case .endless: return .learning
+        case .timedChallenge: return .game
+        case .speedRound: return .speedRound
+        case .twoLives: return .twoLives
+        case .review: return .review
+        }
+    }
+
     var body: some View {
         ZStack {
             GeometryReader { geometry in
@@ -40,20 +56,19 @@ struct GameView: View {
             if model.phase == .paused { pauseOverlay.transition(.opacity) }
             if model.phase == .finished { resultOverlay.transition(.opacity) }
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(Atlas.text)
         .animation(animate ? .spring(response: 0.4, dampingFraction: 0.8) : nil, value: model.selectedCode)
         .animation(animate ? .easeInOut(duration: 0.2) : nil, value: model.phase)
         .onAppear { updateGameMusic() }
-        .onChange(of: model.isLearning) { _, _ in updateGameMusic() }
+        .onChange(of: musicTrack) { _, _ in updateGameMusic() }
         .onChange(of: model.soundEvent) { _, event in
             if let event { AudioManager.shared.play(event.effect) }
         }
         .onChange(of: model.phase) { _, phase in
-            AudioManager.shared.setDucked(phase != .playing)
             if phase == .paused || phase == .playing { AudioManager.shared.stopEffects() }
         }
         .onChange(of: scenePhase) { _, phase in if phase != .active { model.pause() } }
-        .onDisappear { model.stop(); AudioManager.shared.stopEffects(); AudioManager.shared.setDucked(false) }
+        .onDisappear { model.stop(); AudioManager.shared.stopEffects() }
         #if DEBUG
         .onAppear {
             let args = ProcessInfo.processInfo.arguments
@@ -69,8 +84,7 @@ struct GameView: View {
     }
 
     private func updateGameMusic() {
-        AudioManager.shared.playMusic(model.isLearning ? .learning : .game)
-        AudioManager.shared.setDucked(model.phase != .playing)
+        AudioManager.shared.playMusic(musicTrack)
     }
 
     private var header: some View {
@@ -83,7 +97,7 @@ struct GameView: View {
             }
             Spacer()
             Button { model.togglePause() } label: {
-                Image(systemName: "pause.fill").frame(width: 44, height: 44).modifier(GamePanel(tint: Atlas.violet, radius: 14))
+                Image(systemName: "pause.fill").frame(width: 44, height: 44).modifier(GamePanel(tint: Atlas.accent, radius: 14))
             }.accessibilityLabel(settings.language.text("Pause", "暫停", ja: "一時停止", ko: "일시 정지"))
         }
     }
@@ -111,7 +125,7 @@ struct GameView: View {
                 ProgressView(value: Double(model.secondsRemaining), total: 60).tint(model.mode.tint)
                     .accessibilityLabel(settings.language.text("Time remaining", "剩餘時間", ja: "残り時間", ko: "남은 시간"))
             }
-        }.modifier(AtlasCard(tint: Atlas.violet))
+        }.modifier(AtlasCard(tint: Atlas.accent))
     }
 
     private func flagStage(_ country: Country, compact: Bool) -> some View {
@@ -160,8 +174,8 @@ struct GameView: View {
                             .lineLimit(2).minimumScaleFactor(0.75)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }.padding(14).frame(maxWidth: .infinity, minHeight: compact ? 90 : 100, alignment: .topLeading)
-                        .modifier(GamePanel(tint: state == .idle || state == .disabled ? Atlas.violet : answerColor(state), radius: 19))
-                        .foregroundStyle(state == .disabled ? Atlas.muted : .white)
+                        .modifier(GamePanel(tint: state == .idle || state == .disabled ? Atlas.accent : answerColor(state), radius: 19))
+                        .foregroundStyle(state == .disabled ? Atlas.muted : Atlas.text)
                 }.buttonStyle(AtlasPressStyle(sound: nil)).disabled(answered || model.phase != .playing)
                     .accessibilityValue(state == .correct ? (settings.language.text("Correct answer", "正確答案", ja: "正解", ko: "정답")) : state == .wrong ? (settings.language.text("Incorrect choice", "選錯了", ja: "不正解", ko: "오답")) : "")
             }
@@ -289,4 +303,4 @@ struct GameView: View {
     }
 }
 
-#Preview { let settings = AppSettings(); ZStack { AppBackground(); GameView(mode: .endless, stats: StatsStore(), settings: settings) {} }.environmentObject(settings).environmentObject(StatsStore()) }
+#Preview { let settings = AppSettings(); ZStack { AppBackground(); GameView(mode: .endless, stats: StatsStore(), settings: settings) {} }.environmentObject(settings).environmentObject(StatsStore()).preferredColorScheme(.dark) }

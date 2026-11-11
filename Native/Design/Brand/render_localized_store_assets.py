@@ -4,13 +4,15 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 from render_connect_assets import (
-    BACKGROUND,
+    BADGE_GREEN,
+    SUBTITLE_MINT,
+    TEXT_OUTLINE,
+    TITLE_GOLD,
     ROOT,
-    cover,
+    explorer_background,
     paste_shadow,
     phone_card,
     pill,
-    wordmark,
 )
 
 
@@ -42,7 +44,7 @@ COPY = {
             "WORLD FLAG CHALLENGE",
             "Discover the world",
             "One flag at a time",
-            "Challenge, explore, review, and build your own flag collection.",
+            "Teach with cards, practice at your own pace, or take a flag quiz.",
         ),
         "wide_search": (
             "PLAY ONE ROUND. DISCOVER ONE MORE COUNTRY.",
@@ -52,7 +54,7 @@ COPY = {
         ),
         "badges": ("6 regions", "Spaced review", "4 languages"),
         "screens": [
-            ("home", "Discover the world", "One flag at a time", "Choose a mode and begin your flag challenge."),
+            ("home", "Discover the world", "One flag at a time", "Teach with cards, practice flags, or take a quiz."),
             ("game", "Name that flag", "Which country?", "Find the correct answer from four choices."),
             ("answer", "One answer", "One new discovery", "Learn a little more before the next challenge."),
             ("journeys", "Choose a region", "Start your journey", "Six regions, each with flags to discover."),
@@ -66,7 +68,7 @@ COPY = {
             "世界の国旗に挑戦",
             "国旗から",
             "世界を知ろう",
-            "挑戦・探索・復習で、自分だけの国旗図鑑を完成させよう。",
+            "カードで一緒に学んだり、自分のペースで練習したり、クイズに挑戦したり。",
         ),
         "wide_search": (
             "1プレイごとに、世界をひとつ発見",
@@ -76,7 +78,7 @@ COPY = {
         ),
         "badges": ("6地域を探索", "間隔復習", "4言語対応"),
         "screens": [
-            ("home", "世界を知ろう", "一枚の国旗から", "プレイ方法を選んで、国旗チャレンジを始めよう。"),
+            ("home", "世界を知ろう", "一枚の国旗から", "カードで一緒に学ぶ、自分で練習する、クイズに挑戦する。"),
             ("game", "この国旗は", "どこの国？", "4つの選択肢から正解を見つけよう。"),
             ("answer", "1問ごとに", "世界が広がる", "答えとヒントを確認して、次の問題へ。"),
             ("journeys", "地域を選んで", "国旗の旅へ", "6つの地域で、さまざまな国旗を発見しよう。"),
@@ -90,7 +92,7 @@ COPY = {
             "세계 국기 도전",
             "국기 한 장으로",
             "세계를 만나 보세요",
-            "도전·탐험·복습으로 나만의 국기 도감을 완성하세요.",
+            "카드로 함께 배우고, 내 속도로 연습하고, 국기 퀴즈에 도전하세요.",
         ),
         "wide_search": (
             "한 번 플레이할 때마다 새로운 나라를 발견",
@@ -100,7 +102,7 @@ COPY = {
         ),
         "badges": ("6개 지역", "간격 복습", "4개 언어"),
         "screens": [
-            ("home", "세계를 만나 보세요", "국기 한 장부터", "플레이 방식을 선택하고 국기 도전을 시작하세요."),
+            ("home", "세계를 만나 보세요", "국기 한 장부터", "카드로 함께 배우거나 혼자 연습하고 퀴즈에 도전하세요."),
             ("game", "이 국기는", "어느 나라일까요?", "네 개의 선택지에서 정답을 찾아보세요."),
             ("answer", "한 문제마다", "새로운 나라를 발견", "정답과 힌트를 확인하고 다음 문제에 도전하세요."),
             ("journeys", "지역을 선택하고", "국기 여행 시작", "6개 지역의 다양한 국기를 만나보세요."),
@@ -135,16 +137,16 @@ def add_wide_copy(canvas: Image.Image, lang: str, copy: tuple[str, str, str, str
     draw.text(
         (x, y + 145), first,
         font=fit_font(lang, "black", first, 214, 2700, 130),
-        fill="#FFFFFF", stroke_width=3, stroke_fill="#080414",
+        fill="#FFFFFF", stroke_width=3, stroke_fill=TEXT_OUTLINE,
     )
     draw.text(
         (x, y + 375), second,
         font=fit_font(lang, "black", second, 214, 2700, 130),
-        fill="#C4B5FD", stroke_width=3, stroke_fill="#080414",
+        fill=TITLE_GOLD, stroke_width=3, stroke_fill=TEXT_OUTLINE,
     )
     draw.text(
         (x, y + 655), subtitle,
-        font=fit_font(lang, "medium", subtitle, 76, 2750, 48), fill="#E7E4F4",
+        font=fit_font(lang, "medium", subtitle, 76, 2750, 48), fill=SUBTITLE_MINT,
     )
 
 
@@ -156,12 +158,10 @@ def render_wide(lang: str) -> None:
     output = APPSTORE / lang / "Creative"
     output.mkdir(parents=True, exist_ok=True)
     size = (5244, 2950)
-    background = cover(Image.open(BACKGROUND).convert("RGB"), size).convert("RGBA")
+    background = explorer_background(size)
 
     title = background.copy()
     add_wide_copy(title, lang, COPY[lang]["wide_title"])
-    mark = wordmark(710)
-    title.alpha_composite(mark, (380, 1720))
     home = phone_card(Image.open(raw_path(lang, "iPhone-Raw", 1, "home")).convert("RGB"), 1130, -9)
     game = phone_card(Image.open(raw_path(lang, "iPhone-Raw", 2, "game")).convert("RGB"), 1030, 10)
     paste_shadow(title, game, (3920, 280), 55)
@@ -181,7 +181,7 @@ def render_wide(lang: str) -> None:
             badge_h = 136
             badge = Image.new("RGBA", (badge_w, badge_h))
             badge_draw = ImageDraw.Draw(badge)
-            badge_draw.rounded_rectangle((0, 0, badge_w - 1, badge_h - 1), 44, fill="#25164D", outline="#6EF2D4", width=3)
+            badge_draw.rounded_rectangle((0, 0, badge_w - 1, badge_h - 1), 44, fill=BADGE_GREEN, outline="#6EF2D4", width=3)
             badge_draw.ellipse((40, 48, 72, 80), fill=dot)
             badge_draw.text((94, badge_h // 2), label, font=badge_font, fill="#F8FAFF", anchor="lm")
             search.alpha_composite(badge, (x, 1900))
@@ -192,36 +192,26 @@ def render_wide(lang: str) -> None:
     search.convert("RGB").save(output / "search-result-5244x2950.png", optimize=True)
 
 
-def preview_canvas(width: int, height: int) -> Image.Image:
-    canvas = cover(Image.open(BACKGROUND).convert("RGB"), (width, height)).convert("RGBA")
-    canvas.alpha_composite(Image.new("RGBA", canvas.size, (5, 2, 18, 82)))
-    return canvas
-
-
 def preview_header(canvas: Image.Image, lang: str, first: str, second: str, subtitle: str, scale: float) -> None:
     draw = ImageDraw.Draw(canvas)
     width = canvas.width
-    draw.ellipse(tuple(round(v * scale) for v in (-480, 740, 1800, 3060)), fill=(76, 42, 154, 60))
-    draw.arc(tuple(round(v * scale) for v in (-420, 790, 1740, 2980)), 194, 338, fill="#5CECCB", width=max(3, round(4 * scale)))
     margin = round(64 * scale)
     max_text = width - margin * 2 - round(170 * scale)
     draw.text(
         (margin, round(58 * scale)), first,
         font=fit_font(lang, "black", first, round(126 * scale), max_text, round(70 * scale)),
-        fill="#FFFFFF", stroke_width=max(2, round(2 * scale)), stroke_fill="#080414",
+        fill="#FFFFFF", stroke_width=max(2, round(2 * scale)), stroke_fill=TEXT_OUTLINE,
     )
     draw.text(
         (margin, round(190 * scale)), second,
         font=fit_font(lang, "black", second, round(132 * scale), max_text, round(70 * scale)),
-        fill="#C4B5FD", stroke_width=max(2, round(2 * scale)), stroke_fill="#080414",
+        fill=TITLE_GOLD, stroke_width=max(2, round(2 * scale)), stroke_fill=TEXT_OUTLINE,
     )
     draw.text(
         (round(70 * scale), round(370 * scale)), subtitle,
         font=fit_font(lang, "medium", subtitle, round(46 * scale), width - round(140 * scale), round(28 * scale)),
-        fill="#ECE9F8",
+        fill=SUBTITLE_MINT,
     )
-    mark = wordmark(round(185 * scale))
-    canvas.alpha_composite(mark, (width - mark.width - round(50 * scale), round(34 * scale)))
 
 
 def render_phone_family(lang: str, family: str, output_name: str, width: int, height: int, phone_width: int, y: int, angle: float) -> None:
@@ -229,7 +219,7 @@ def render_phone_family(lang: str, family: str, output_name: str, width: int, he
     output.mkdir(parents=True, exist_ok=True)
     scale = width / 1320
     for index, (source, first, second, subtitle) in enumerate(COPY[lang]["screens"], 1):
-        canvas = preview_canvas(width, height)
+        canvas = explorer_background((width, height)).copy()
         preview_header(canvas, lang, first, second, subtitle, scale)
         shot = Image.open(raw_path(lang, family, index, source)).convert("RGB")
         phone = phone_card(shot, round(phone_width * scale), -angle if index % 2 else angle)
@@ -243,7 +233,7 @@ def render_ipad(lang: str) -> None:
     output.mkdir(parents=True, exist_ok=True)
     width, height = 2064, 2752
     for index, (source, first, second, subtitle) in enumerate(COPY[lang]["screens"], 1):
-        canvas = preview_canvas(width, height)
+        canvas = explorer_background((width, height)).copy()
         preview_header(canvas, lang, first, second, subtitle, width / 1320)
         shot = Image.open(raw_path(lang, "iPad-13-Raw", index, source)).convert("RGB")
         tablet = phone_card(shot, 1450, -1.5 if index % 2 else 1.5, border=22)

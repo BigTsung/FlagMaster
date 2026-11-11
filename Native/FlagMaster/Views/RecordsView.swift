@@ -47,7 +47,7 @@ struct RecordsView: View {
                     }
                 }.padding(20).frame(maxWidth: 700, maxHeight: .infinity).frame(maxWidth: .infinity)
             }
-        }.foregroundStyle(.white)
+        }.foregroundStyle(Atlas.text)
         .navigationTitle(settings.language.text("Passport", "探索護照", ja: "探検パスポート", ko: "탐험 여권")).navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .confirmationAction) { Button(settings.language.text("Done", "完成", ja: "完了", ko: "완료")) { dismiss() }.tint(Atlas.mint) } }
         .toolbarBackground(Atlas.ink, for: .navigationBar)
@@ -90,4 +90,4 @@ struct RecordsView: View {
     }
 }
 
-#Preview { NavigationStack { RecordsView() }.environmentObject(AppSettings()).environmentObject(StatsStore()) }
+#Preview { AppPreview { NavigationStack { RecordsView() } } }

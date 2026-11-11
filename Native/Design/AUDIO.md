@@ -1,29 +1,35 @@
 # 音樂與互動音效
 
-Native 版以復古電子冒險（chiptune）為本機聲音主題，使用三種背景情境與八種互動音效。音檔離線播放；本機 Gamemaster 素材優先，缺少時使用專案內的原創合成素材。
+Native 版使用九首背景配樂與八種互動音效。音檔離線播放；本機 Gamemaster 素材優先，缺少時使用專案內的原創合成素材。
 
 ## 背景情境
 
 | 情境 | App 檔名 | 本機來源 |
 | --- | --- | --- |
-| 首頁、圖鑑、護照與設定 | `music_home.m4a` | `music_bytes_the_retro_adventure 1.wav` |
-| 無盡、複習、區域旅程、相似旗與錯題重練 | `music_learning.m4a` | `music_bytes_the_retro_adventure 1.wav`（柔化學習版） |
-| 限時、快問快答、兩次機會 | `music_game.m4a` | `music_8bit_jammer.wav` |
+| 開場、首頁、圖鑑、學習紀錄與設定 | `music_home.m4a` | `music_candyland.wav` |
+| 無盡模式 | `music_learning.m4a` | `music_bytes_the_retro_adventure 1.wav`（4.5 kHz 低通） |
+| 限時挑戰 | `music_game.m4a` | `music_fun_crazy_circus.wav` |
+| 極速模式 | `music_speed_round.m4a` | 原創合成循環 |
+| 兩次機會 | `music_two_lives.m4a` | `music_fun_funky_toadstool.wav` |
+| 間隔複習與錯題重練 | `music_review.m4a` | 原創合成循環 |
+| 區域旅程 | `music_region.m4a` | 原創合成循環 |
+| 相似國旗 | `music_comparison.m4a` | 原創合成循環 |
+| 教學圖卡 | `music_cards.m4a` | 原創合成循環 |
 
-首頁保留指定曲目的旋律與速度；學習版使用同曲，加入 4.5 kHz 低通並降低 3 LU 的響度目標，讓主旋律較不搶注意力。挑戰模式使用另一首 8-bit 曲目。學習情境音量較低；同一情境切頁不重啟曲目。曲目切換交叉淡化 0.8 秒，淡出完成後停止舊播放器。暫停與成果頁降低音樂音量。背景音樂使用 192 kbps AAC；新增的原創學習備援曲是 32 秒稀疏和弦循環。
+所有背景配樂的響度目標均為 -23 LUFS，並共用同一個播放增益。區域旅程與相似國旗從選單進入題目時接續播放。不同曲目交叉淡化 0.8 秒，淡出後停止舊播放器。
 
 ## 互動與優先順序
 
 | 時機 | Gamemaster 素材路徑 | App 檔名 | 最長秒數／RMS 目標 dBFS |
 | --- | --- | --- | --- |
-| 遊戲操作 | `Retro_Classic/Menu_UI_Beeps/retro_ui_menu_blip_click_01.wav` | `sfx_tap.wav` | 0.12 / -25 |
-| 答對 | `Retro/retro_beeps_success_04.wav` | `sfx_correct.wav` | 0.36 / -21 |
-| 答錯 | `Retro_Classic/Menu_UI_Beeps/retro_ui_menu_error_03.wav` | `sfx_wrong.wav` | 0.30 / -23 |
-| 單題逾時 | `Retro_Classic/Menu_UI_Beeps/retro_simple_beep_03.wav` | `sfx_timeout.wav` | 0.36 / -23 |
-| 倒數 | `Retro_Classic/Menu_UI_Beeps/retro_ui_menu_short_beep_04.wav` | `sfx_countdown.wav` | 0.10 / -27 |
-| 完成有限題數的練習或快問快答 | `Retro/retro_beeps_success_02.wav` | `sfx_complete.wav` | 1.30 / -20 |
-| 主動結束、限時挑戰時間到 | `Retro_Classic/Menu_UI_Beeps/retro_ui_menu_popup_02.wav` | `sfx_end.wav` | 0.26 / -23 |
-| 兩次機會生命耗盡 | `Retro/retro_fail_sound_02.wav` | `sfx_game_over.wav` | 0.80 / -23 |
+| 遊戲操作 | `Retro_Classic/Menu_UI_Beeps/retro_simple_beep_27.wav` | `sfx_tap.wav` | 0.12 / -25 |
+| 答對 | `Sci-Fi/sci-fi_device_item_power_up_flash_01.wav` | `sfx_correct.wav` | 0.36 / -21 |
+| 答錯 | `Sci-Fi/sci-fi_code_fail_06.wav` | `sfx_wrong.wav` | 0.30 / -23 |
+| 單題逾時 | `Sci-Fi/sci-fi_power_down_object_01.wav` | `sfx_timeout.wav` | 0.36 / -23 |
+| 倒數 | `Sci-Fi/sci-fi_electric_pulse_power_down_01.wav` | `sfx_countdown.wav` | 0.10 / -27 |
+| 完成有限題數的練習或快問快答 | `Sci-Fi/sci-fi_shield_device_small_01.wav` | `sfx_complete.wav` | 1.30 / -20 |
+| 主動結束、限時挑戰時間到 | `Sci-Fi/sci-fi_shield_device_small_01.wav` | `sfx_end.wav` | 0.26 / -23 |
+| 兩次機會生命耗盡 | `Sci-Fi/sci-fi_power_down_object_01.wav` | `sfx_game_over.wav` | 0.80 / -23 |
 
 - 遊戲規則發出帶序號的語意事件，連續答對仍能各自播放；重複點擊或重複結束不發出新事件。資料錯誤不播放獎勵音。
 - 限時挑戰最後三秒每秒提醒一次，快問快答僅最後一秒提醒。答案展示期間不提示，暫停時停止計時與現有音效，不補播漏掉的倒數。
@@ -39,14 +45,14 @@ Native 版以復古電子冒險（chiptune）為本機聲音主題，使用三�
 python3 Native/Scripts/prepare_audio.py --pack '/Users/circle/dev/assets/audios/Gamemaster Audio - Pro Sound Collection'
 ```
 
-腳本從原始素材重新產生 `LocalEffects` 與 `LocalMusic`，不改動素材包。短音效去除開頭靜音、限制長度、淡入淡出，以 RMS 整理音量並將峰值限制在 -3 dBFS；短音效使用 48 kHz 單聲道 PCM WAV。首頁與挑戰音樂以 -23 LUFS／-3 dBTP 為正規化目標，學習版則為 -26 LUFS／-3 dBTP；播放器另外依情境和使用者偏好調整音量。數值正規化不能代替真機聽感檢查。
+腳本從原始素材重新產生 `LocalEffects` 與 `LocalMusic`，不改動素材包。短音效去除開頭靜音、限制長度、淡入淡出，以 RMS 整理音量並將峰值限制在 -3 dBFS；短音效使用 48 kHz 單聲道 PCM WAV。背景配樂以兩階段正規化對齊 -23 LUFS，真峰值上限為 -3 dBTP。所有曲目依使用者的背景音樂音量設定播放。
 
-`LocalEffects` 與 `LocalMusic` 由 Git 忽略，但 Xcode 會隨整個 `Audio` 資料夾打包。其他工作區需執行上面的安裝指令才能取得相同的 Gamemaster 配置；無素材包時仍有全部音效與三首原創備援音樂。
+`LocalEffects` 與 `LocalMusic` 由 Git 忽略，但 Xcode 會隨整個 `Audio` 資料夾打包。其他工作區需執行上面的安裝指令才能取得相同的 Gamemaster 配置；無素材包時仍有全部音效與九首隨 App 提供的配樂。
 
 重建本次新增的原創備援素材：
 
 ```sh
-python3 Native/Scripts/prepare_audio.py --generate-fallbacks
+python3 Native/Scripts/prepare_audio.py --generate-fallbacks --generate-mode-music
 ```
 
 `AVAudioSession.Category.ambient` 遵循裝置靜音設定並允許和其他音訊混合。設定頁分別保存背景音樂、互動音效音量與觸覺回饋。Debug 畫面預覽預設關閉聲音與觸覺。

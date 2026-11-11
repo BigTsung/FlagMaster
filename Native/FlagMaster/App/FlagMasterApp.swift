@@ -34,7 +34,7 @@ struct FlagMasterApp: App {
 
     var body: some Scene {
         WindowGroup {
-            content.environmentObject(settings).environmentObject(stats).preferredColorScheme(.dark)
+            content.environmentObject(settings).environmentObject(stats)
                 .environment(\.locale, settings.language.locale)
         }
     }
@@ -62,7 +62,6 @@ struct FlagMasterApp: App {
         #endif
     }
 }
-
 
 /// Restrict only the window that owns the study deck; other scenes keep their policy.
 @MainActor
