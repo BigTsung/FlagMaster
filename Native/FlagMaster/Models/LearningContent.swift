@@ -77,3 +77,146 @@ enum PracticePlan: Equatable, Sendable {
         }
     }
 }
+
+extension StudyRegion {
+    static func of(_ code: String) -> StudyRegion? { allCases.first { $0.codes.contains(code) } }
+}
+
+/// How hard the three wrong answers are. Daily practice moves from easy to regional.
+enum DistractorLevel: Sendable {
+    case easy      // other regions: colours and symbols differ a lot
+    case mixed     // whole catalogue
+    case regional  // same region: neighbours often share colours
+}
+
+struct PlannedQuestion: Equatable, Sendable {
+    enum Stage: Int, CaseIterable, Sendable {
+        case warmUp, learn, reinforce, recap, quiz
+        func title(_ language: AppLanguage) -> String {
+            switch self {
+            case .warmUp: language.text("Warm-up review", "暖身複習", ja: "ウォームアップ復習", ko: "워밍업 복습")
+            case .learn: language.text("New flags", "認識新國旗", ja: "新しい国旗", ko: "새 국기 배우기")
+            case .reinforce: language.text("Strengthen weak spots", "加強弱點", ja: "苦手を強化", ko: "약점 보강")
+            case .recap: language.text("Final recall", "今日回想", ja: "今日のふり返り", ko: "오늘의 복습")
+            case .quiz: language.text("Quiz", "測驗", ja: "テスト", ko: "테스트")
+            }
+        }
+    }
+    let country: Country
+    let stage: Stage
+    let distractors: DistractorLevel
+    /// A look-alike flag that must appear among the choices, when one is known.
+    var counterpart: String? = nil
+}
+
+/// A ten-minute daily session built in learning order:
+/// recall due flags → meet a few new ones → repair weak spots → recall today's new flags again.
+enum DailyPlan {
+    static let duration: TimeInterval = 10 * 60
+    static let maxWarmUp = 6
+    static let maxReinforce = 4
+
+    /// Well-known flags come first, then each region in turn, so new learners start with familiar ground.
+    static let starterCodes = "US GB FR DE JP CN KR TW CA BR IT ES AU IN MX RU CH SE TR GR EG ZA AR NZ TH SG NL IE PT KE"
+        .split(separator: " ").map(String.init)
+    static let regionOrder: [StudyRegion] = [.asia, .europe, .northAmerica, .southAmerica, .oceania, .africa]
+
+    static func curriculum(_ countries: [Country]) -> [Country] {
+        let byCode = Dictionary(countries.map { ($0.abb2, $0) }, uniquingKeysWith: { first, _ in first })
+        var ordered = starterCodes.compactMap { byCode[$0] }
+        var seen = Set(ordered.map(\.abb2))
+        for region in regionOrder {
+            for country in region.countries(in: countries).sorted(by: { $0.en < $1.en }) where seen.insert(country.abb2).inserted {
+                ordered.append(country)
+            }
+        }
+        ordered += countries.filter { seen.insert($0.abb2).inserted }
+        return ordered
+    }
+
+    static func build(countries: [Country], stats: [String: CountryStat], now: Date = Date()) -> [PlannedQuestion] {
+        let byCode = Dictionary(countries.map { ($0.abb2, $0) }, uniquingKeysWith: { first, _ in first })
+        var used = Set<String>()
+        func take(_ list: [Country], _ limit: Int) -> [Country] {
+            var result: [Country] = []
+            for country in list where result.count < limit && used.insert(country.abb2).inserted { result.append(country) }
+            return result
+        }
+
+        let due = stats.values
+            .filter { $0.totalAttempts > 0 && ($0.nextReviewAt ?? .distantPast) <= now }
+            .sorted { ($0.nextReviewAt ?? .distantPast, $0.countryCode) < ($1.nextReviewAt ?? .distantPast, $1.countryCode) }
+            .compactMap { byCode[$0.countryCode] }
+        let weak = stats.values.filter(\.needsPractice)
+            .sorted { ($0.accuracy, $0.countryCode) < ($1.accuracy, $1.countryCode) }
+            .compactMap { byCode[$0.countryCode] }
+
+        let warmUp = take(due, maxWarmUp)
+        // A learner with a backlog gets fewer new flags, so review never snowballs.
+        let backlog = max(0, due.count - warmUp.count) + weak.filter { !used.contains($0.abb2) }.count
+        let newCount = backlog > 8 ? 3 : backlog > 3 ? 4 : 6
+        let fresh = take(curriculum(countries).filter { stats[$0.abb2] == nil }, newCount)
+        let reinforce = take(weak, maxReinforce)
+
+        var plan = warmUp.map { PlannedQuestion(country: $0, stage: .warmUp, distractors: .mixed) }
+        plan += fresh.map { PlannedQuestion(country: $0, stage: .learn, distractors: .easy) }
+        plan += reinforce.map { country in
+            let partner = FlagComparison.all.first { $0.codes.contains(country.abb2) }?
+                .codes.first { $0 != country.abb2 && byCode[$0] != nil }
+            return PlannedQuestion(country: country, stage: .reinforce, distractors: .regional, counterpart: partner)
+        }
+        // Recall today's new flags once more, against harder neighbours, in a new order.
+        plan += fresh.reversed().map { PlannedQuestion(country: $0, stage: .recap, distractors: .regional) }
+
+        if plan.isEmpty {
+            // Everything is learned and nothing is due: keep the longest-unseen flags fresh.
+            let oldest = stats.values.sorted { ($0.lastReviewedAt ?? .distantPast, $0.countryCode) < ($1.lastReviewedAt ?? .distantPast, $1.countryCode) }
+                .compactMap { byCode[$0.countryCode] }
+            plan = take(oldest, 10).map { PlannedQuestion(country: $0, stage: .warmUp, distractors: .regional) }
+        }
+        return plan
+    }
+}
+
+/// A 20-question test sampled evenly across regions, with alternating difficulty.
+enum QuizPlan {
+    static let length = 20
+
+    static func build<G: RandomNumberGenerator>(countries: [Country], using generator: inout G) -> [PlannedQuestion] {
+        var buckets = DailyPlan.regionOrder.map { $0.countries(in: countries).shuffled(using: &generator) }
+        let others = countries.filter { StudyRegion.of($0.abb2) == nil }
+        if !others.isEmpty { buckets.append(others.shuffled(using: &generator)) }
+        buckets.shuffle(using: &generator)
+        var picked: [Country] = []
+        while picked.count < min(length, countries.count) {
+            var progressed = false
+            for index in buckets.indices where picked.count < length && !buckets[index].isEmpty {
+                picked.append(buckets[index].removeFirst())
+                progressed = true
+            }
+            if !progressed { break }
+        }
+        return picked.shuffled(using: &generator).enumerated().map { index, country in
+            PlannedQuestion(country: country, stage: .quiz, distractors: index.isMultiple(of: 2) ? .mixed : .regional)
+        }
+    }
+
+    static func build(countries: [Country]) -> [PlannedQuestion] {
+        var generator = SystemRandomNumberGenerator()
+        return build(countries: countries, using: &generator)
+    }
+
+    static func score(correct: Int, total: Int) -> Int {
+        total == 0 ? 0 : Int((Double(correct) / Double(total) * 100).rounded())
+    }
+
+    static func grade(_ score: Int) -> String {
+        switch score {
+        case 95...: "S"
+        case 85..<95: "A"
+        case 70..<85: "B"
+        case 50..<70: "C"
+        default: "D"
+        }
+    }
+}

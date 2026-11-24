@@ -760,6 +760,7 @@ struct FlagFlashcardsView: View {
 
 private struct CountryInformationPanel: View {
     @EnvironmentObject private var settings: AppSettings
+    @ObservedObject private var speech = SpeechManager.shared
     @AccessibilityFocusState private var headingFocused: Bool
     let country: Country
     let compact: Bool
@@ -771,6 +772,7 @@ private struct CountryInformationPanel: View {
             ? language.text("Republic of China (Taiwan)", "中華民國（臺灣）", ja: "中華民国（台湾）", ko: "중화민국(대만)")
             : country.name(for: language)
     }
+    private var englishTitle: String { country.abb2 == "TW" ? "Republic of China (Taiwan)" : country.en }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -794,8 +796,13 @@ private struct CountryInformationPanel: View {
                     layout {
                         VStack(alignment: .leading, spacing: 10) {
                             if language != .english {
-                                Text(country.abb2 == "TW" ? "Republic of China (Taiwan)" : country.en)
-                                    .font(.subheadline).foregroundStyle(Atlas.muted)
+                                Text(englishTitle).font(.subheadline).foregroundStyle(Atlas.muted)
+                            }
+                            HStack(spacing: 8) {
+                                if language != .english {
+                                    speakButton(title, voice: language, id: "name-local", caption: language.displayName)
+                                }
+                                speakButton(englishTitle, voice: .english, id: "name-en", caption: "English")
                             }
                             fact(language.text("Region", "地區", ja: "地域", ko: "지역"), value: region)
                             if let information {
@@ -812,8 +819,16 @@ private struct CountryInformationPanel: View {
                     }
                     if let information {
                         VStack(alignment: .leading, spacing: 8) {
-                            Label(language.text("Flag design & meaning", "國旗設計與含義", ja: "国旗のデザインと意味", ko: "국기의 디자인과 의미"), systemImage: "flag.fill")
-                                .font(.headline).foregroundStyle(Atlas.blue)
+                            HStack(spacing: 8) {
+                                Label(language.text("Flag design & meaning", "國旗設計與含義", ja: "国旗のデザインと意味", ko: "국기의 디자인과 의미"), systemImage: "flag.fill")
+                                    .font(.headline).foregroundStyle(Atlas.blue)
+                                Spacer(minLength: 0)
+                                // Notes exist in English and Traditional Chinese only.
+                                if language == .traditionalChinese {
+                                    speakButton(information.flagDescription.zhHant, voice: .traditionalChinese, id: "about-zh", caption: language.displayName)
+                                }
+                                speakButton(information.flagDescription.en, voice: .english, id: "about-en", caption: "English")
+                            }
                             if information.historicalFlag {
                                 Text(language.text("Historical flag shown", "本卡展示歷史旗幟", ja: "このカードは歴史的な旗を表示", ko: "이 카드는 역사적 국기를 표시합니다"))
                                     .font(.caption.bold()).foregroundStyle(Atlas.gold)
@@ -854,6 +869,25 @@ private struct CountryInformationPanel: View {
         .accessibilityAddTraits(.isModal)
         .accessibilityAction(.escape, close)
         .onAppear { headingFocused = true }
+        .onDisappear { speech.stop() }
+        .onChange(of: country.id) { _, _ in speech.stop() }
+    }
+
+    /// A pill that reads text aloud in a given voice; tapping it again stops playback.
+    private func speakButton(_ text: String, voice: AppLanguage, id: String, caption: String) -> some View {
+        let speaking = speech.speakingID == "\(country.abb2)-\(id)"
+        return Button { speech.toggle(text, language: voice, id: "\(country.abb2)-\(id)") } label: {
+            Label(caption, systemImage: speaking ? "stop.fill" : "speaker.wave.2.fill")
+                .font(.caption.bold()).lineLimit(1)
+                .symbolEffect(.variableColor.iterative, isActive: speaking)
+                .padding(.horizontal, 12).frame(minHeight: 44)
+                .foregroundStyle(speaking ? Atlas.onAccent : Atlas.mint)
+                .background(speaking ? Atlas.mint : Atlas.panel, in: Capsule())
+                .overlay(Capsule().stroke(Atlas.mint.opacity(0.5)))
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(language.text("Listen in \(caption)", "用\(caption)播放", ja: "\(caption)で聞く", ko: "\(caption)로 듣기"))
+        .accessibilityValue(speaking ? language.text("Playing", "播放中", ja: "再生中", ko: "재생 중") : "")
     }
 
     private var region: String {

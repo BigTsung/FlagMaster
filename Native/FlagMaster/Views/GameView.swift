@@ -29,6 +29,8 @@ struct GameView: View {
         case .speedRound: return .speedRound
         case .twoLives: return .twoLives
         case .review: return .review
+        case .daily: return .learning
+        case .quiz: return .game
         }
     }
 
@@ -92,7 +94,7 @@ struct GameView: View {
             Image(systemName: model.isRetryingMistakes ? "arrow.triangle.2.circlepath" : model.mode.symbol)
                 .foregroundStyle(model.mode.tint).font(.title2)
             VStack(alignment: .leading, spacing: 4) {
-                Eyebrow(text: settings.language.text("CHALLENGE LIVE", "挑戰進行中", ja: "チャレンジ中", ko: "도전 중"), color: Atlas.mint)
+                Eyebrow(text: headerEyebrow, color: Atlas.mint)
                 Text(model.isRetryingMistakes ? (settings.language.text("Practice mistakes", "本局錯題練習", ja: "間違えた問題を練習", ko: "틀린 문제 연습")) : (model.practice?.title(settings.language) ?? model.mode.title(settings.language))).font(.headline)
             }
             Spacer()
@@ -102,12 +104,29 @@ struct GameView: View {
         }
     }
 
+    private var headerEyebrow: String {
+        if model.plan != nil, model.mode == .daily, let step = model.currentStep {
+            let stages = Set(model.plan?.map(\.stage) ?? []).count
+            let number = Set(model.plan?.prefix(model.planIndex + 1).map(\.stage) ?? []).count
+            return settings.language.text("STEP \(number)/\(stages) · ", "第 \(number)/\(stages) 階段 · ", ja: "ステップ \(number)/\(stages) · ", ko: "\(number)/\(stages)단계 · ") + step.stage.title(settings.language).uppercased()
+        }
+        if model.plan != nil, model.mode == .quiz {
+            return settings.language.text("QUESTION \(model.planIndex + 1) OF \(model.plan?.count ?? 0)", "第 \(model.planIndex + 1) / \(model.plan?.count ?? 0) 題", ja: "\(model.planIndex + 1) / \(model.plan?.count ?? 0) 問目", ko: "\(model.planIndex + 1) / \(model.plan?.count ?? 0)번 문제")
+        }
+        return settings.language.text("CHALLENGE LIVE", "挑戰進行中", ja: "チャレンジ中", ko: "도전 중")
+    }
+
     private var status: some View {
         VStack(spacing: 14) {
             HStack {
                 Metric(value: "\(model.correctAnswers)", label: settings.language.text("Correct", "答對題數", ja: "正解数", ko: "정답 수"))
                 Metric(value: "\(model.streak)×", label: settings.language.text("COMBO", "連續答對", ja: "コンボ", ko: "콤보"), color: Atlas.gold)
-                if model.mode == .twoLives && !model.isRetryingMistakes {
+                if model.mode == .daily && model.plan != nil {
+                    let seconds = model.dailySecondsRemaining
+                    Metric(value: String(format: "%d:%02d", seconds / 60, seconds % 60), label: settings.language.text("Time left", "剩餘時間", ja: "残り時間", ko: "남은 시간"), color: seconds <= 60 ? Atlas.coral : Atlas.blue)
+                } else if model.mode == .quiz && model.plan != nil {
+                    Metric(value: "\(model.totalQuestions)/\(model.plan?.count ?? 0)", label: settings.language.text("Answered", "已作答", ja: "回答済み", ko: "응답 수"), color: Atlas.blue)
+                } else if model.mode == .twoLives && !model.isRetryingMistakes {
                     VStack(spacing: 6) {
                         HStack(spacing: 6) { ForEach(0..<2) { index in Image(systemName: index < model.lives ? "heart.fill" : "heart").foregroundStyle(Atlas.coral) } }
                         Text(settings.language.text("Lives", "剩餘機會", ja: "残りライフ", ko: "남은 기회")).font(.caption).foregroundStyle(Atlas.muted)
@@ -148,6 +167,12 @@ struct GameView: View {
                 .accessibilityLabel(settings.language.text("Flag to identify", "待辨識的國旗", ja: "問題の国旗", ko: "맞혀야 할 국기"))
             Text(answered ? (correct ? (settings.language.text("PERFECT!", "漂亮！答對了", ja: "正解！", ko: "정답!")) : (settings.language.text("TRY AGAIN!", "再接再厲！", ja: "次もがんばろう！", ko: "다음 문제에 도전!"))) : (settings.language.text("NAME THIS FLAG", "這是哪個國家？", ja: "どこの国旗？", ko: "어느 나라의 국기일까요?")))
                 .font(.system(.title3, design: .rounded).bold())
+            if model.currentStep?.stage == .learn, !answered {
+                let region = StudyRegion.of(country.abb2)?.title(settings.language)
+                Label(region.map { settings.language.text("New flag · Hint: it is in \($0)", "新國旗 · 提示：位於\($0)", ja: "新しい国旗 · ヒント：\($0)にあります", ko: "새 국기 · 힌트: \($0)에 있어요") }
+                      ?? settings.language.text("New flag", "新國旗", ja: "新しい国旗", ko: "새 국기"), systemImage: "sparkles")
+                    .font(.caption.bold()).foregroundStyle(Atlas.gold)
+            }
             if !compact {
                 Text(settings.language.text("CHOOSE ONE ANSWER", "觀察圖案與配色，選出答案", ja: "模様と色を見て答えを選ぼう", ko: "무늬와 색을 보고 정답을 고르세요"))
                     .font(.system(.caption2, design: .monospaced)).tracking(1.5).foregroundStyle(Atlas.muted)
@@ -241,6 +266,8 @@ struct GameView: View {
             Eyebrow(text: settings.language.text("CHALLENGE COMPLETE", "挑戰完成", ja: "チャレンジ完了", ko: "도전 완료"), color: Atlas.gold)
             Text(resultTitle).font(.system(.title, design: .rounded).bold()).multilineTextAlignment(.center)
             if model.errorMessage == nil {
+                if model.plan != nil && model.mode == .quiz { quizSummary }
+                if model.plan != nil && model.mode == .daily { dailySummary }
                 HStack {
                     Metric(value: "\(model.correctAnswers)/\(model.totalQuestions)", label: settings.language.text("Correct", "答對題數", ja: "正解数", ko: "정답 수"))
                     Metric(value: "\(Int(model.accuracy * 100))%", label: settings.language.text("Accuracy", "正確率", ja: "正答率", ko: "정답률"), color: Atlas.gold)
@@ -286,9 +313,59 @@ struct GameView: View {
         }
     }
 
+    private var quizSummary: some View {
+        VStack(spacing: 10) {
+            HStack(alignment: .firstTextBaseline, spacing: 10) {
+                Text("\(model.quizScore)").font(.system(size: 54, weight: .black, design: .rounded)).foregroundStyle(Atlas.gold)
+                Text(settings.language.text("/ 100", "/ 100 分", ja: "/ 100 点", ko: "/ 100점")).font(.headline).foregroundStyle(Atlas.muted)
+                Text(QuizPlan.grade(model.quizScore)).font(.system(size: 30, weight: .black, design: .rounded))
+                    .foregroundStyle(Atlas.onAccent).frame(width: 52, height: 52).background(Atlas.yellow, in: RoundedRectangle(cornerRadius: 14))
+            }.accessibilityElement(children: .combine)
+            if model.isNewBest {
+                Label(settings.language.text("New personal best!", "刷新個人最佳！", ja: "自己ベスト更新！", ko: "개인 최고 기록!"), systemImage: "star.fill")
+                    .font(.subheadline.bold()).foregroundStyle(Atlas.gold)
+            } else if let best = settings.bestQuizScore {
+                Text(settings.language.text("Best: \(best)", "最佳紀錄：\(best) 分", ja: "ベスト：\(best) 点", ko: "최고 기록: \(best)점")).font(.caption).foregroundStyle(Atlas.muted)
+            }
+            // Per-region accuracy shows where to practise next.
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 3), spacing: 6) {
+                ForEach(StudyRegion.allCases) { region in
+                    let answers = model.answerLog.filter { StudyRegion.of($0.country.abb2) == region }
+                    if !answers.isEmpty {
+                        let right = answers.filter(\.correct).count
+                        VStack(spacing: 2) {
+                            Text(region.title(settings.language)).font(.caption2).lineLimit(1).minimumScaleFactor(0.7)
+                            Text("\(right)/\(answers.count)").font(.caption.bold().monospacedDigit())
+                                .foregroundStyle(right == answers.count ? Atlas.mint : right * 2 >= answers.count ? Atlas.gold : Atlas.coral)
+                        }.frame(maxWidth: .infinity).padding(.vertical, 6).background(Atlas.ink.opacity(0.5), in: RoundedRectangle(cornerRadius: 10))
+                    }
+                }
+            }
+        }
+    }
+
+    private var dailySummary: some View {
+        let streak = settings.dailyStreak()
+        let learned = Set(model.answerLog.filter { $0.stage == .learn }.map(\.country.abb2)).count
+        let reviewed = model.answerLog.filter { $0.stage == .warmUp || $0.stage == .reinforce }.count
+        return VStack(spacing: 8) {
+            if streak > 0 {
+                Label(settings.language.text("\(streak)-day streak", "連續練習 \(streak) 天", ja: "\(streak) 日連続", ko: "\(streak)일 연속"), systemImage: "flame.fill")
+                    .font(.headline).foregroundStyle(Atlas.coral)
+            }
+            Text(settings.language.text("Today: \(learned) new · \(reviewed) reviewed", "今天：認識 \(learned) 面新國旗 · 複習 \(reviewed) 題", ja: "今日：新しい国旗 \(learned) 面 · 復習 \(reviewed) 問", ko: "오늘: 새 국기 \(learned)개 · 복습 \(reviewed)문제"))
+                .font(.subheadline).foregroundStyle(Atlas.muted)
+        }
+    }
+
     private var resultTitle: String {
         if model.errorMessage == "review-empty" { return settings.language.text("All caught up.", "目前沒有到期的複習。", ja: "今すぐ復習する国旗はありません。", ko: "지금 복습할 국기가 없어요.") }
         if model.errorMessage != nil { return settings.language.text("Unable to load flags", "暫時無法載入國旗", ja: "国旗を読み込めません", ko: "국기를 불러올 수 없어요") }
+        if model.plan != nil, model.mode == .daily {
+            return model.dailyTimeUp || model.totalQuestions == model.plan?.count
+                ? settings.language.text("Today's practice is done!", "今日練習完成！", ja: "今日の練習完了！", ko: "오늘의 연습 완료!")
+                : settings.language.text("Good start for today.", "今天也有前進！", ja: "今日も一歩前進！", ko: "오늘도 한 걸음 전진!")
+        }
         return model.accuracy >= 0.8 ? (settings.language.text("OUTSTANDING!", "實力超群！", ja: "すばらしい！", ko: "훌륭해요!")) : (settings.language.text("KEEP LEVELING UP!", "繼續突破！", ja: "さらに腕を磨こう！", ko: "계속 실력을 키워 봐요!"))
     }
 

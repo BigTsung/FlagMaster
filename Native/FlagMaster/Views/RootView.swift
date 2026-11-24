@@ -118,7 +118,7 @@ struct RootView: View {
                 assert(destination == nil && !changingScene && sceneOpacity == 1)
                 report("PASS: panel \(target)")
             }
-            for mode in [GameMode.endless, .timedChallenge, .speedRound, .twoLives, .review] {
+            for mode in [GameMode.endless, .timedChallenge, .speedRound, .twoLives, .review, .daily, .quiz] {
                 changeScene { activeMode = mode }
                 try await Task.sleep(for: .seconds(1))
                 assert(activeMode == mode && !changingScene && sceneOpacity == 1)
@@ -503,6 +503,8 @@ extension GameMode {
         case .speedRound: Atlas.blue
         case .twoLives: Atlas.coral
         case .review: Atlas.blue
+        case .daily: Atlas.mint
+        case .quiz: Atlas.gold
         }
     }
     func detail(_ language: AppLanguage) -> String {
@@ -512,6 +514,8 @@ extension GameMode {
         case .speedRound: return language.text("20 flags · 5 seconds each", "20 道題目，每題 5 秒快問快答", ja: "20 問、各 5 秒で回答", ko: "20문제, 문제당 5초")
         case .twoLives: return language.text("Two hearts. Make them count.", "兩顆愛心，每一次選擇都重要", ja: "ライフは 2 つ。慎重に選ぼう。", ko: "기회는 두 번. 신중히 선택하세요.")
         case .review: return language.text("Revisit flags when they are due.", "在適合的時間回想，讓記憶更深刻", ja: "復習の時期が来た国旗を思い出そう。", ko: "복습할 때가 된 국기를 떠올려 보세요.")
+        case .daily: return language.text("Review, learn, then recall — step by step.", "複習、學新、再回想，循序漸進", ja: "復習・新しい国旗・ふり返りの順に少しずつ。", ko: "복습, 새 국기, 다시 떠올리기를 차례로.")
+        case .quiz: return language.text("20 flags from every region. Get your score.", "20 題涵蓋各大洲，看看你的分數", ja: "全地域から 20 問。スコアを確かめよう。", ko: "모든 지역에서 20문제. 점수를 확인해요.")
         }
     }
 }

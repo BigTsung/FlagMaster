@@ -25,6 +25,13 @@ final class GameViewModel: ObservableObject {
     @Published private(set) var streak = 0
     @Published private(set) var bestStreak = 0
     @Published private(set) var isRetryingMistakes = false
+    /// The scripted question order for daily practice and the quiz; nil for free-play modes.
+    @Published private(set) var plan: [PlannedQuestion]?
+    @Published private(set) var planIndex = 0
+    @Published private(set) var answerLog: [AnswerRecord] = []
+    @Published private(set) var dailySecondsRemaining = Int(DailyPlan.duration)
+    @Published private(set) var isNewBest = false
+    private var dailyRemaining = DailyPlan.duration
 
     let mode: GameMode
     let practice: PracticePlan?
@@ -41,8 +48,14 @@ final class GameViewModel: ObservableObject {
     private let automaticTimer: Bool
     private let questionLimit = 20
 
-    var isLearning: Bool { practice != nil || mode == .endless || mode == .review || isRetryingMistakes }
-    var roundLimit: Int? { isRetryingMistakes || mode == .review || practice != nil ? roundPool.count : (mode == .speedRound ? questionLimit : nil) }
+    var isLearning: Bool { practice != nil || mode == .endless || mode == .review || mode == .daily || isRetryingMistakes }
+    var roundLimit: Int? {
+        if let plan { return plan.count }
+        return isRetryingMistakes || mode == .review || practice != nil ? roundPool.count : (mode == .speedRound ? questionLimit : nil)
+    }
+    var currentStep: PlannedQuestion? { plan.flatMap { $0.indices.contains(planIndex) ? $0[planIndex] : nil } }
+    var dailyTimeUp: Bool { mode == .daily && plan != nil && dailyRemaining <= 0 }
+    var quizScore: Int { QuizPlan.score(correct: correctAnswers, total: totalQuestions) }
     var accuracy: Double { totalQuestions == 0 ? 0 : Double(correctAnswers) / Double(totalQuestions) }
 
     init(mode: GameMode, stats: StatsStore, settings: AppSettings,
@@ -90,18 +103,20 @@ final class GameViewModel: ObservableObject {
             wrongAnswers.append(WrongAnswer(country: question, selected: selected))
             if mode == .twoLives && !isRetryingMistakes { lives -= 1 }
         }
+        if plan != nil { answerLog.append(AnswerRecord(country: question, correct: correct, stage: currentStep?.stage)) }
         emitSound(selected == nil ? .timeout : (correct ? .correct : .wrong))
         stats.record(question, correct: correct)
         feedback(success: correct)
         shouldFinish = (mode == .twoLives && !isRetryingMistakes && lives == 0)
             || roundLimit.map { totalQuestions >= $0 } == true
+            || dailyTimeUp
         // Practice answers remain visible until the learner is ready.
-        transitionRemaining = isLearning ? nil : (mode == .timedChallenge ? 0.65 : 1.4)
+        transitionRemaining = isLearning ? nil : (mode == .timedChallenge ? 0.65 : mode == .quiz ? 1.1 : 1.4)
     }
 
     func continueLearning() {
         guard isLearning, phase == .playing, selectedCode != nil else { return }
-        if shouldFinish { finish(reason: naturalFinishReason) } else { makeQuestion() }
+        if shouldFinish || dailyTimeUp { finish(reason: naturalFinishReason) } else { makeQuestion() }
     }
 
     func pause() {
@@ -117,6 +132,15 @@ final class GameViewModel: ObservableObject {
 
     func restart() {
         isRetryingMistakes = false
+        plan = nil
+        if practice == nil, mode == .daily || mode == .quiz {
+            plan = mode == .daily
+                ? DailyPlan.build(countries: allCountries, stats: stats.stats)
+                : QuizPlan.build(countries: allCountries)
+            roundPool = plan?.map(\.country) ?? []
+            beginRound()
+            return
+        }
         switch practice {
         case .region(let region):
             // Prioritize unseen flags, then the least familiar. No repeats within a journey.
@@ -138,6 +162,7 @@ final class GameViewModel: ObservableObject {
         let codes = Set(wrongAnswers.map { $0.country.abb2 })
         guard !codes.isEmpty else { return }
         roundPool = allCountries.filter { codes.contains($0.abb2) }
+        plan = nil
         isRetryingMistakes = true
         beginRound()
     }
@@ -147,6 +172,11 @@ final class GameViewModel: ObservableObject {
         soundEvent = nil
         usedCodes = []
         wrongAnswers = []
+        answerLog = []
+        planIndex = 0
+        isNewBest = false
+        dailyRemaining = DailyPlan.duration
+        dailySecondsRemaining = Int(DailyPlan.duration)
         question = nil
         choices = []
         selectedCode = nil
@@ -187,6 +217,10 @@ final class GameViewModel: ObservableObject {
         stop()
         phase = .finished
         guard errorMessage == nil else { return }
+        if plan != nil, reason == .completed {
+            if mode == .daily { settings.recordDailyPractice() }
+            if mode == .quiz, totalQuestions == plan?.count { isNewBest = settings.recordQuizScore(quizScore) }
+        }
         switch reason {
         case .manual, .timeExpired: emitSound(.end)
         case .completed: emitSound(.complete)
@@ -212,6 +246,13 @@ final class GameViewModel: ObservableObject {
 
     private func makeQuestion() {
         guard phase == .playing else { return }
+        if let plan {
+            let next = question == nil ? 0 : planIndex + 1
+            guard plan.indices.contains(next) else { finish(reason: .completed); return }
+            planIndex = next
+            present(plan[next])
+            return
+        }
         var unused = roundPool.filter { !usedCodes.contains($0.abb2) }
         if unused.isEmpty {
             if mode == .review || isRetryingMistakes || practice != nil { finish(reason: .completed); return }
@@ -236,10 +277,38 @@ final class GameViewModel: ObservableObject {
         if mode == .speedRound { remaining = 5; secondsRemaining = 5 }
     }
 
+    private func present(_ step: PlannedQuestion) {
+        let correct = step.country
+        let region = StudyRegion.of(correct.abb2)
+        let others = allCountries.filter { $0 != correct }
+        let sameRegion = others.filter { region != nil && StudyRegion.of($0.abb2) == region }
+        let preferred: [Country]
+        switch step.distractors {
+        case .easy: preferred = region == nil ? others : others.filter { StudyRegion.of($0.abb2) != region }
+        case .mixed: preferred = others
+        case .regional: preferred = sameRegion
+        }
+        var distractors = step.counterpart.flatMap { code in others.first { $0.abb2 == code } }.map { [$0] } ?? []
+        for pool in [preferred.shuffled(), others.shuffled()] {
+            for country in pool where distractors.count < 3 && !distractors.contains(country) { distractors.append(country) }
+        }
+        question = correct
+        usedCodes.insert(correct.abb2)
+        choices = (distractors + [correct]).shuffled()
+        selectedCode = nil
+        transitionRemaining = nil
+    }
+
     // One clock drives both countdowns and answer feedback, so pausing freezes both.
     // Exposed internally for deterministic regression tests without wall-clock sleeps.
     func advance(by elapsed: TimeInterval) {
         guard phase == .playing, elapsed > 0 else { return }
+        if mode == .daily, plan != nil, dailyRemaining > 0 {
+            dailyRemaining = max(0, dailyRemaining - elapsed)
+            dailySecondsRemaining = Int(ceil(dailyRemaining))
+            // Time is up: the current question is still finished before the session ends.
+            if dailyRemaining == 0 { shouldFinish = shouldFinish || selectedCode != nil }
+        }
         if !isLearning && (mode == .timedChallenge || (mode == .speedRound && selectedCode == nil)) {
             let previousSeconds = secondsRemaining
             remaining = max(0, remaining - elapsed)
@@ -273,3 +342,10 @@ final class GameViewModel: ObservableObject {
 }
 
 enum AnswerState { case idle, correct, wrong, disabled }
+
+struct AnswerRecord: Identifiable, Sendable {
+    let id = UUID()
+    let country: Country
+    let correct: Bool
+    let stage: PlannedQuestion.Stage?
+}

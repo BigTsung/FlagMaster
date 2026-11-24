@@ -6,6 +6,8 @@ enum GameMode: String, CaseIterable, Identifiable, Sendable {
     case speedRound
     case twoLives
     case review
+    case daily
+    case quiz
 
     var id: String { rawValue }
 
@@ -16,6 +18,8 @@ enum GameMode: String, CaseIterable, Identifiable, Sendable {
         case .speedRound: language.text("Speed Round", "極速模式", ja: "スピードラウンド", ko: "스피드 라운드")
         case .twoLives: language.text("Two Lives", "兩次機會", ja: "ライフ 2 つ", ko: "기회 두 번")
         case .review: language.text("Spaced Review", "間隔複習", ja: "間隔復習", ko: "간격 복습")
+        case .daily: language.text("Daily 10 minutes", "每日 10 分鐘", ja: "毎日 10 分", ko: "매일 10분")
+        case .quiz: language.text("20-question quiz", "20 題測驗", ja: "20 問テスト", ko: "20문제 테스트")
         }
     }
 
@@ -26,6 +30,8 @@ enum GameMode: String, CaseIterable, Identifiable, Sendable {
         case .speedRound: "bolt.fill"
         case .twoLives: "heart.fill"
         case .review: "arrow.triangle.2.circlepath"
+        case .daily: "calendar.badge.clock"
+        case .quiz: "checklist"
         }
     }
 }

@@ -122,8 +122,16 @@ final class AudioManager {
         }
     }
 
+    private var isDucked = false
+
     private var targetMusicVolume: Float {
-        musicVolume.value * 0.34
+        musicVolume.value * (isDucked ? 0.08 : 0.34)
+    }
+
+    func duckMusic(_ ducked: Bool) {
+        guard isDucked != ducked else { return }
+        isDucked = ducked
+        musicPlayer?.setVolume(targetMusicVolume, fadeDuration: 0.2)
     }
 
     private func targetEffectVolume(_ effect: SoundEffect) -> Float {
@@ -174,5 +182,61 @@ final class AudioManager {
     private func resourceURL(named name: String, extension fileExtension: String) -> URL? {
         Bundle.main.url(forResource: name, withExtension: fileExtension, subdirectory: "Audio")
             ?? Bundle.main.url(forResource: name, withExtension: fileExtension)
+    }
+}
+
+/// Reads country names and notes aloud. Music is ducked while a voice is speaking.
+@MainActor
+final class SpeechManager: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
+    static let shared = SpeechManager()
+    /// Identifies what is currently being read, so the matching button can show its state.
+    @Published private(set) var speakingID: String?
+    private let synthesizer = AVSpeechSynthesizer()
+
+    private override init() {
+        super.init()
+        synthesizer.delegate = self
+    }
+
+    static func voiceLanguage(_ language: AppLanguage) -> String {
+        switch language {
+        case .english: "en-US"
+        case .traditionalChinese: "zh-TW"
+        case .japanese: "ja-JP"
+        case .korean: "ko-KR"
+        }
+    }
+
+    /// Tapping the same item again stops it; tapping another item replaces it.
+    func toggle(_ text: String, language: AppLanguage, id: String) {
+        let wasSpeaking = speakingID == id
+        stop()
+        guard !wasSpeaking, !text.isEmpty else { return }
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: Self.voiceLanguage(language))
+        // Slightly slower than default so children can follow along.
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.9
+        speakingID = id
+        AudioManager.shared.duckMusic(true)
+        synthesizer.speak(utterance)
+    }
+
+    func stop() {
+        if synthesizer.isSpeaking { synthesizer.stopSpeaking(at: .immediate) }
+        finished()
+    }
+
+    private func finished() {
+        guard speakingID != nil else { return }
+        speakingID = nil
+        AudioManager.shared.duckMusic(false)
+    }
+
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        Task { @MainActor in if !self.synthesizer.isSpeaking { self.finished() } }
+    }
+
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        Task { @MainActor in if !self.synthesizer.isSpeaking { self.finished() } }
     }
 }

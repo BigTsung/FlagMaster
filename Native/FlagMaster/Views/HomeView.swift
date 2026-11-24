@@ -162,8 +162,17 @@ struct HomeView: View {
         }
     }
 
+    private var dailyDetail: String {
+        let streak = settings.dailyStreak()
+        let streakText = streak > 0 ? text(" · 🔥 \(streak)-day streak", " · 🔥 連續 \(streak) 天", " · 🔥 \(streak) 日連続", " · 🔥 \(streak)일 연속") : ""
+        return settings.practicedToday()
+            ? text("Done today — practise again anytime", "今天已完成，想多練也可以", "今日は完了・何度でも練習OK", "오늘 완료 · 더 연습해도 좋아요") + streakText
+            : text("Review → new flags → recall", "複習 → 學新國旗 → 回想", "復習 → 新しい国旗 → ふり返り", "복습 → 새 국기 → 다시 떠올리기") + streakText
+    }
+
     private var practice: some View {
         VStack(spacing: 10) {
+            route("✓", text("Daily 10 minutes", "每日 10 分鐘", "毎日 10 分", "매일 10분"), dailyDetail, featured: true) { start(.daily) }
             route("01", text("Guess the country", "看國旗猜國家", "国名を当てよう", "나라 이름 맞히기"), text("Untimed · Continue when you are ready", "不限時，答完再繼續", "時間制限なし・自分のペースで", "시간 제한 없이 한 문제씩")) { start(.endless) }
             route("02", text("Explore by region", "選一洲慢慢學", "地域ごとに学ぶ", "지역별로 배우기"), text("Short rounds from six regions", "六大洲，每次一小回合", "6 地域の短い練習", "6개 지역의 짧은 연습")) { open(.journeys) }
             route("03", text("Compare similar flags", "分清楚相似國旗", "似た国旗を見分ける", "비슷한 국기 구별하기"), text("Compare them side by side", "並排看，找出不一樣的地方", "並べて違いを見つけよう", "나란히 놓고 차이 찾기")) { open(.comparisons) }
@@ -176,11 +185,18 @@ struct HomeView: View {
             route("01", text("Time attack", "極限倒數", "タイムアタック", "타임 어택"), text("60 seconds to get as many right as you can", "60 秒內，看看能答對幾題", "60 秒で何問正解できるかな", "60초 동안 최대한 많이 맞히기")) { start(.timedChallenge) }
             route("02", text("Speed round", "閃電快答", "スピードラウンド", "스피드 라운드"), text("20 flags · 5 seconds each", "20 題，每題只有 5 秒", "20 問・一問につき 5 秒", "20문제 · 문제당 5초")) { start(.speedRound) }
             route("03", text("Two lives", "雙心生存", "ライフ 2 つ", "기회 두 번"), text("Your second mistake ends the round", "答錯兩次就結束，你能撐多久？", "2 回間違えると終了", "두 번 틀리면 종료")) { start(.twoLives) }
+            route("04", text("20-question quiz", "20 題測驗", "20 問テスト", "20문제 테스트"), quizDetail) { start(.quiz) }
         }
     }
 
-    private func route(_ number: String, _ title: String, _ detail: String, action: @escaping () -> Void) -> some View {
-        let badge = number == "01" ? Atlas.yellow : number == "02" ? Atlas.cardMint : Atlas.cardBlue
+    private var quizDetail: String {
+        let base = text("Every region · Scored out of 100", "涵蓋各大洲，滿分 100", "全地域から出題・100 点満点", "모든 지역 · 100점 만점")
+        guard let best = settings.bestQuizScore else { return base }
+        return base + text(" · Best \(best)", " · 最佳 \(best) 分", " · ベスト \(best) 点", " · 최고 \(best)점")
+    }
+
+    private func route(_ number: String, _ title: String, _ detail: String, featured: Bool = false, action: @escaping () -> Void) -> some View {
+        let badge = featured ? Atlas.coral : number == "01" ? Atlas.yellow : number == "02" ? Atlas.cardMint : Atlas.cardBlue
         return Button(action: action) {
             HStack(spacing: 14) {
                 Text(number).font(.system(size: 13, weight: .bold, design: .rounded))
