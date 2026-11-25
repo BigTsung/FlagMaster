@@ -14,7 +14,7 @@ Native 版使用九首背景配樂與八種互動音效。音檔離線播放；�
 | 間隔複習與錯題重練 | `music_review.m4a` | 原創合成循環 |
 | 區域旅程 | `music_region.m4a` | 原創合成循環 |
 | 相似國旗 | `music_comparison.m4a` | 原創合成循環 |
-| 教學圖卡 | `music_cards.m4a` | 原創合成循環 |
+| 教學圖卡 | `music_cards.m4a` | `music_kids_play_loop_03.wav` |
 
 所有背景配樂的響度目標均為 -23 LUFS，並共用同一個播放增益。區域旅程與相似國旗從選單進入題目時接續播放。不同曲目交叉淡化 0.8 秒，淡出後停止舊播放器。
 
@@ -22,14 +22,14 @@ Native 版使用九首背景配樂與八種互動音效。音檔離線播放；�
 
 | 時機 | Gamemaster 素材路徑 | App 檔名 | 最長秒數／RMS 目標 dBFS |
 | --- | --- | --- | --- |
-| 遊戲操作 | `Retro_Classic/Menu_UI_Beeps/retro_simple_beep_27.wav` | `sfx_tap.wav` | 0.12 / -25 |
-| 答對 | `Sci-Fi/sci-fi_device_item_power_up_flash_01.wav` | `sfx_correct.wav` | 0.36 / -21 |
-| 答錯 | `Sci-Fi/sci-fi_code_fail_06.wav` | `sfx_wrong.wav` | 0.30 / -23 |
-| 單題逾時 | `Sci-Fi/sci-fi_power_down_object_01.wav` | `sfx_timeout.wav` | 0.36 / -23 |
-| 倒數 | `Sci-Fi/sci-fi_electric_pulse_power_down_01.wav` | `sfx_countdown.wav` | 0.10 / -27 |
-| 完成有限題數的練習或快問快答 | `Sci-Fi/sci-fi_shield_device_small_01.wav` | `sfx_complete.wav` | 1.30 / -20 |
-| 主動結束、限時挑戰時間到 | `Sci-Fi/sci-fi_shield_device_small_01.wav` | `sfx_end.wav` | 0.26 / -23 |
-| 兩次機會生命耗盡 | `Sci-Fi/sci-fi_power_down_object_01.wav` | `sfx_game_over.wav` | 0.80 / -23 |
+| 遊戲操作 | `Collectibles_Items_Powerup/collect_coin_03.wav` | `sfx_tap.wav` | 0.20 / -25 |
+| 答對 | `Collectibles_Items_Powerup/chime_tinkle_wood_bell_positive_04.wav` | `sfx_correct.wav` | 0.72 / -21 |
+| 答錯 | `Collectibles_Items_Powerup/collect_coin_05.wav` | `sfx_wrong.wav` | 0.34 / -23 |
+| 單題逾時 | `Collectibles_Items_Powerup/collect_item_hurry_out_of_time_01.wav` | `sfx_timeout.wav` | 0.60 / -23 |
+| 倒數 | `Collectibles_Items_Powerup/points_ticker_bonus_no_score_01.wav` | `sfx_countdown.wav` | 0.50 / -27 |
+| 完成有限題數的練習或快問快答 | `Collectibles_Items_Powerup/jingle_chime_01_positive.wav` | `sfx_complete.wav` | 1.80 / -20 |
+| 主動結束、限時挑戰時間到 | `Collectibles_Items_Powerup/jingle_chime_11_positive.wav` | `sfx_end.wav` | 0.90 / -23 |
+| 兩次機會生命耗盡 | `Collectibles_Items_Powerup/jingle_chime_16_negative.wav` | `sfx_game_over.wav` | 1.20 / -23 |
 
 - 遊戲規則發出帶序號的語意事件，連續答對仍能各自播放；重複點擊或重複結束不發出新事件。資料錯誤不播放獎勵音。
 - 限時挑戰最後三秒每秒提醒一次，快問快答僅最後一秒提醒。答案展示期間不提示，暫停時停止計時與現有音效，不補播漏掉的倒數。

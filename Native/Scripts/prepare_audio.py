@@ -17,14 +17,14 @@ RATE = 48000
 MUSIC_NORMALIZATION = 'loudnorm=I=-23:TP=-3:LRA=11'
 # Paths are relative to the pack root.
 EFFECTS = {
-    'tap': ('Retro_Classic/Menu_UI_Beeps/retro_simple_beep_27.wav', 0.12, -25),
-    'correct': ('Sci-Fi/sci-fi_device_item_power_up_flash_01.wav', 0.36, -21),
-    'wrong': ('Sci-Fi/sci-fi_code_fail_06.wav', 0.30, -23),
-    'timeout': ('Sci-Fi/sci-fi_power_down_object_01.wav', 0.36, -23),
-    'countdown': ('Sci-Fi/sci-fi_electric_pulse_power_down_01.wav', 0.10, -27),
-    'complete': ('Sci-Fi/sci-fi_shield_device_small_01.wav', 1.30, -20),
-    'end': ('Sci-Fi/sci-fi_shield_device_small_01.wav', 0.26, -23),
-    'game_over': ('Sci-Fi/sci-fi_power_down_object_01.wav', 0.80, -23),
+    'tap': ('Collectibles_Items_Powerup/collect_coin_03.wav', 0.20, -25),
+    'correct': ('Collectibles_Items_Powerup/chime_tinkle_wood_bell_positive_04.wav', 0.72, -21),
+    'wrong': ('Collectibles_Items_Powerup/collect_coin_05.wav', 0.34, -23),
+    'timeout': ('Collectibles_Items_Powerup/collect_item_hurry_out_of_time_01.wav', 0.60, -23),
+    'countdown': ('Collectibles_Items_Powerup/points_ticker_bonus_no_score_01.wav', 0.50, -27),
+    'complete': ('Collectibles_Items_Powerup/jingle_chime_01_positive.wav', 1.80, -20),
+    'end': ('Collectibles_Items_Powerup/jingle_chime_11_positive.wav', 0.90, -23),
+    'game_over': ('Collectibles_Items_Powerup/jingle_chime_16_negative.wav', 1.20, -23),
 }
 
 
@@ -73,6 +73,7 @@ def install(pack):
         'learning': (music / 'music_bytes_the_retro_adventure 1.wav', 'lowpass=f=4500'),
         'game': (music / 'music_fun_crazy_circus.wav', None),
         'two_lives': (music / 'music_fun_funky_toadstool.wav', None),
+        'cards': (music / 'music_kids_play_loop_03.wav', None),
     }
     required = [pack / item[0] for item in EFFECTS.values()] + [track[0] for track in tracks.values()]
     for source in required:

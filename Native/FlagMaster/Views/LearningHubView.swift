@@ -552,21 +552,24 @@ struct FlagFlashcardsView: View {
                 let canvasWidth = max(geometry.size.width, geometry.size.height)
                 let canvasHeight = min(geometry.size.width, geometry.size.height)
                 VStack(spacing: 8) {
-                    HStack {
-                        Button { dismiss() } label: {
-                            Image(systemName: "xmark").frame(width: 44, height: 44)
-                        }
-                        .accessibilityLabel(settings.language.text("Close", "關閉", ja: "閉じる", ko: "닫기"))
+                    HStack(spacing: 12) {
                         Text(settings.language.text("Study cards", "圖卡學習", ja: "学習カード", ko: "학습 카드")).font(.headline)
                         Spacer()
                         if !countries.isEmpty {
+                            Text("\(index + 1) / \(countries.count)").font(.subheadline.monospacedDigit())
                             Button { showInformation() } label: {
                                 Image(systemName: "info.circle").font(.title2).frame(width: 44, height: 44)
                             }
                             .accessibilityLabel(settings.language.text("About this flag", "認識這面國旗", ja: "この国旗について", ko: "이 국기 알아보기"))
                             .disabled(turning)
-                            Text("\(index + 1) / \(countries.count)").font(.subheadline.monospacedDigit())
                         }
+                        // Same close control and corner as GameScreen on every other screen.
+                        Button { dismiss() } label: {
+                            Image(systemName: "xmark").font(.headline.bold()).frame(width: 44, height: 44)
+                                .foregroundStyle(Atlas.text)
+                                .modifier(GamePanel(tint: Atlas.muted, radius: 14))
+                        }.buttonStyle(AtlasPressStyle(sound: nil))
+                            .accessibilityLabel(settings.language.text("Close", "關閉", ja: "閉じる", ko: "닫기"))
                     }.foregroundStyle(Atlas.mint)
                     if countries.isEmpty {
                         ContentUnavailableView(settings.language.text("No flags", "沒有可學習的國旗", ja: "国旗がありません", ko: "국기가 없습니다"), systemImage: "flag.slash")
@@ -819,16 +822,8 @@ private struct CountryInformationPanel: View {
                     }
                     if let information {
                         VStack(alignment: .leading, spacing: 8) {
-                            HStack(spacing: 8) {
-                                Label(language.text("Flag design & meaning", "國旗設計與含義", ja: "国旗のデザインと意味", ko: "국기의 디자인과 의미"), systemImage: "flag.fill")
-                                    .font(.headline).foregroundStyle(Atlas.blue)
-                                Spacer(minLength: 0)
-                                // Notes exist in English and Traditional Chinese only.
-                                if language == .traditionalChinese {
-                                    speakButton(information.flagDescription.zhHant, voice: .traditionalChinese, id: "about-zh", caption: language.displayName)
-                                }
-                                speakButton(information.flagDescription.en, voice: .english, id: "about-en", caption: "English")
-                            }
+                            Label(language.text("Flag design & meaning", "國旗設計與含義", ja: "国旗のデザインと意味", ko: "국기의 디자인과 의미"), systemImage: "flag.fill")
+                                .font(.headline).foregroundStyle(Atlas.blue)
                             if information.historicalFlag {
                                 Text(language.text("Historical flag shown", "本卡展示歷史旗幟", ja: "このカードは歴史的な旗を表示", ko: "이 카드는 역사적 국기를 표시합니다"))
                                     .font(.caption.bold()).foregroundStyle(Atlas.gold)

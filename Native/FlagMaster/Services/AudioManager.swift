@@ -125,7 +125,7 @@ final class AudioManager {
     private var isDucked = false
 
     private var targetMusicVolume: Float {
-        musicVolume.value * (isDucked ? 0.08 : 0.34)
+        musicVolume.value * (isDucked ? 0.08 : 0.22)
     }
 
     func duckMusic(_ ducked: Bool) {
@@ -207,13 +207,33 @@ final class SpeechManager: NSObject, ObservableObject, AVSpeechSynthesizerDelega
         }
     }
 
+    /// Picks the most natural installed voice: premium, then enhanced, then the system default.
+    /// Novelty and Personal Voice entries are skipped. Higher tiers exist only after the user
+    /// downloads them in Settings › Accessibility › Spoken Content › Voices.
+    static func bestVoice(for code: String) -> AVSpeechSynthesisVoice? {
+        let fallback = AVSpeechSynthesisVoice(language: code)
+        let candidates = AVSpeechSynthesisVoice.speechVoices().filter {
+            $0.language == code && !$0.voiceTraits.contains(.isNoveltyVoice) && !$0.voiceTraits.contains(.isPersonalVoice)
+        }
+        func rank(_ voice: AVSpeechSynthesisVoice) -> Int {
+            let tier = switch voice.quality {
+            case .premium: 2
+            case .enhanced: 1
+            default: 0
+            }
+            // Within a tier, keep the system's own default voice for that language.
+            return tier * 2 + (voice.identifier == fallback?.identifier ? 1 : 0)
+        }
+        return candidates.max { rank($0) < rank($1) } ?? fallback
+    }
+
     /// Tapping the same item again stops it; tapping another item replaces it.
     func toggle(_ text: String, language: AppLanguage, id: String) {
         let wasSpeaking = speakingID == id
         stop()
         guard !wasSpeaking, !text.isEmpty else { return }
         let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: Self.voiceLanguage(language))
+        utterance.voice = Self.bestVoice(for: Self.voiceLanguage(language))
         // Slightly slower than default so children can follow along.
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.9
         speakingID = id
